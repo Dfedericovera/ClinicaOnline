@@ -13,6 +13,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupProfessionalComponent } from './pages/signup-professional/signup-professional.component';
 import { SignupPatientComponent } from './pages/signup-patient/signup-patient.component';
 import { SignupAdministratorComponent } from './pages/signup-administrator/signup-administrator.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,13 @@ import { SignupAdministratorComponent } from './pages/signup-administrator/signu
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    FormsModule,
+    ReactiveFormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
