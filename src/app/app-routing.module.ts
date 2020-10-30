@@ -6,7 +6,6 @@ import { SignupAdministratorComponent } from './pages/signup-administrator/signu
 import { SignupPatientComponent } from './pages/signup-patient/signup-patient.component';
 import { SignupProfessionalComponent } from './pages/signup-professional/signup-professional.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 const routes: Routes = [
   {path: '',component: LoginComponent},
   {path: 'login',component: LoginComponent, data: {animation: 'login'} },
@@ -18,7 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes)],
   exports: [RouterModule]

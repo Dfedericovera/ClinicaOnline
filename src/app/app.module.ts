@@ -18,6 +18,15 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormProfessionalComponent } from './components/form-professional/form-professional.component';
+import { FormAdministratorComponent } from './components/form-administrator/form-administrator.component';
+import { FormPatientComponent } from './components/form-patient/form-patient.component';
+import { PatientListComponent } from './components/patient-list/patient-list.component';
+import { AdministratorListComponent } from './components/administrator-list/administrator-list.component';
+import { ProfessionalListComponent } from './components/professional-list/professional-list.component';
+import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
+import { ProfessionalDetailComponent } from './components/professional-detail/professional-detail.component';
+import { AdministratorDetailComponent } from './components/administrator-detail/administrator-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +40,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     SignupProfessionalComponent,
     SignupPatientComponent,
-    SignupAdministratorComponent
+    SignupAdministratorComponent,
+    FormProfessionalComponent,
+    FormAdministratorComponent,
+    FormPatientComponent,
+    PatientListComponent,
+    AdministratorListComponent,
+    ProfessionalListComponent,
+    PatientDetailComponent,
+    ProfessionalDetailComponent,
+    AdministratorDetailComponent
   ],
   imports: [
     BrowserModule,
