@@ -6,6 +6,7 @@ import { SignupAdministratorComponent } from './pages/signup-administrator/signu
 import { SignupPatientComponent } from './pages/signup-patient/signup-patient.component';
 import { SignupProfessionalComponent } from './pages/signup-professional/signup-professional.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PatientListComponent } from './components/patient-list/patient-list.component';
 const routes: Routes = [
   {path: '',component: LoginComponent},
   {path: 'login',component: LoginComponent, data: {animation: 'login'} },
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'signupProfessional',component: SignupProfessionalComponent,data: {animation: 'signupProfessional'}},
   {path: 'signupAdministrator',component: SignupAdministratorComponent,data: {animation: 'signupAdministrator'}},
   {path: 'home',component: MenuPrincipalComponent,data: {animation: 'home'}},
+  {path: 'patient-list',component: PatientListComponent,data: {animation: 'home'}},
 ];
 
 @NgModule({

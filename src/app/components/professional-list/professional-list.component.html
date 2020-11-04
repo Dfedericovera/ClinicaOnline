@@ -1,1 +1,20 @@
-<p>professional-list works!</p>
+<nav class="navbar">
+    <h4>Tabla Profesionales</h4>
+  </nav>
+<table class="table table-striped table-responsive-sm">
+    <caption>Tabla Profesionales</caption>
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">correo</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let professional of professionals">
+      <tr>
+        <td>{{professional.nombre}}</td>
+        <td>{{professional.apellido}}</td>
+        <td>{{professional.correo}}</td>
+      </tr>
+    </tbody>
+  </table>

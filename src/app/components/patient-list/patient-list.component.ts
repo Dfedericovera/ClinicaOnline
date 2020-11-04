@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Paciente } from 'src/app/clases/paciente';
 
 @Component({
   selector: 'app-patient-list',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-list.component.sass']
 })
 export class PatientListComponent implements OnInit {
+
+  @Input() patients: Paciente[];
+  @Output() elegirPaciente: EventEmitter<Paciente> = new EventEmitter<Paciente>();
+
 
   constructor() { }
 
