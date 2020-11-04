@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Administrador } from 'src/app/clases/administrador';
+import { Administrator } from '../../clases/administrator';
 
 @Component({
   selector: 'app-administrator-list',
@@ -8,8 +8,8 @@ import { Administrador } from 'src/app/clases/administrador';
 })
 export class AdministratorListComponent implements OnInit {
 
-  @Input() administrators: Administrador[];
-  @Output() elegirAdministrador: EventEmitter<Administrador> = new EventEmitter<Administrador>();
+  @Input() administrators: Administrator[];
+  @Output() chooseAdministrator: EventEmitter<Administrator> = new EventEmitter<Administrator>();
 
   constructor() { }
 

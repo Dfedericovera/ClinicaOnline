@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Paciente } from 'src/app/clases/paciente';
+import { Patient } from '../../clases/patient';
 
 @Component({
   selector: 'app-patient-list',
@@ -8,8 +8,8 @@ import { Paciente } from 'src/app/clases/paciente';
 })
 export class PatientListComponent implements OnInit {
 
-  @Input() patients: Paciente[];
-  @Output() elegirPaciente: EventEmitter<Paciente> = new EventEmitter<Paciente>();
+  @Input() patients: Patient[];
+  @Output() choosePatient: EventEmitter<Patient> = new EventEmitter<Patient>();
 
 
   constructor() { }

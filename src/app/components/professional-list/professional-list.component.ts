@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Profesional } from 'src/app/clases/profesional';
+import { Professional } from 'src/app/clases/professional';
 
 @Component({
   selector: 'app-professional-list',
@@ -8,8 +8,8 @@ import { Profesional } from 'src/app/clases/profesional';
 })
 export class ProfessionalListComponent implements OnInit {
 
-  @Input() professionals: Profesional[];
-  @Output() elegirPaciente: EventEmitter<Profesional> = new EventEmitter<Profesional>();
+  @Input() professionals: Professional[];
+  @Output() chooseProfessional: EventEmitter<Professional> = new EventEmitter<Professional>();
 
   constructor() { }
 
