@@ -30,6 +30,11 @@ import { AdministratorDetailComponent } from './components/administrator-detail/
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AlertComponent } from './components/alert/alert.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { MakeAnAppointmentComponent } from './pages/make-an-appointment/make-an-appointment.component';
+import { SpecialtyListComponent } from './components/specialty-list/specialty-list.component';
+import { SpecialtyFormComponent } from './components/specialty-form/specialty-form.component';
+import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
+import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +58,12 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     PatientDetailComponent,
     ProfessionalDetailComponent,
     AdministratorDetailComponent,
-    AlertComponent
+    AlertComponent,
+    MakeAnAppointmentComponent,
+    SpecialtyListComponent,
+    SpecialtyFormComponent,
+    AppointmentFormComponent,
+    AppointmentListComponent
   ],
   imports: [
     BrowserModule,
