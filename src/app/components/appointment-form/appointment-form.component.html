@@ -34,10 +34,14 @@
                         <div>
                             <label for="date">Seleccione Fecha para ver turnos disponibles</label>
                         </div>
-                        <input type="date" name="fecha" min="2000-01-01">
+                        <input type="date" name="fecha" class="form-control" 
+                        [min]="minDate" 
+                        #myDate
+                        >
                         <div class="invalid-feedback">
                             Valid first name is required.
-                        </div>
+                        </div><!-- 
+                        max="{{todaysdate|date:'yyyy-MM-dd'}}"  -->
                     </div>
                 </div>
 
