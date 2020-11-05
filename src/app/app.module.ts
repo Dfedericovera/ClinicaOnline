@@ -27,6 +27,8 @@ import { ProfessionalListComponent } from './components/professional-list/profes
 import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
 import { ProfessionalDetailComponent } from './components/professional-detail/professional-detail.component';
 import { AdministratorDetailComponent } from './components/administrator-detail/administrator-detail.component';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { AdministratorDetailComponent } from './components/administrator-detail/
     ProfessionalListComponent,
     PatientDetailComponent,
     ProfessionalDetailComponent,
-    AdministratorDetailComponent
+    AdministratorDetailComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { AdministratorDetailComponent } from './components/administrator-detail/
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireStorageModule
     
   ],
   providers: [],

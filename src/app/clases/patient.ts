@@ -1,9 +1,9 @@
 export class Patient {
     public id: string;
-    public nombre: string;
-    public apellido: string;
-    public fotos: Array<any>;
-    public correo: string;
+    public name: string;
+    public lastName: string;
+    public photos: Array<any>;
+    public email: string;
 
     public constructor(init?: Partial<Patient>) {
         if(init){
@@ -13,18 +13,18 @@ export class Patient {
 
     
 
-    public static CrearProfesional(id: string, nombre: string, apellido: string,
-        fotos: Array<any>, correo: string) :Patient {
-        let paciente = new Patient();
+    public static CrearProfesional(id: string, name: string, lastName: string,
+        photos: Array<any>, email: string) :Patient {
+        let patient = new Patient();
         
-        paciente.id = id;
-        paciente.nombre = nombre;
-        paciente.apellido = apellido;
-        paciente.fotos = fotos;
-        paciente.correo = correo;
+        patient.id = id;
+        patient.name = name;
+        patient.lastName = lastName;
+        patient.photos = photos;
+        patient.email = email;
         
 
-        return paciente;
+        return patient;
     }
 
 

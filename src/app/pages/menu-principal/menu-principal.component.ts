@@ -11,7 +11,7 @@ export class MenuPrincipalComponent implements OnInit {
   constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
-    console.log(this.authService.user);
+    /* console.log(this.authService.user); */
   }
 
 }

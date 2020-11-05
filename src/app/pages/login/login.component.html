@@ -1,17 +1,17 @@
 <div class="text-center body">
-    <form class="form-signin">
+    <form class="form-signin" [formGroup]="loginForm">
         <img class="mb-4" src="../../../assets/images/medialSign.svg" alt="" width="150" height="150">
         <h1 class="h3 mb-3 font-weight-normal">Clinica Online</h1>
         <label for="inputEmail" class="sr-only">Correo</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Correo" required autofocus>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Correo" name="email" required autofocus formControlName="email">
         <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" name="password" required formControlName="password">
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" value="remember-me"> Recordarme
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" routerLink="/home">Entrar</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="onLogin()">Entrar</button>
         <button class="btn btn-sm btn-secondary btn-block" type="submit" routerLink="/signupPatient">Registrarme</button>
         <p class="mt-5 mb-3 text-muted">&copy; Federico Vera</p>
     </form>

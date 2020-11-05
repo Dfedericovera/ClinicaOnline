@@ -36,7 +36,6 @@ export class AuthService
     try
     {
       var result = await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['/Principal']);
       return result;
     } catch (error)
     {
@@ -51,12 +50,13 @@ export class AuthService
       const { user } = await this.afAuth.createUserWithEmailAndPassword(
         email,
         password
-      );
-      /*await this.sendEmailVerification(); */
+      )
+      await this.sendEmailVerification();
       return user;
     } catch (error)
     {
-      console.error("register", error);
+      console.error("Register error", error);
+      throw error;
     }
   }
 
@@ -65,7 +65,6 @@ export class AuthService
     try
     {
       await (await this.afAuth.currentUser).sendEmailVerification();
-      this.router.navigate(['admin/verify-email']);
     } catch (error)
     {
       console.error("sendEmailVerification", error);
