@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ["", Validators.required],
       password: ["", Validators.required],
+      recaptchaReactive:["",Validators.required],
     });
   }
 
@@ -39,9 +40,17 @@ export class LoginComponent implements OnInit {
       else{
         console.log('Verifique su email');
       }
-    })
-    
-
+    })   
   }
+
+  enterAsClient(){
+    this.loginForm.controls.email.setValue('DfedericoVera@gmail.com');
+    this.loginForm.controls.password.setValue('111111');
+  }
+  resolved(captchaResponse: string) {
+    console.log(`Resolved response token: ${captchaResponse}`);
+   
+  }
+  
 
 }

@@ -29,6 +29,7 @@ import { ProfessionalDetailComponent } from './components/professional-detail/pr
 import { AdministratorDetailComponent } from './components/administrator-detail/administrator-detail.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AlertComponent } from './components/alert/alert.component';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,9 @@ import { AlertComponent } from './components/alert/alert.component';
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    RecaptchaModule,  //this is the recaptcha main module
+    RecaptchaFormsModule, //this is the module for form incase form validation
     
   ],
   providers: [],
