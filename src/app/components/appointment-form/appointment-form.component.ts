@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { ProfessionalService } from 'src/app/services/professional.service';
 
 @Component({
   selector: 'app-appointment-form',
@@ -11,11 +13,14 @@ export class AppointmentFormComponent implements OnInit {
 
   minDate = new Date().getFullYear()+'-'+('0' + (new Date().getMonth() + 1)).slice(-2)+'-'+('0' + new Date().getDate()).slice(-2);
   filtro:any;
+  appointments:any;
   
   appointmentForm: FormGroup;
   constructor(
     private datePipe : DatePipe,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private appointmentService:AppointmentService,
+    private professionalService:ProfessionalService,
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +39,11 @@ export class AppointmentFormComponent implements OnInit {
     /* let date = new Date(input.value); */
     console.log(this.appointmentForm.controls.date.value);
     console.log(this.appointmentForm.controls.filter.value);
-
   }
+
+  createAvailableList(){
+        
+  }
+
+
 }
