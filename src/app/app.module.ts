@@ -35,6 +35,7 @@ import { SpecialtyListComponent } from './components/specialty-list/specialty-li
 import { SpecialtyFormComponent } from './components/specialty-form/specialty-form.component';
 import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
 import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,7 @@ import { AppointmentListComponent } from './components/appointment-list/appointm
     RecaptchaFormsModule, //this is the module for form incase form validation
     
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
