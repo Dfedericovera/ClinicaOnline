@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-appointment-form',
@@ -10,8 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AppointmentFormComponent implements OnInit {
 
   minDate = new Date().getFullYear()+'-'+('0' + (new Date().getMonth() + 1)).slice(-2)+'-'+('0' + new Date().getDate()).slice(-2);
-  dateChoosen:any;
-  fecha:any; 
+  filtro:any;
+  
   appointmentForm: FormGroup;
   constructor(
     private datePipe : DatePipe,
@@ -25,12 +25,15 @@ export class AppointmentFormComponent implements OnInit {
   {
     this.appointmentForm = this.fb.group({
       date: ["", Validators.required],
+      filter: new FormControl('professional'),
+
     });
   }
 
-  changeDate(input){
+  changeDate(input, filtro){
     /* let date = new Date(input.value); */
     console.log(this.appointmentForm.controls.date.value);
+    console.log(this.appointmentForm.controls.filter.value);
 
   }
 }

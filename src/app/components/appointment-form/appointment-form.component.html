@@ -17,17 +17,16 @@
                         <label for="date">Seleccione filtro</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked
-                            required>
-                        <label class="custom-control-label" for="credit">Profesional</label>
+                        <input id="professional" name="filter" type="radio" class="custom-control-input" checked formControlName="filter"
+                         value="professional"   required>
+                        <label class="custom-control-label" for="professional">Profesional</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="debit">Especialidad</label>
+                        <input id="speciality" name="filter" type="radio" class="custom-control-input" required formControlName="filter"
+                        value="speciality">
+                        <label class="custom-control-label" for="speciality">Especialidad</label>
                     </div>
                 </div>
-
-
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -35,7 +34,7 @@
                             <label for="date">Seleccione Fecha para ver turnos disponibles</label>
                         </div>
                         <input type="date" name="date" class="form-control" [min]="minDate" formControlName="date"
-                            (change)="changeDate($event)">
+                            (change)="changeDate($event,filtro)">
                         <div class="invalid-feedback">
                             Valid first name is required.
                         </div>
@@ -43,13 +42,11 @@
                         <br>
                         {{appointmentForm.get('date').value | date }}
                         <!-- max="{{todaysdate|date:'yyyy-MM-dd'}}"  -->
-                    </div>
-
-                        
+                    </div>                        
                   
                 </div>
 
-
+                <app-appointment-list [appointments]="appointments" ></app-appointment-list>
 
 
                 <hr class="mb-4">
