@@ -36,13 +36,17 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   changeDate(input, filtro){
-    /* let date = new Date(input.value); */
-    console.log(this.appointmentForm.controls.date.value);
-    console.log(this.appointmentForm.controls.filter.value);
+    /* this.datePipe.transform(input.value) */
+    let date = new Date(this.appointmentForm.controls.date.value);
+    let localTimeDate = new Date(this.appointmentForm.controls.date.value + 'T00:00');
+
+    console.log(localTimeDate);
+    /* console.log(this.appointmentForm.controls.date.value);
+    console.log(this.appointmentForm.controls.filter.value); */
   }
 
   createAvailableList(){
-        
+
   }
 
 

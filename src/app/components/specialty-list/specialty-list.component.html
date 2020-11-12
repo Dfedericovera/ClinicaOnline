@@ -1,1 +1,18 @@
-<p>specialty-list works!</p>
+<nav class="navbar">
+    <h4>Tabla Especialidades</h4>
+</nav>
+<table class="table table-striped table-responsive-sm">
+    <caption>Tabla Especialidades</caption>
+    <thead>
+        <tr>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Duracion del turno aprox</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let specialty of specialtys">
+        <tr>
+            <td>{{specialty.specialty}}</td>
+            <td>{{specialty.duration}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,5 +1,5 @@
 export class Specialty{
-    especialty:string;
+    specialty:string;
     duration:number;
 
     public constructor(init?: Partial<Specialty>) {
