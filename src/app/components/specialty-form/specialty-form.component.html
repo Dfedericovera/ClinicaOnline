@@ -2,71 +2,49 @@
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../../../assets/images/medialSign.svg" alt="" width="72" height="72">
         <h2>Especialidades</h2>
-        <p class="lead">Alta especialidades.</p>
+        <p class="lead">Formulario especialidades.</p>
     </div>
 
     <div class="row">
         <div class="col-md-12 order-md-1">
             <h4 class="mb-3">Datos Necesarios</h4>
-            <form class="needs-validation" [formGroup]="patientForm" novalidate>
+            <form class="needs-validation" [formGroup]="specialtyForm" novalidate>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="firstName">Nombre</label>
-                        <input type="text" class="form-control" id="firstName" formControlName="name" placeholder=""
+                        <label for="firstName">Nombre de la especialidad</label>
+                        <input type="text" class="form-control" id="firstName" formControlName="specialty" placeholder=""
                             value="" required>
                         <div class="invalid-feedback">
-                            Valid first name is required.
+                            Valid first specialty is required.
                         </div>
-                        <div *ngIf="patientForm.controls['name'].invalid && (patientForm.controls['name'].dirty || patientForm.controls['name'].touched)"
+                        <div *ngIf="specialtyForm.controls['specialty'].invalid && (specialtyForm.controls['specialty'].dirty || specialtyForm.controls['specialty'].touched)"
                             class="alert alert-danger">
-                            <div *ngIf="patientForm.controls['name'].errors.required">
-                                Nombre es requerido.
+                            <div *ngIf="specialtyForm.controls['specialty'].errors.required">
+                                Nombre de la especialidad requerido.
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="lastName">Apellido</label>
-                        <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder=""
+                        <label for="duration">Duración (en minutos) aproximada de un turno</label>
+                        <input type="number" class="form-control" id="duration" formControlName="duration" placeholder=""
                             value="" required>
                         <div class="invalid-feedback">
-                            Valid last name is required.
+                            Valid last duration is required.
+                        </div>
+                        <div *ngIf="specialtyForm.controls['duration'].invalid && (specialtyForm.controls['duration'].dirty || specialtyForm.controls['duration'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="specialtyForm.controls['duration'].errors.required">
+                                Duración aproximada del turno requerido.
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="email">Correo <span class="text-muted"></span></label>
-                    <input type="email" class="form-control" id="email" formControlName="email"
-                        placeholder="minombre@ejemplo.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="address">Contraseña</label>
-                    <input type="password" class="form-control" id="address" formControlName="password"
-                        placeholder="Contraseña" required>
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5 mb-3">
-                        <div class="form-group">
-                            <label for="fotos">Fotos</label>
-                            <input type="file" class="form-control-file" id="fotos" (change)="handlePhoto1($event)">
-                        </div>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
-                        </div>
-                    </div>
-                </div>
+                
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()">Registrarme</button>
-                <button class="btn btn-danger btn-lg btn-block" routerLink="/login">Ya tengo una
-                    cuenta</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()">Registrar</button>
                 <div class="container" *ngIf="registered">
-                    <boot-alert mensaje="Verifique su correo para poder iniciar sesion, revise su buzón de entrada"
+                    <boot-alert mensaje="Especialidad Registrada correctamente."
                         color="alert-warning" (dismiss)="navigate()"></boot-alert>
                 </div>
             </form>

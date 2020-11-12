@@ -1,4 +1,6 @@
 export class Specialty{
+
+    id:string;
     specialty:string;
     duration:number;
 

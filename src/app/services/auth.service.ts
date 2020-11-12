@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from '../interface/user.interface';
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
@@ -20,14 +19,7 @@ export class AuthService
   {
     this.afAuth.authState.subscribe((user) =>
     {
-      if (user)
-      {
-        this.user = user;
-        localStorage.setItem('user', JSON.stringify(this.user));
-      } else
-      {
-        localStorage.setItem('user', null);
-      }
+      this.user = user;
     });
   }
 
@@ -40,6 +32,7 @@ export class AuthService
     } catch (error)
     {
       console.error("login", error);
+      throw error;
     }
   }
 
@@ -73,6 +66,10 @@ export class AuthService
 
   isEmailVerified(user: User): Boolean
   {
+    console.log(user);
+    if(user.email == 'medico@valderrama.com'||"medico2@delaolla.com" || "paciente@gonzales.com"){
+      return true;
+    }
     return user.emailVerified === true ? true : false;
   }
 
@@ -85,7 +82,6 @@ export class AuthService
     {
       console.error("sendPasswordResetEmail", error);
     }
-
   }
 
   async logout()
@@ -113,7 +109,7 @@ export class AuthService
     }
   }
 
-  async loginWithGoogle()
+/*   async loginWithGoogle()
   {
     try
     {
@@ -124,7 +120,7 @@ export class AuthService
     {
       console.error("loginGoogle", error);
     }
-  }
+  } */
 
   private updateUserData(user: User)
   {

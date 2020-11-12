@@ -7,6 +7,7 @@ export class Professional {
     public photo: any;
     public email: string;
     public specialty: Array<Specialty>;
+    public photos: Array<any>;
 
     public constructor(init?: Partial<Professional>) {
         if(init){

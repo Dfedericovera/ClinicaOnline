@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { storage } from 'firebase';
-import { error } from 'protractor';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
-import { ImageService } from 'src/app/services/image.service';
 import { PatientService } from 'src/app/services/patient.service';
 
 

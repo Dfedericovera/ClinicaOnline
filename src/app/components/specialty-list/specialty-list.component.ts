@@ -17,4 +17,8 @@ export class SpecialtyListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onChoose(specialty:Specialty){
+    this.chooseSpecialty.emit(specialty);
+  }
+
 }

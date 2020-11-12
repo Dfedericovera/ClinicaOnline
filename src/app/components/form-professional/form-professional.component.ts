@@ -1,44 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Specialty } from 'src/app/clases/specialty';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
+import { ProfessionalService } from 'src/app/services/professional.service';
+import { SpecialtyService } from 'src/app/services/specialty-service';
 
 @Component({
   selector: 'app-form-professional',
   templateUrl: './form-professional.component.html',
   styleUrls: ['./form-professional.component.sass']
 })
-export class FormProfessionalComponent implements OnInit {
+export class FormProfessionalComponent implements OnInit
+{
 
-  patientForm: FormGroup;
+  professionalForm: FormGroup;
   photo1: FileI;
   photo2: FileI;
   photos: Array<FileI> = new Array();
   registered: boolean = false;
+  specialtys: Specialty[];
+  specialtysChoosen: Specialty[];
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private patientService: PatientService,
-    private router:Router
+    private profesionalService: ProfessionalService,
+    private router: Router,
+    private specialtyService: SpecialtyService
   )
   {
-    this.createForm();
+
   }
 
   ngOnInit(): void
   {
+    this.createForm();
+    this.specialtyService.getSpecialtys().subscribe(specialtys =>
+    {
+      this.specialtys = specialtys;
+      console.log(specialtys);
+    })
   }
 
   createForm()
   {
-    this.patientForm = this.fb.group({
+    this.professionalForm = this.fb.group({
+      id: ["", Validators.required],
       name: ["", Validators.required],
       lastName: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
+      specialty: [Array, Validators.required],
     });
   }
 
@@ -46,15 +61,16 @@ export class FormProfessionalComponent implements OnInit {
   {
     try
     {
-      /* console.log(this.patientForm.value); */
+      /* console.log(this.professionalForm.value); */
       this.assignPhotos();
-      this.authService.register(this.patientForm.controls.email.value, this.patientForm.controls.password.value).then(user =>
+      this.authService.register(this.professionalForm.controls.email.value, this.professionalForm.controls.password.value).then(user =>
       {
         if (user)
         {
-          this.patientService.createPatient(this.patientForm.value, this.photos).then(patient =>
+          this.professionalForm.controls['id'].setValue(user.uid);
+          this.profesionalService.createProfessional(this.professionalForm.value, this.photos).then(patient =>
           {
-            console.log('Created patient', patient);
+            console.log('Professional Created', patient);
             user.updateProfile({
               displayName: patient.name,
             }).then(() =>
@@ -93,8 +109,43 @@ export class FormProfessionalComponent implements OnInit {
     } */
   }
 
-  navigate(){
-    this.router.navigate(['/login']);
+  navigate()
+  {
+    this.router.navigate(['/home']);
   }
 
+  onChooseSpecialty(specialty: Specialty)
+  {
+    if (!this.specialtysChoosen)
+    {
+      this.specialtysChoosen = [];
+      this.specialtysChoosen.push(specialty);
+      this.professionalForm.controls['specialty'].setValue(this.specialtysChoosen);
+      console.log(specialty);
+    }
+    else
+    {
+      let isAlreadyChoosen = false;
+      this.specialtysChoosen.forEach(specialtyChoosen =>
+      {
+        if (specialty.id == specialtyChoosen.id)
+        {
+          isAlreadyChoosen = true;
+        }
+      })
+      if (!isAlreadyChoosen)
+      {
+        this.specialtysChoosen.push(specialty);
+        this.professionalForm.controls['specialty'].setValue(this.specialtysChoosen);
+        console.log(specialty);
+      }
+    }
+
+
+  }
+
+  deleteSpecialty(index)
+  {
+    this.specialtysChoosen.splice(index,1);
+  }
 }

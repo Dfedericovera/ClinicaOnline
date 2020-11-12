@@ -12,10 +12,14 @@
             <label>
                 <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsClient()">Entrar como
                     cliente</button>
+                <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsProfessional()">Entrar como
+                    Profesional</button>
+                <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsAdministrator()">Entrar como
+                    Administador</button>
             </label>
         </div>
-        <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive" siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm"
-        required>
+        <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
+            siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
         </re-captcha>
         <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="onLogin()">Entrar</button>
         <button class="btn btn-sm btn-secondary btn-block" type="submit"

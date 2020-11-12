@@ -4,15 +4,16 @@ import { Router } from '@angular/router';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
+import { SpecialtyService } from 'src/app/services/specialty-service';
 
 @Component({
   selector: 'app-specialty-form',
   templateUrl: './specialty-form.component.html',
   styleUrls: ['./specialty-form.component.sass']
 })
-export class SpecialtyFormComponent implements OnInit {
-
-  patientForm: FormGroup;
+export class SpecialtyFormComponent implements OnInit
+{
+  specialtyForm: FormGroup;
   photo1: FileI;
   photo2: FileI;
   photos: Array<FileI> = new Array();
@@ -22,79 +23,35 @@ export class SpecialtyFormComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private patientService: PatientService,
-    private router:Router
+    private router: Router,
+    private specialtyService: SpecialtyService
   )
+  { }
+
+  ngOnInit(): void
   {
     this.createForm();
   }
 
-  ngOnInit(): void
-  {
-  }
-
   createForm()
   {
-    this.patientForm = this.fb.group({
-      name: ["", Validators.required],
-      lastName: ["", Validators.required],
-      email: ["", Validators.required],
-      password: ["", Validators.required],
+    this.specialtyForm = this.fb.group({
+      specialty: ["", Validators.required],
+      duration: ["", Validators.required],
     });
   }
 
   onSubmit()
   {
-    try
-    {
-      /* console.log(this.patientForm.value); */
-      this.assignPhotos();
-      this.authService.register(this.patientForm.controls.email.value, this.patientForm.controls.password.value).then(user =>
-      {
-        if (user)
-        {
-          this.patientService.createPatient(this.patientForm.value, this.photos).then(patient =>
-          {
-            console.log('Created patient', patient);
-            user.updateProfile({
-              displayName: patient.name,
-            }).then(() =>
-            {
-              console.log('Now Verify your email to login.');
-              this.registered = true;
-            })
-          });
-        }
-      }).catch(error => { console.log('Error', error); });
-
-    } catch (error)
-    {
-      console.error(error);
-    }
-  }
-
-  handlePhoto1(file)
-  {
-    this.photo1 = file.target.files[0];
-  }
-
-  handlePhoto2(file)
-  {
-    this.photo2 = file.target.files[0];
-  }
-
-  assignPhotos()
-  {
-    if (this.photo1)
-    {
-      this.photos.push(this.photo1);
-    }/* 
-    if(this.photo2){
-      this.photos.push(this.photo2);
-    } */
+    this.specialtyService.addSpecialty(this.specialtyForm.value).then(()=>{
+      console.log('Specialty registered.');
+      this.registered = true;
+    })
   }
 
   navigate(){
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
+
 
 }
