@@ -37,18 +37,16 @@ export class ProfessionalService
       ref.orderBy('date')
     );
   }
-
   //Devuelve un Observable de tipo Professional Array.
   getProfessionals(): Observable<Professional[]>
   {
-    return this.db.collection("professionals", (ref) =>
-      ref.orderBy('date')).snapshotChanges().pipe(
-        map((snaps) =>
-          snaps.map((snap) =>
-          {
-            return snap.payload.doc.data() as Professional;
-          }))
-      )
+    return this.db.collection("professionals").snapshotChanges().pipe(
+      map((snaps) =>
+        snaps.map((snap) =>
+        {
+          return snap.payload.doc.data() as Professional;
+        }))
+    )
   }
 
   /* 

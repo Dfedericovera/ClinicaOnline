@@ -12,20 +12,19 @@
 
             <form class="needs-validation" novalidate [formGroup]="appointmentForm">
 
+                <div class="row">
+                    <div class="col-sm">
+                        <app-specialty-list [specialtys]="specialtys" (chooseSpecialty)="onChooseSpecialty($event)">
+                        </app-specialty-list>
+                    </div>
+                    <div class="col-sm">
+                        <app-professional-list [professionals]="professionals"
+                            (chooseProfessional)="onChooseProfessional($event)"></app-professional-list>
+                    </div>
+                </div>
                 <div class="d-block my-3">
-                    <div>
-                        <label for="date">Seleccione filtro</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="professional" name="filter" type="radio" class="custom-control-input" checked formControlName="filter"
-                         value="professional"   required>
-                        <label class="custom-control-label" for="professional">Profesional</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="speciality" name="filter" type="radio" class="custom-control-input" required formControlName="filter"
-                        value="speciality">
-                        <label class="custom-control-label" for="speciality">Especialidad</label>
-                    </div>
+
+
                 </div>
 
                 <div class="row">
@@ -38,15 +37,13 @@
                         <div class="invalid-feedback">
                             Valid first name is required.
                         </div>
-                        Fecha elegida: 
+                        Fecha elegida:
                         <br>
                         {{appointmentForm.get('date').value | date }}
-                        <!-- max="{{todaysdate|date:'yyyy-MM-dd'}}"  -->
-                    </div>                        
-                  
+                    </div>
                 </div>
 
-                <app-appointment-list [appointments]="appointments" ></app-appointment-list>
+                <app-appointment-list [appointments]="appointments"></app-appointment-list>
 
 
                 <hr class="mb-4">

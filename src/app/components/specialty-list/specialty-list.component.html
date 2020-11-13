@@ -5,14 +5,14 @@
     <caption>Tabla Especialidades</caption>
     <thead>
         <tr>
-            <th scope="col">Especialidad</th>
-            <th scope="col">Duracion del turno aprox</th>
+            <th scope="col">Especialidad</th><!-- 
+            <th scope="col">Duracion del turno aprox</th> -->
         </tr>
     </thead>
     <tbody *ngFor="let specialty of specialtys">
         <tr (click)="onChoose(specialty)">
-            <td>{{specialty.specialty}}</td>
-            <td>{{specialty.duration}}</td>
+            <td>{{specialty.specialty}}</td><!-- 
+            <td>{{specialty.duration}}</td> -->
         </tr>
     </tbody>
 </table>

@@ -15,5 +15,8 @@ export class ProfessionalListComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  onChoose(specialty){
+    this.chooseProfessional.emit(specialty);
+  }
 
 }

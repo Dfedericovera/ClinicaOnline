@@ -8,6 +8,7 @@ export class Appointment{
     patient:Patient;
     professional:Professional;
     specialty:Specialty;
+    hora:any;
     
 
     public constructor(init?: Partial<Appointment>) {
