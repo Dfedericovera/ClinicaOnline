@@ -1,0 +1,133 @@
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../../../assets/images/medialSign.svg" alt="" width="72" height="72">
+        <h2>Clinica Online</h2>
+        <p class="lead">Por favor regístrate para poder utilizar nuestros servicios.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">Datos Necesarios</h4>
+            <form class="needs-validation" [formGroup]="patientForm" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">Nombre</label>
+                        <input type="text" class="form-control" id="firstName" formControlName="name"
+                            placeholder="Nombre" value="" required>
+                        <div *ngIf="patientForm.controls['name'].invalid && (patientForm.controls['name'].dirty || patientForm.controls['name'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="patientForm.controls['name'].errors.required">
+                                Nombre es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Apellido</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                            placeholder="Apellido" value="" required>
+                        <div *ngIf="patientForm.controls['lastName'].invalid && (patientForm.controls['lastName'].dirty || patientForm.controls['lastName'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="patientForm.controls['lastName'].errors.required">
+                                Apellido es requerido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="dni">DNI</label>
+                        <input type="text" class="form-control" id="dni" formControlName="dni" placeholder="DNI"
+                            value="" required>
+                        <div *ngIf="patientForm.controls['dni'].invalid && (patientForm.controls['dni'].dirty || patientForm.controls['dni'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="patientForm.controls['dni'].errors.required">
+                                DNI es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edad">Edad</label>
+                        <input type="text" class="form-control" id="edad" formControlName="age" placeholder="Edad"
+                            value="" required>
+                        <div *ngIf="patientForm.controls['age'].invalid && (patientForm.controls['age'].dirty || patientForm.controls['age'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="patientForm.controls['age'].errors.required">
+                                Edad es requerida.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="OS">Obra Social <span class="text-muted"></span></label>
+                    <input type="text" class="form-control" id="OS" formControlName="obraSocial" placeholder="Obra Social">
+                    <div *ngIf="patientForm.controls['obraSocial'].invalid && (patientForm.controls['obraSocial'].dirty || patientForm.controls['obraSocial'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="patientForm.controls['obraSocial'].errors.required">
+                            Obra Social es requerida.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Correo <span class="text-muted"></span></label>
+                    <input type="email" class="form-control" id="email" formControlName="email"
+                        placeholder="minombre@ejemplo.com">
+                    <div *ngIf="patientForm.controls['email'].invalid && (patientForm.controls['email'].dirty || patientForm.controls['email'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="patientForm.controls['email'].errors.required">
+                            Email es requerido.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Contraseña</label>
+                    <input type="password" class="form-control" id="address" formControlName="password"
+                        placeholder="Contraseña" required>
+                    <div *ngIf="patientForm.controls['password'].invalid && (patientForm.controls['password'].dirty || patientForm.controls['password'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="patientForm.controls['password'].errors.required">
+                            Contraseña es requerida.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label for="fotos">Foto 1</label>
+                            <input type="file" class="form-control-file" id="fotos" (change)="handlePhoto1($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label for="fotos">Foto 2</label>
+                            <input type="file" class="form-control-file" id="fotos" (change)="handlePhoto2($event)">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()"
+                    [disabled]="patientForm.invalid">Registrarme</button>
+                <button class="btn btn-danger btn-lg btn-block" routerLink="/login">Ya tengo una
+                    cuenta</button>
+                <div class="container" *ngIf="registered">
+                    <boot-alert mensaje="Verifique su correo para poder iniciar sesion, revise su buzón de entrada"
+                        color="alert-warning" (dismiss)="navigate()"></boot-alert>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Federico Vera</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+</div>
