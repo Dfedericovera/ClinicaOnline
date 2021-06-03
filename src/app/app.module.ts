@@ -38,6 +38,7 @@ import { AppointmentListComponent } from './components/appointment-list/appointm
 import { DatePipe } from '@angular/common';
 import { ResaltarDirective } from './directives/resaltar.directive';
 import { NegativoDirective } from './directives/negativo.directive';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { NegativoDirective } from './directives/negativo.directive';
     AppointmentFormComponent,
     AppointmentListComponent,
     ResaltarDirective,
-    NegativoDirective
+    NegativoDirective,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

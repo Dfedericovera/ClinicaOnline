@@ -11,8 +11,9 @@ import { MakeAnAppointmentComponent } from './pages/make-an-appointment/make-an-
 import { ProfessionalListComponent } from './components/professional-list/professional-list.component';
 import { SpecialtyListComponent } from './components/specialty-list/specialty-list.component';
 import { SpecialtyFormComponent } from './components/specialty-form/specialty-form.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 const routes: Routes = [
-  {path: '',component: LoginComponent},
+  {path: '',component: WelcomeComponent},
   {path: 'login',component: LoginComponent, data: {animation: 'login'} },
   {path: 'signupPatient',component: SignupPatientComponent, data: {animation: 'signupPatient'} },
   {path: 'signupProfessional',component: SignupProfessionalComponent,data: {animation: 'signupProfessional'}},
