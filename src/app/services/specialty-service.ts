@@ -67,7 +67,7 @@ export class SpecialtyService
         .then(res =>
         {
           specialty.id = res.id;
-          this.editSpecialty(specialty);
+          this.editSpecialty(JSON.parse(JSON.stringify(specialty)));
           resolve(specialty);
         }, err => reject(console.error(err)));
     });

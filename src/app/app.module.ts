@@ -39,6 +39,7 @@ import { DatePipe } from '@angular/common';
 import { ResaltarDirective } from './directives/resaltar.directive';
 import { NegativoDirective } from './directives/negativo.directive';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { UsersComponent } from './pages/users/users.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     AppointmentListComponent,
     ResaltarDirective,
     NegativoDirective,
-    WelcomeComponent
+    WelcomeComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
