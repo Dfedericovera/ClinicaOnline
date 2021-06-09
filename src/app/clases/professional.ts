@@ -9,6 +9,7 @@ export class Professional {
     public specialty: Array<Specialty>;
     public email: string;    
     public photos: Array<any>;
+    public approved:boolean;
 
     public constructor(init?: Partial<Professional>) {
         if(init){

@@ -37,23 +37,29 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="dni">DNI</label>
-                        <input type="text" class="form-control" id="dni" formControlName="dni" placeholder="DNI"
+                        <input type="text" class="form-control" id="dni" formControlName="dni" placeholder="DNI" minlength="7"
                             value="" required>
                         <div *ngIf="patientForm.controls['dni'].invalid && (patientForm.controls['dni'].dirty || patientForm.controls['dni'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="patientForm.controls['dni'].errors.required">
                                 DNI es requerido.
                             </div>
+                            <div *ngIf="patientForm.controls['dni'].errors.minlength">
+                                DNI debe tener al menos 7 digitos
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="edad">Edad</label>
-                        <input type="text" class="form-control" id="edad" formControlName="age" placeholder="Edad"
+                        <input type="number" class="form-control" id="edad" formControlName="age" placeholder="Edad" min="2" max="99"
                             value="" required>
                         <div *ngIf="patientForm.controls['age'].invalid && (patientForm.controls['age'].dirty || patientForm.controls['age'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="patientForm.controls['age'].errors.required">
                                 Edad es requerida.
+                            </div>
+                            <div *ngIf="patientForm.controls['age'].errors.minlength">
+                                la edad debe ser mayor a 1 y menor  a 100.
                             </div>
                         </div>
                     </div>
