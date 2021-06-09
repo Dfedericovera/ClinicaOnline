@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Specialty } from 'src/app/clases/specialty';
 import { FileI } from 'src/app/interface/file';
+import { AdministratorService } from 'src/app/services/administrator.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
@@ -22,7 +23,7 @@ export class FormAdministratorComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private profesionalService: ProfessionalService,
+    private administratorService:AdministratorService,
     private router: Router,
   )
   {
@@ -45,29 +46,20 @@ export class FormAdministratorComponent implements OnInit {
       lastName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
-      specialty: [Array, Validators.required],
-      approved: [""],
     });
-  }
-
-  verError(){
-    console.log(this.administratorForm );
-    
   }
 
   onSubmit()
   {
     try
     {
-      /* console.log(this.administratorForm.value); */
       this.assignPhotos();
       this.authService.register(this.administratorForm.controls.email.value, this.administratorForm.controls.password.value).then(user =>
       {
         if (user)
         {
           this.administratorForm.controls['id'].setValue(user.uid);
-          this.administratorForm.controls['approved'].setValue(false);
-          this.profesionalService.createProfessional(this.administratorForm.value, this.photos).then(patient =>
+          this.administratorService.createAdministrator(this.administratorForm.value, this.photos).then(patient =>
           {
             console.log('Professional Created', patient);
             user.updateProfile({

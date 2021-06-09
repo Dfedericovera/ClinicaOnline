@@ -2,7 +2,7 @@ export class Administrator {
     public id: string;
     public name: string;
     public lastName: string;
-    public photo: Array<any>;
+    public photos: Array<any>;
     public email: string;
 
     public constructor(init?: Partial<Administrator>) {
@@ -18,7 +18,7 @@ export class Administrator {
         administrator.id = id;
         administrator.name = name;
         administrator.lastName = lastName;
-        administrator.photo = photo;
+        administrator.photos = photo;
         administrator.email = email;
         
 
