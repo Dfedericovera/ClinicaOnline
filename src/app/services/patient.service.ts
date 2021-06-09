@@ -39,7 +39,7 @@ export class PatientService
   getPatients(): Observable<Patient[]>
   {
     return this.db.collection("patients", (ref) =>
-      ref.orderBy('date')).snapshotChanges().pipe(
+      ref).snapshotChanges().pipe(
         map((snaps) =>
           snaps.map((snap) =>
           {

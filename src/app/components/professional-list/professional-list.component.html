@@ -1,20 +1,30 @@
 <nav class="navbar">
-    <h4>Profesionales</h4>
-  </nav>
+  <h4>Profesionales</h4>
+</nav>
 <table class="table table-striped table-responsive-sm table-hover">
-    <caption>Tabla Profesionales</caption>
-    <thead>
-      <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">correo</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let professional of professionals">
-      <tr (click)="onChoose(specialty)">
-        <td>{{professional.name}}</td>
-        <td>{{professional.lastName}}</td>
-        <td>{{professional.email}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <caption>Tabla Profesionales</caption>
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">correo</th>
+      <th scope="col">Habilitar</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let professional of professionals; index as i;">
+    <tr (click)="onChoose(specialty)">
+      <td>{{professional.name}}</td>
+      <td>{{professional.lastName}}</td>
+      <td>{{professional.email}}</td>
+      <td appResaltarHabilitado [isApproved]="professional.approved" style="cursor: pointer;"
+        (click)="approveProfessional(professional)">
+        {{professional.approved | approved}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div style="position:absolute; top: 50%; left: 50%;">
+  <div *ngIf="spinner" class="spinner-grow text-warning text-center " role="status" style="width: 3rem; height: 3rem;">
+    <span class="sr-only">Guardando...</span>
+  </div>
+</div>

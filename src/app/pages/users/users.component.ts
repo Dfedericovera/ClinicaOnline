@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Patient } from 'src/app/clases/patient';
+import { Professional } from 'src/app/clases/professional';
+import { PatientService } from 'src/app/services/patient.service';
+import { ProfessionalService } from 'src/app/services/professional.service';
 
 @Component({
   selector: 'app-users',
@@ -12,8 +16,13 @@ export class UsersComponent implements OnInit
   formAdministrator: boolean;
   formPatient: boolean;
   formProfessional: boolean;
+  patientsList:Patient[];
+  professionalList:Array<Professional>=[];
 
-  constructor()
+  constructor(
+    private patientService:PatientService,
+    private professionalService:ProfessionalService
+  )
   {
     this.userInfo = true;
     this.approveProfessional = false;
@@ -24,6 +33,14 @@ export class UsersComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.patientService.getPatients().subscribe(value=>{
+      console.log(value);
+      this.patientsList = value;
+    });
+    this.professionalService.getProfessionals().subscribe(value=>{
+      this.professionalList = value;
+    })
+
   }
 
   showUserInfo()

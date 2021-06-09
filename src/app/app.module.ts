@@ -40,6 +40,8 @@ import { ResaltarDirective } from './directives/resaltar.directive';
 import { NegativoDirective } from './directives/negativo.directive';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { UsersComponent } from './pages/users/users.component';
+import { ApprovedPipe } from './pipes/approved.pipe';
+import { ResaltarHabilitadoDirective } from './directives/resaltar-habilitado.directive';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import { UsersComponent } from './pages/users/users.component';
     ResaltarDirective,
     NegativoDirective,
     WelcomeComponent,
-    UsersComponent
+    UsersComponent,
+    ApprovedPipe,
+    ResaltarHabilitadoDirective
   ],
   imports: [
     BrowserModule,
