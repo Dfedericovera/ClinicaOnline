@@ -42,6 +42,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ApprovedPipe } from './pipes/approved.pipe';
 import { ResaltarHabilitadoDirective } from './directives/resaltar-habilitado.directive';
+import { SignupComponent } from './pages/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ResaltarHabilitadoDirective } from './directives/resaltar-habilitado.di
     WelcomeComponent,
     UsersComponent,
     ApprovedPipe,
-    ResaltarHabilitadoDirective
+    ResaltarHabilitadoDirective,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

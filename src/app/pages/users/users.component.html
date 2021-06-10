@@ -15,7 +15,7 @@
                         especialistas</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" (click)="showform()" id="navbarDropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Nuevo Usuario
                     </a>
@@ -36,6 +36,7 @@
     <app-form-administrator *ngIf="formAdministrator"></app-form-administrator>
     <app-form-patient *ngIf="formPatient"></app-form-patient>
     <app-form-professional *ngIf="formProfessional"></app-form-professional>
+    <app-signup *ngIf="forms"></app-signup>
 
 
 </div>

@@ -13,10 +13,11 @@ import { SpecialtyListComponent } from './components/specialty-list/specialty-li
 import { SpecialtyFormComponent } from './components/specialty-form/specialty-form.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { UsersComponent } from './pages/users/users.component';
+import { SignupComponent } from './pages/signup/signup.component';
 const routes: Routes = [
   {path: '',component: WelcomeComponent},
   {path: 'login',component: LoginComponent, data: {animation: 'login'} },
-  {path: 'signupPatient',component: SignupPatientComponent, data: {animation: 'signupPatient'} },
+  {path: 'signup',component: SignupComponent, data: {animation: 'signupPatient'} },
   {path: 'signupProfessional',component: SignupProfessionalComponent,data: {animation: 'signupProfessional'}},
   {path: 'signupAdministrator',component: SignupAdministratorComponent,data: {animation: 'signupAdministrator'}},
   {path: 'signupSpecialty',component: SpecialtyFormComponent,data: {animation: 'signupAdministrator'}},

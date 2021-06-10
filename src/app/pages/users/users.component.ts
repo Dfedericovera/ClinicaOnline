@@ -18,6 +18,7 @@ export class UsersComponent implements OnInit
   formProfessional: boolean;
   patientsList:Patient[];
   professionalList:Array<Professional>=[];
+  forms:boolean;
 
   constructor(
     private patientService:PatientService,
@@ -29,6 +30,7 @@ export class UsersComponent implements OnInit
     this.formAdministrator = false;
     this.formPatient = false;
     this.formProfessional = false;
+    this.forms = false;
   }
 
   ngOnInit(): void
@@ -50,6 +52,7 @@ export class UsersComponent implements OnInit
     this.formAdministrator = false;
     this.formPatient = false;
     this.formProfessional = false;
+    this.forms = false;
   }
 
   showApproveProfessional()
@@ -59,6 +62,15 @@ export class UsersComponent implements OnInit
     this.formAdministrator = false;
     this.formPatient = false;
     this.formProfessional = false;
+    this.forms = false;
+  }
+  showform(){
+    this.userInfo = false;
+    this.approveProfessional = false;
+    this.formAdministrator = false;
+    this.formPatient = false;
+    this.formProfessional = false;
+    this.forms = true;
   }
 
   showForms(who)
