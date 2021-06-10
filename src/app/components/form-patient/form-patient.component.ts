@@ -60,6 +60,7 @@ export class FormPatientComponent implements OnInit
         if (user)
         {
           this.patientForm.controls.id.setValue(user.uid);
+          this.patientForm.removeControl("password");
           this.patientService.createPatient(this.patientForm.value, this.photos).then(patient =>
           {
             console.log('Created patient', patient);
@@ -71,6 +72,7 @@ export class FormPatientComponent implements OnInit
               this.registered = true;
             })
           });
+          this.patientForm.addControl("password",this.fb.control({password: "111111"}))
         }
       }).catch(error => { console.log('Error', error); });
 

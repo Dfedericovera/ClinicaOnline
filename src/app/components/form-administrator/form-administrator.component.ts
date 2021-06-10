@@ -60,6 +60,7 @@ export class FormAdministratorComponent implements OnInit {
         if (user)
         {
           this.administratorForm.controls['id'].setValue(user.uid);
+          this.administratorForm.removeControl("password");
           this.administratorService.createAdministrator(this.administratorForm.value, this.photos).then(patient =>
           {
             console.log('Professional Created', patient);
@@ -71,6 +72,7 @@ export class FormAdministratorComponent implements OnInit {
               this.registered = true;
             })
           });
+          this.administratorForm.addControl("password",this.fb.control({password: "111111"}))
         }
       }).catch(error => { console.log('Error', error); });
 

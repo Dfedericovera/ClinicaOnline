@@ -81,6 +81,7 @@ export class FormProfessionalComponent implements OnInit
         {
           this.professionalForm.controls['id'].setValue(user.uid);
           this.professionalForm.controls['approved'].setValue(false);
+          this.professionalForm.removeControl("password");
           this.profesionalService.createProfessional(this.professionalForm.value, this.photos).then(patient =>
           {
             console.log('Professional Created', patient);
@@ -92,6 +93,7 @@ export class FormProfessionalComponent implements OnInit
               this.registered = true;
             })
           });
+          this.professionalForm.addControl("password",this.fb.control({password: "111111"}))
         }
       }).catch(error => { console.log('Error', error); });
 
