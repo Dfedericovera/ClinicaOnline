@@ -1,29 +1,87 @@
 <div class="text-center body">
-    <form class="form-signin" [formGroup]="loginForm">
-        <img class="mb-4" src="../../../assets/images/medialSign.svg" alt="" width="150" height="150">
-        <h1 class="h3 mb-3 font-weight-normal">Clinica Online</h1>
-        <label for="inputEmail" class="sr-only">Correo</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Correo" name="email" required autofocus
-            formControlName="email">
-        <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" name="password" required
-            formControlName="password">
-        <div class="checkbox mb-3">
-            <label>
-                <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsClient()">Entrar como
-                    cliente</button>
-                <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsProfessional()">Entrar como
-                    Profesional</button>
-                <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsAdministrator()">Entrar como
-                    Administador</button>
-            </label>
+    <div class="container">
+        <div class="d-flex">
+            <div class="p-2">
+                <div *ngIf="testing">
+                    <label>
+                        <div *ngIf="administratorTesting">
+                            <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsClient()">
+                                <div class="media">
+                                    <img src="{{patientTesting.photos[0]}}" class="mr-3" style="height: 50px;">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Paciente: {{patientTesting.name}}</h5>
+                                    </div>
+                                </div>
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsClient()">
+                                <div class="media">
+                                    <img src="{{patientTesting2.photos[0]}}" class="mr-3" style="height: 50px;">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Paciente: {{patientTesting2.name}}</h5>
+                                    </div>
+                                </div>
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-block" type="submit"
+                                (click)="enterAsProfessional()">
+                                <div class="media">
+                                    <img src="{{professionalTesting.photos[0]}}" class="mr-3" style="height: 50px;">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Profesional: {{professionalTesting.name}}</h5>
+                                    </div>
+                                </div>
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-block" type="submit"
+                                (click)="enterAsProfessional()">
+                                <div class="media">
+                                    <img src="{{professionalTesting2.photos[0]}}" class="mr-3" style="height: 50px;">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Profesional: {{professionalTesting2.name}}</h5>
+                                    </div>
+                                </div>
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-block" type="submit"
+                                (click)="enterAsAdministrator()">
+                                <div class="media">
+                                    <img src="{{administratorTesting.photos[0]}}" class="mr-3" style="height: 50px;">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Administrador: {{administratorTesting.name}}</h5>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="spinner-grow text-warning" role="status" *ngIf="!administratorTesting">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="p-2 flex-grow-1">
+                <form class="form-signin" [formGroup]="loginForm">
+                    <img class="mb-4" src="../../../assets/images/medialSign.svg" alt="" width="150" height="150">
+                    <h1 class="h3 mb-3 font-weight-normal">Clinica Online</h1>
+                    <label for="inputEmail" class="sr-only">Correo</label>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Correo" name="email" required
+                        autofocus formControlName="email">
+                    <label for="inputPassword" class="sr-only">Contraseña</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña"
+                        name="password" required formControlName="password">
+
+                    <button class="btn btn-sm btn-primary btn-block" type="submit" *ngIf="!testing"
+                        (click)="testing=!testing">Mostrar usuarios testing</button>
+                    <!-- <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
+                siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
+            </re-captcha> -->
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="onLogin()">Entrar</button>
+                    <button class="btn btn-sm btn-secondary btn-block" type="submit"
+                        routerLink="/signup">Registrarme</button>
+                    <p class="mt-5 mb-3 text-muted">&copy; Federico Vera</p>
+                </form>
+            </div>
         </div>
-        <!-- <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
-            siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
-        </re-captcha> -->
-        <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="onLogin()">Entrar</button>
-        <button class="btn btn-sm btn-secondary btn-block" type="submit"
-            routerLink="/signup">Registrarme</button>
-        <p class="mt-5 mb-3 text-muted">&copy; Federico Vera</p>
-    </form>
+
+    </div>
+
+
+
 </div>

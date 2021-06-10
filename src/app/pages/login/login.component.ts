@@ -22,7 +22,13 @@ export class LoginComponent implements OnInit
 
   loginForm: FormGroup;
   color = 'red';
-  condicion = false;
+  condicion:boolean;
+  testing:boolean;
+  patientTesting:Patient;
+  patientTesting2:Patient;
+  professionalTesting:Professional;
+  professionalTesting2:Professional;
+  administratorTesting:Administrator;
 
   constructor(
     private fb: FormBuilder,
@@ -34,10 +40,29 @@ export class LoginComponent implements OnInit
   )
   {
     this.createForm();
+    this.condicion = false;
+    this.testing = false;
   }
 
   ngOnInit(): void
   {
+    this.patientService.getPatientById("cEewD51RQsYrvaYHQ3eRAzkUHDJ3").then(testintgPatient=>{
+      console.log(testintgPatient)
+      this.patientTesting = testintgPatient;
+    })
+    this.patientService.getPatientById("u7J9vE2bebTUh8rtLxBNEyEdOc73").then(testintgPatient=>{
+      console.log(testintgPatient)
+      this.patientTesting2 = testintgPatient;
+    })
+    this.professionalService.getProfessionalById("gyFb67SEpFPDD8FzTONy9XJCZM22").then(testingProfessional=>{
+      this.professionalTesting = testingProfessional;
+    })
+    this.professionalService.getProfessionalById("gxEvpY2NmUXicRjeIsBp3AdS72H3").then(testingProfessional=>{
+      this.professionalTesting2 = testingProfessional;
+    })
+    this.administratorService.getAdministratorById("ieLf7BsRyOQH0I7WlRAzk9Fw0Bn1").then(testingAdministrator=>{
+      this.administratorTesting = testingAdministrator;
+    })
 
   }
 
