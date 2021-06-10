@@ -39,11 +39,12 @@ export class FormPatientComponent implements OnInit
     this.patientForm = this.fb.group({
       name: ["", Validators.required],
       lastName: ["", Validators.required],
-      age: ["", Validators.required],
+      age: ["", [Validators.required,Validators.min(1),Validators.max(110)]],
       dni: ["", Validators.required],
       obraSocial: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
+      id:[""]
     });
   }
 
@@ -57,6 +58,7 @@ export class FormPatientComponent implements OnInit
       {
         if (user)
         {
+          this.patientForm.controls.id.setValue(user.uid);
           this.patientService.createPatient(this.patientForm.value, this.photos).then(patient =>
           {
             console.log('Created patient', patient);

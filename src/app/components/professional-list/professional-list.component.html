@@ -16,8 +16,8 @@
       <td>{{professional.name}}</td>
       <td>{{professional.lastName}}</td>
       <td>{{professional.email}}</td>
-      <td appResaltarHabilitado [isApproved]="professional.approved" style="cursor: pointer;"
-        (click)="approveProfessional(professional)">
+      <td class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="habilitar/deshabilitar"
+      appResaltarHabilitado [isApproved]="professional.approved" (click)="approveProfessional(professional)">
         {{professional.approved | approved}}
       </td>
     </tr>

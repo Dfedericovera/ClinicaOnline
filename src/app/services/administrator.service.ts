@@ -48,6 +48,35 @@ export class AdministratorService
     )
   }
 
+    //Devuelve un Administrator.
+    async getAdministratorById(id: string)
+    {
+      try
+      {
+        const administratorPromise = await this.db
+          .collection("administrators")
+          .doc(id)
+          .get()
+          /* .subscribe(value=>{
+            return value.data()
+          }) */
+          .toPromise()
+          .then((doc) =>
+          {
+            if (doc.exists)
+            {
+              // Convert to Administrator object
+              var administrator = doc.data() as Administrator;
+              return new Administrator(administrator);
+            }
+          })
+        return administratorPromise;
+      } catch (error)
+      {
+        console.log('Error: ', error);
+      }
+    }
+
   /* 
     ordenarFecha(a:Administrator, b:Administrator) {
       if (a.fecha as  > b.fecha) {

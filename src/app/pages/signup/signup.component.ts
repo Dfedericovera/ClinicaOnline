@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Administrator } from 'src/app/clases/administrator';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,11 +11,17 @@ export class SignupComponent implements OnInit {
 
   formChoosen:string;
   isChoosingForm:boolean;
-  constructor(userService:AuthService) { 
+  isAdministrator:boolean;
+
+
+  constructor(private userService:AuthService) { 
     this.isChoosingForm = true;
   }
 
   ngOnInit(): void {
+    console.log(AuthService.user);
+    this.isAdministrator = AuthService.user instanceof Administrator;
+    console.log(this.isAdministrator);
   }
 
   onChooseForm(formTipe){

@@ -58,8 +58,11 @@
                             <div *ngIf="patientForm.controls['age'].errors.required">
                                 Edad es requerida.
                             </div>
-                            <div *ngIf="patientForm.controls['age'].errors.minlength">
-                                la edad debe ser mayor a 1 y menor  a 100.
+                            <div *ngIf="patientForm.controls['age'].errors.min">
+                                la edad debe ser mayor a 1 y menor  a 110.
+                            </div>
+                            <div *ngIf="patientForm.controls['age'].errors.max">
+                                la edad debe ser mayor a 1 y menor  a 110.
                             </div>
                         </div>
                     </div>
@@ -121,7 +124,7 @@
                     cuenta</button>
                 <div class="container" *ngIf="registered">
                     <boot-alert mensaje="Verifique su correo para poder iniciar sesion, revise su buzón de entrada"
-                        color="alert-warning" (dismiss)="navigate()"></boot-alert>
+                        color="warning" (dismiss)="navigate()"></boot-alert>
                 </div>
             </form>
         </div>

@@ -31,7 +31,7 @@ export class PatientService
     //? y se implementa la funcionalidad en el segundo argumento.
     //? La referencia que es nuestra lista de patients, se va a ordenar por nombre.
     this.patientsDB = this.db.collection('/patients', (ref) =>
-      ref.orderBy('date')
+      /* ref.orderBy('date') */ref
     );
   }
 
@@ -46,6 +46,35 @@ export class PatientService
             return snap.payload.doc.data() as Patient;
           }))
       )
+  }
+
+  //Devuelve un Patient.
+  async getPatientById(id: string)
+  {
+    try
+    {
+      const patientPromise = await this.db
+        .collection("patients")
+        .doc(id)
+        .get()
+        /* .subscribe(value=>{
+          return value.data()
+        }) */
+        .toPromise()
+        .then((doc) =>
+        {
+          if (doc.exists)
+          {
+            // Convert to Patient object
+            var patient = doc.data() as Patient;
+            return new Patient(patient);
+          }
+        })
+      return patientPromise;
+    } catch (error)
+    {
+      console.log('Error: ', error);
+    }
   }
 
   /* 
@@ -68,18 +97,28 @@ export class PatientService
       return 1;
     } */
 
-  createPatient(patient: Patient, photos: Array<FileI>)
+  async createPatient(patient: Patient, photos: Array<FileI>)
   {
-    return this.addPatient(patient).then(patientCallback =>
+    console.log('Creando paciente');
+    try
     {
-      console.log('Patient created');
-      patientCallback.photos = new Array();
-      photos.forEach(photos =>
+      const cpatient = await this.addPatient(patient).then(patientCallback =>
       {
-        this.uploadImage(patientCallback, photos);
+        console.log('Patient created');
+        patientCallback.photos = new Array();
+        photos.forEach(photos =>
+        {
+          this.uploadImage(patientCallback, photos);
+        })
+        return patientCallback;
       })
-      return patientCallback;
-    })
+      console.log(cpatient);
+      return cpatient;
+    }
+    catch (exeption)
+    {
+      console.error(exeption)
+    }
 
   }
 
@@ -92,11 +131,9 @@ export class PatientService
     return new Promise<Patient>((resolve, reject) =>
     {
       this.patientsDB
-        .add(JSON.parse(JSON.stringify(patient)))
+        .doc(patient.id).set(JSON.parse(JSON.stringify(patient)))
         .then(res =>
         {
-          patient.id = res.id;
-          this.editPatient(patient);
           resolve(patient);
         }, err => reject(console.error(err)));
     });
@@ -142,6 +179,7 @@ export class PatientService
         {
           fileRef.getDownloadURL().subscribe(urlImage =>
           {
+            console.log(urlImage);
             this.downloadURL = urlImage;
             /* patient.photos = new Array; */
             patient.photos.push(this.downloadURL);

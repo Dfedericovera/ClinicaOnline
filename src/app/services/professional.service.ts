@@ -49,6 +49,35 @@ export class ProfessionalService
     )
   }
 
+    //Devuelve un Professional.
+    async getProfessionalById(id: string)
+    {
+      try
+      {
+        const professionalPromise = await this.db
+          .collection("professionals")
+          .doc(id)
+          .get()
+          /* .subscribe(value=>{
+            return value.data()
+          }) */
+          .toPromise()
+          .then((doc) =>
+          {
+            if (doc.exists)
+            {
+              // Convert to Professional object
+              var professional = doc.data() as Professional;
+              return new Professional(professional);
+            }
+          })
+        return professionalPromise;
+      } catch (error)
+      {
+        console.log('Error: ', error);
+      }
+    }
+
   /* 
     ordenarFecha(a:Professional, b:Professional) {
       if (a.fecha as  > b.fecha) {
