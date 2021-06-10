@@ -46,6 +46,7 @@ export class FormAdministratorComponent implements OnInit {
       lastName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
+      usertype:["administrator"]
     });
   }
 

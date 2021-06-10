@@ -60,6 +60,7 @@ export class FormProfessionalComponent implements OnInit
       password: ["", [Validators.required, Validators.minLength(6)]],
       specialty: [Array, Validators.required],
       approved: [""],
+      usertype:["professional"]
     });
   }
 

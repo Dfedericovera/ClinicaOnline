@@ -10,6 +10,7 @@ export class Professional {
     public email: string;    
     public photos: Array<any>;
     public approved:boolean;
+    public usertype:string;
 
     public constructor(init?: Partial<Professional>) {
         if(init){

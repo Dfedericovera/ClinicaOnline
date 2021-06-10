@@ -14,6 +14,7 @@ import { SpecialtyFormComponent } from './components/specialty-form/specialty-fo
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { UsersComponent } from './pages/users/users.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { AdministratorAuthGuard } from './services/authguard.service';
 const routes: Routes = [
   {path: '',component: WelcomeComponent},
   {path: 'login',component: LoginComponent, data: {animation: 'login'} },
@@ -26,7 +27,7 @@ const routes: Routes = [
   {path: 'prossional-list',component: ProfessionalListComponent,data: {animation: 'home'}},
   {path: 'speciality-list',component: SpecialtyListComponent,data: {animation: 'home'}},
   {path: 'make-an-appointment',component: MakeAnAppointmentComponent,data: {animation: 'home'}},
-  {path: 'users',component: UsersComponent,data: {animation: 'home'}},
+  {path: 'users',component: UsersComponent,data: {animation: 'home'},canActivate: [AdministratorAuthGuard]},
 ];
 
 @NgModule({

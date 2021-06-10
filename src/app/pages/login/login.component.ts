@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit
   professionalTesting:Professional;
   professionalTesting2:Professional;
   administratorTesting:Administrator;
+  spinner:boolean
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit
     this.createForm();
     this.condicion = false;
     this.testing = false;
+    this.spinner = false;
   }
 
   ngOnInit(): void
@@ -73,29 +75,32 @@ export class LoginComponent implements OnInit
     });
   }
 
-  getUserAccount(user: User)
+  async getUserAccount(user: User)
   {
-    this.patientService.getPatientById(user.uid).then(patient =>
+    await this.patientService.getPatientById(user.uid).then(patient =>
     {
       if (patient)
       {
         console.log("Bienvenido PACIENTE", patient.name);
+        localStorage.setItem("user",JSON.stringify(patient))
         AuthService.user = patient;
       }
 
     })
-    this.professionalService.getProfessionalById(user.uid).then(professional =>
+    await this.professionalService.getProfessionalById(user.uid).then(professional =>
     {
       if (professional)
       {
         console.log("Bienvenido PROFESIONAL", professional.name);
+        localStorage.setItem("user",JSON.stringify(professional))
         AuthService.user = professional;
       }
 
     })
-    this.administratorService.getAdministratorById(user.uid).then(administrator=>{
+    await this.administratorService.getAdministratorById(user.uid).then(administrator=>{
       if(administrator){
         console.log("Bienvenido ADMINISTRADOR", administrator.name);
+        localStorage.setItem("user",JSON.stringify(administrator))
         AuthService.user = administrator;
       }
     }
@@ -105,9 +110,10 @@ export class LoginComponent implements OnInit
 
   onLogin()
   {
-    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(user =>
+    this.spinner = true;
+    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(async user =>
     {
-      this.getUserAccount(user.user);
+      await this.getUserAccount(user.user);
       if (this.authService.isEmailVerified(user.user))
       {
         this.router.navigate(['/home']);
@@ -115,9 +121,13 @@ export class LoginComponent implements OnInit
       else
       {
         console.log('Verifique su email');
+        this.spinner = false;
       }
 
-    }).catch(error => { console.log('Paciente no registrado', error) })
+    }).catch(error => {
+       console.log('Paciente no registrado', error);
+       this.spinner = false;
+      })
   }
 
   enterAsClient()

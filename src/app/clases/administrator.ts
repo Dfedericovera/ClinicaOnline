@@ -4,6 +4,7 @@ export class Administrator {
     public lastName: string;
     public photos: Array<any>;
     public email: string;
+    public usertype:string;
 
     public constructor(init?: Partial<Administrator>) {
         if(init){

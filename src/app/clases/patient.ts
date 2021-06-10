@@ -7,6 +7,7 @@ export class Patient {
     public obraSocial:string;    
     public email: string;
     public photos: Array<any>;
+    public usertype:string;
 
     public constructor(init?: Partial<Patient>) {
         if(init){

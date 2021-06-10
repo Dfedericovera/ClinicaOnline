@@ -44,6 +44,7 @@ export class FormPatientComponent implements OnInit
       obraSocial: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
+      usertype:["patient"],
       id:[""]
     });
   }

@@ -69,10 +69,13 @@
 
                     <button class="btn btn-sm btn-primary btn-block" type="submit" *ngIf="!testing"
                         (click)="testing=!testing">Mostrar usuarios testing</button>
-                    <!-- <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
-                siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
-            </re-captcha> -->
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="onLogin()">Entrar</button>
+                    <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
+                        siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
+                    </re-captcha>
+                    <button class="btn btn-lg btn-primary btn-block" *ngIf="!spinner" type="submit" (click)="onLogin()">Entrar</button>
+                    <div class="spinner-grow text-warning" role="status" *ngIf="spinner">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                     <button class="btn btn-sm btn-secondary btn-block" type="submit"
                         routerLink="/signup">Registrarme</button>
                     <p class="mt-5 mb-3 text-muted">&copy; Federico Vera</p>
