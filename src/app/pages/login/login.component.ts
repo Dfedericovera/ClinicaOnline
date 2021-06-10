@@ -47,11 +47,9 @@ export class LoginComponent implements OnInit
   ngOnInit(): void
   {
     this.patientService.getPatientById("cEewD51RQsYrvaYHQ3eRAzkUHDJ3").then(testintgPatient=>{
-      console.log(testintgPatient)
       this.patientTesting = testintgPatient;
     })
     this.patientService.getPatientById("u7J9vE2bebTUh8rtLxBNEyEdOc73").then(testintgPatient=>{
-      console.log(testintgPatient)
       this.patientTesting2 = testintgPatient;
     })
     this.professionalService.getProfessionalById("gyFb67SEpFPDD8FzTONy9XJCZM22").then(testingProfessional=>{
@@ -127,9 +125,17 @@ export class LoginComponent implements OnInit
     this.loginForm.controls.email.setValue('paciente@gonzales.com');
     this.loginForm.controls.password.setValue('111111');
   }
+  enterAsClient1(){
+    this.loginForm.controls.email.setValue('jorge@gmail.com');
+    this.loginForm.controls.password.setValue('111111');
+  }
   enterAsProfessional()
   {
     this.loginForm.controls.email.setValue('medico@valderrama.com');
+    this.loginForm.controls.password.setValue('111111');
+  }
+  enterAsProfessional1(){
+    this.loginForm.controls.email.setValue('Medico2@Delaolla.com');
     this.loginForm.controls.password.setValue('111111');
   }
   enterAsAdministrator()
