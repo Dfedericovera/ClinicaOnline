@@ -21,8 +21,6 @@ export class HeaderComponent implements OnInit
 
   ngOnInit(): void
   {
-    console.log(JSON.parse(localStorage.getItem("user")));
-    console.log(AuthService.user);
     if (JSON.parse(localStorage.getItem("user")).usertype == "administrator")
     {
       this.isAdministrator = true;

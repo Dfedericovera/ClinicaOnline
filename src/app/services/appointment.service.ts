@@ -34,12 +34,14 @@ export class AppointmentService {
   
     //Devuelve un Observable de tipo Appointment Array.
     getAppointments(): Observable<Appointment[]>
-    {
+    {/*  */
+    console.log("Buscando Appointments");
       return this.db.collection("appointments", (ref) =>
         ref.orderBy('date')).snapshotChanges().pipe(
           map((snaps) =>
             snaps.map((snap) =>
             {
+              console.log(snap.payload.doc.data());
               return snap.payload.doc.data() as Appointment;
             }))
         )

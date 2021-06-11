@@ -1,20 +1,20 @@
 <nav class="navbar">
-    <h4>Listado Turnos</h4>
+    <!-- <h4>Listado Turnos</h4> -->
   </nav>
 <table class="table table-striped table-responsive-sm">
-    <caption>Listado Turnos</caption>
+    <caption>Turnos</caption>
     <thead>
       <tr>
-        <th scope="col">Fecha y Hora</th>
         <th scope="col">Profesional</th>
         <th scope="col">Especialidad</th>
+        <th scope="col">Fecha y Hora</th>        
       </tr>
     </thead>
     <tbody *ngFor="let appointment of appointments">
       <tr>
-        <td>{{appointment.date | date}}</td>
         <td>{{appointment.professional.name}} {{appointment.professional.lastName}}</td>
-        <td>{{appointment.speciality}}</td>
+        <td>{{appointment.specialty.specialty}}</td>
+        <td>{{appointment.date | date: 'dd/MM/yyyy hh:mm'}}</td>
       </tr>
     </tbody>
   </table>

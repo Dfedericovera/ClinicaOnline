@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Appointment } from 'src/app/clases/appointment';
 import { Professional } from 'src/app/clases/professional';
@@ -15,6 +15,7 @@ import { SpecialtyService } from 'src/app/services/specialty-service';
 })
 export class AppointmentFormComponent implements OnInit
 {  
+
   minDate:string;
   filtro: any;
   appointments: Array<any>;
