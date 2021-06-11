@@ -8,15 +8,15 @@
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
       <th scope="col">correo</th>
-      <th scope="col">Habilitar</th>
+      <th scope="col" *ngIf="isAdministrator">Estado</th>
     </tr>
   </thead>
   <tbody *ngFor="let professional of professionals; index as i;">
-    <tr (click)="onChoose(specialty)">
+    <tr style="cursor:pointer" (click)="onChoose(professional)">
       <td>{{professional.name}}</td>
       <td>{{professional.lastName}}</td>
       <td>{{professional.email}}</td>
-      <td class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="habilitar/deshabilitar"
+      <td *ngIf="isAdministrator" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="habilitar/deshabilitar"
       appResaltarHabilitado [isApproved]="professional.approved" (click)="approveProfessional(professional)">
         {{professional.approved | approved}}
       </td>

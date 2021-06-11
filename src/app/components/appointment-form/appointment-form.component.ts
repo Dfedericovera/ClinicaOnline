@@ -65,7 +65,8 @@ export class AppointmentFormComponent implements OnInit
 
   onChooseSpecialty(specialty: Specialty)
   {
-    let hora = 9;
+    console.log(specialty);
+ /*    let hora = 9;
     let minutos = '00';
     for(let i  = 0 ; i<22 ; i++){
 
@@ -79,13 +80,13 @@ export class AppointmentFormComponent implements OnInit
         minutos = '00'
         hora = hora +1;
       }
-    }
+    } */
         
 
   }
 
-  onChooseProfessional($event:Professional){
-
+  onChooseProfessional(professional){
+    console.log(professional);
   }
 
   getSpecialtys()

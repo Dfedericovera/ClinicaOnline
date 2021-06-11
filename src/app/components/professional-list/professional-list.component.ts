@@ -13,6 +13,7 @@ export class ProfessionalListComponent implements OnInit
   @Input() professionals: Professional[];
   @Output() chooseProfessional: EventEmitter<Professional> = new EventEmitter<Professional>();
   spinner: boolean;
+  isAdministrator:boolean;
   constructor(private professionalService: ProfessionalService)
   {
     this.spinner = false;
@@ -20,6 +21,9 @@ export class ProfessionalListComponent implements OnInit
 
   ngOnInit(): void
   {
+    if(JSON.parse(localStorage.getItem("user")).usertype == "administrator"){
+      this.isAdministrator = true;
+    }
   }
   onChoose(specialty)
   {

@@ -43,6 +43,10 @@ import { UsersComponent } from './pages/users/users.component';
 import { ApprovedPipe } from './pipes/approved.pipe';
 import { ResaltarHabilitadoDirective } from './directives/resaltar-habilitado.directive';
 import { SignupComponent } from './pages/signup/signup.component';
+import { MyappointmentsComponent } from './pages/myappointments/myappointments.component';
+import { AppointmentsComponent } from './pages/appointments/appointments.component';
+import { SignupAppointmentComponent } from './pages/signup-appointment/signup-appointment.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +82,11 @@ import { SignupComponent } from './pages/signup/signup.component';
     UsersComponent,
     ApprovedPipe,
     ResaltarHabilitadoDirective,
-    SignupComponent
+    SignupComponent,
+    MyappointmentsComponent,
+    AppointmentsComponent,
+    SignupAppointmentComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,
