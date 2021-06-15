@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody *ngFor="let specialty of specialtys">
-        <tr (click)="onChoose(specialty)">
+        <tr style="cursor:pointer" (click)="onChoose(specialty)">
             <td>{{specialty.specialty}}</td><!-- 
             <td>{{specialty.duration}}</td> -->
         </tr>
