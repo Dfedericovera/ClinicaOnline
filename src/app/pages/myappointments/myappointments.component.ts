@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
-import { Administrator } from 'src/app/clases/administrator';
 import { Appointment } from 'src/app/clases/appointment';
 import { Patient } from 'src/app/clases/patient';
 import { Professional } from 'src/app/clases/professional';
