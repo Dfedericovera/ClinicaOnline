@@ -6,6 +6,7 @@
     <thead>
       <tr>
         <th scope="col">Profesional</th>
+        <th scope="col">Paciente</th>
         <th scope="col">Especialidad</th>
         <th scope="col">Fecha y Hora</th>        
       </tr>
@@ -14,6 +15,7 @@
       <tr style="cursor:pointer" (click)="onChoose(appointment)">
         <td *ngIf="appointment.professional">{{appointment.professional.name}} {{appointment.professional.lastName}}</td>
         <td *ngIf="!appointment.professional" class="text-danger">Seleccione Profesional</td>
+        <td *ngIf="appointment.patient">{{appointment.patient.name}} {{appointment.patient.lastName}}</td>
         <td *ngIf="appointment.specialty">{{appointment.specialty.specialty}}</td>
         <td *ngIf="!appointment.specialty" class="text-danger">Seleccione Especialidad</td>
         <td *ngIf="appointment.timeStamp">{{appointment.timeStamp | date: 'dd/MM/yyyy HH:mm'}}</td>

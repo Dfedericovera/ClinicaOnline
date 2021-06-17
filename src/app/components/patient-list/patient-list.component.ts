@@ -17,4 +17,8 @@ export class PatientListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onChoosePatient(patient:Patient){
+    this.choosePatient.emit(patient);
+  }
+
 }

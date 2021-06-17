@@ -3,11 +3,11 @@ import { Professional } from './professional';
 import { Specialty } from './specialty';
 
 enum AppointmentState{
-    Solicitado,
-    Cancelado,
-    Aceptado,
-    Rechazado,
-    Finalizados
+    Solicitado="Solicitado",
+    Cancelado="Cancelado",
+    Aceptado="Aceptado",
+    Rechazado="Rechazado",
+    Realizado="Realizado"
 }
 export class Appointment{
     id:string;
@@ -16,6 +16,7 @@ export class Appointment{
     professional:Professional;
     specialty:Specialty;
     state:AppointmentState;
+    review:string;
     
 
     public constructor(init?: Partial<Appointment>) {

@@ -1,17 +1,52 @@
+<div class="card text-center sticky-top pt-5">
+    <div class="card-body">
+        <h5 class="card-title">Hola {{user.name}} {{user.lastName}}</h5>
+        <small *ngIf="!selectedAppointment">Seleccione un turno</small>
+        <small *ngIf="selectedAppointment">Estado del Turno: <b>{{selectedAppointment.state}}</b> </small>
+        <app-appointment-list [appointments]="selectedAppointmentList"></app-appointment-list>
+        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.review"
+            (click)="showReview()">Ver Reseña</button>
+
+        <button class="btn btn-success"
+            *ngIf="selectedAppointment && selectedAppointment.state == 'Realizado' && selectedAppointment.review && user.usertype == 'patient'"
+            (click)="showPool()">Completar Encuesta</button>
+        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.state == 'Realizado' && user.usertype == 'patient'"
+            (click)="qualifyAttention()">Calificar Atención</button>
+        <a class="btn btn-danger" *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'"
+            (click)="cancelAppointment()">Cancelar Turno</a>
+        <a class="btn btn-danger" *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'  && user.usertype == 'professional'"
+            (click)="rejectAppointment()">Rechazar Turno</a>
+        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'  && user.usertype == 'professional'"
+            (click)="acceptAppointment()">Aceptar Turno</button>
+        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.state == 'Aceptado'  && user.usertype == 'professional'"
+            (click)="finishAppointment()">Finalizar Turno</button>
+    </div>
+    <div class="card-footer text-muted">
+        <a href="https://github.com/Dfedericovera/ClinicaOnline" target="_blank"> Como pedir un turno? </a>
+    </div>
+    <boot-alert *ngIf="showAlert" (dismiss)="dismissAlert()" color="success"
+        mensaje="Turno Guardado con exito. Lo esperamos"></boot-alert>
+</div>
+
 <app-header></app-header>
-    <h4 class="pt-5">-Opciones de flitrado:   </h4>
-<div class="row pt-5" >
+<h4 class="pt-5">-Opciones de flitrado: </h4>
+<div class="row pt-5">
     <div class="col-sm">
         <app-specialty-list [specialtys]="specialtyList" (chooseSpecialty)="onChooseSpecialty($event)">
         </app-specialty-list>
     </div>
-    <div class="col-sm">
-        <app-professional-list [professionals]="professionalList" (chooseProfessional)="onChooseProfessional($event)"></app-professional-list>
+    <div class="col-sm" *ngIf="user.usertype=='patient'">
+        <app-professional-list [professionals]="professionalList" (chooseProfessional)="onChooseProfessional($event)">
+        </app-professional-list>
+    </div>
+    <div class="col-sm" *ngIf="user.usertype=='professional'">
+        <app-patient-list [patients]="patientList" (choosePatient)="onChoosePatient($event)">
+        </app-patient-list>
     </div>
 </div>
 
 <div class="pt-5">
-    <h4 class="mb-3">Listado de turnos:  </h4> <button class="btn btn-warning" (click)="showAll()">Ver Todos</button>
+    <h4 class="mb-3">Listado de turnos: </h4> <button class="btn btn-warning" (click)="showAll()">Ver Todos</button>
     <app-appointment-list [appointments]="appointmentsListFiltered" (chooseAppointment)="onSelectAppointment($event)">
     </app-appointment-list>
 </div>
