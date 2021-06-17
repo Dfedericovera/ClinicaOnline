@@ -119,9 +119,9 @@
                 </div>
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()"
-                    [disabled]="patientForm.invalid">Registrarme</button>
-                <button class="btn btn-danger btn-lg btn-block" routerLink="/login">Ya tengo una
-                    cuenta</button>
+                    [disabled]="patientForm.invalid">Registrar Paciente</button>
+<!--                 <button class="btn btn-danger btn-lg btn-block" routerLink="/login">Ya tengo una
+                    cuenta</button> -->
                 <div class="container" *ngIf="registered">
                     <boot-alert mensaje="Verifique su correo para poder iniciar sesion, revise su buzón de entrada"
                         color="warning" (dismiss)="navigate()"></boot-alert>

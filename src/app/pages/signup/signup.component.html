@@ -1,19 +1,20 @@
-
-<button type="button" class="btn btn-outline-warning float-right position-right" (click)="isChoosingForm=true;formChoosen=''" 
-*ngIf="!isChoosingForm">Elegir Formulario</button>
+<button type="button" class="btn btn-outline-warning float-right position-right"
+    (click)="isChoosingForm=true;formChoosen=''" *ngIf="!isChoosingForm">Elegir Perfil</button>
 <div class="container" style="height: 100vh;" *ngIf="isChoosingForm">
     <div class="d-block text-center">
         <button class="btn border-success button-image-patient rounded" (click)="onChooseForm('patient')"> </button>
     </div>
     <div class="d-block text-center">
-        <button class="btn border-success button-image-professional rounded" (click)="onChooseForm('professional')"> </button>
+        <button class="btn border-success button-image-professional rounded" (click)="onChooseForm('professional')">
+        </button>
     </div>
-    <div class="d-block text-center" *ngIf="isAdministrator">
-        <button class="btn border-success button-image-administrator rounded" (click)="onChooseForm('administrator')"> </button>
+    <div class="d-block text-center" *ngIf="user.usertype == 'administrator'">
+        <button class="btn border-success button-image-administrator rounded" (click)="onChooseForm('administrator')">
+        </button>
     </div>
 </div>
 <div class="container" [ngSwitch]="formChoosen">
     <app-form-patient *ngSwitchCase="'patient'"></app-form-patient>
     <app-form-professional *ngSwitchCase="'professional'"></app-form-professional>
-    <app-form-administrator *ngSwitchCase="'administrator'"></app-form-administrator>    
+    <app-form-administrator *ngSwitchCase="'administrator'"></app-form-administrator>
 </div>

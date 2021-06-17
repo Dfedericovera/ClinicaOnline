@@ -11,7 +11,7 @@ export class SignupComponent implements OnInit {
 
   formChoosen:string;
   isChoosingForm:boolean;
-  isAdministrator:boolean;
+  user:any;
 
 
   constructor(private userService:AuthService) { 
@@ -19,9 +19,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(AuthService.user);
-    this.isAdministrator = AuthService.user instanceof Administrator;
-    console.log(this.isAdministrator);
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   onChooseForm(formTipe){

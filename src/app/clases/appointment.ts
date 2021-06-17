@@ -2,7 +2,7 @@ import { Patient } from './patient';
 import { Professional } from './professional';
 import { Specialty } from './specialty';
 
-enum AppointmentState{
+export enum AppointmentState{
     Solicitado="Solicitado",
     Cancelado="Cancelado",
     Aceptado="Aceptado",

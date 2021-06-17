@@ -27,8 +27,8 @@ export class AdministratorAuthGuard implements CanActivate /* CanDeactivate<CanD
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
   {
-    console.log("Verificando Paciente!", state.toString(), state.url);
-    if (this.checkUser(AuthService.user,"administrator"))
+    console.log("Verificando Administrador!", state.toString(), state.url);
+    if (JSON.parse(localStorage.getItem('user')).usertype == 'administrator')
     {
       return true
     }
@@ -39,7 +39,7 @@ export class AdministratorAuthGuard implements CanActivate /* CanDeactivate<CanD
     }
   }
 
-  checkUser(user, userTipe: string): boolean
+/*   checkUser(user, userTipe: string): boolean
   {
     if (user instanceof Patient && userTipe == "patient")
     {
@@ -57,7 +57,7 @@ export class AdministratorAuthGuard implements CanActivate /* CanDeactivate<CanD
       return true
     }
 
-  }
+  } */
 
   /*   canDeactivate(target: CanDeactivateComponent) {
       if(target.hasChanges()){

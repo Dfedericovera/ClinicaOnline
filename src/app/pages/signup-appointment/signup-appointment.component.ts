@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Appointment } from 'src/app/clases/appointment';
+import { Appointment, AppointmentState } from 'src/app/clases/appointment';
 import { Patient } from 'src/app/clases/patient';
 import { Professional } from 'src/app/clases/professional';
 import { Specialty } from 'src/app/clases/specialty';
@@ -45,37 +45,16 @@ export class SignupAppointmentComponent implements OnInit
     this.freeAppointments = [];
     this.showAlert = false;
   }
-  /*  horario de 8:00 a 19:00, y los sábados en el horario de 8:00 a 14:00.*/
+
   ngOnInit(): void
   {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.date = new Date();
-    /* this.minDate = this.date.getFullYear() + '-' + ('0' + (this.date.getMonth() + 1)).slice(-2) + '-' + ('0' + this.date.getDate()).slice(-2); */
     this.getSpecialtys();
     this.getProfessionals();
     this.getAppointments();
     this.createDatesList();
   }
-
-
-  /*   lookForTodaysAppointments(date: Date)
-    {
-      if (this.appointments)
-      {
-        return this.appointments.filter(appointment =>
-        {
-          var date = new Date(appointment.timeStamp);
-          var today = new Date();
-  
-          if (date.getDate() == today.getDate())
-          {
-            
-            return appointment;
-          }
-        })
-      }
-  
-    } */
 
   createAvailableList(date: Date)
   {
@@ -88,9 +67,6 @@ export class SignupAppointmentComponent implements OnInit
       let hora = 8;
       let minutos = 0;
       let taken: boolean = false;
-      /*       console.log(this.newAppointment.professional);
-            console.log(this.newAppointment.specialty);
-            console.log(this.date.toLocaleString()); */
       if (this.newAppointment.specialty && this.newAppointment.professional)
       {
         console.log("HAY 2");
@@ -144,7 +120,7 @@ export class SignupAppointmentComponent implements OnInit
             newAppointment.timeStamp = date.valueOf();
             this.todaysAppointments.forEach(tA =>
             {
-              if (tA.timeStamp == newAppointment.timeStamp && tA.specialty.id == newAppointment.specialty.id &&tA.professional.id == professional.id)
+              if (tA.timeStamp == newAppointment.timeStamp && tA.specialty.id == newAppointment.specialty.id && tA.professional.id == professional.id)
               {
                 taken = true;
               }
@@ -207,8 +183,6 @@ export class SignupAppointmentComponent implements OnInit
       else
       {
         /* console.log("NO HAY PROFESIONAL NO HAY ESPECIALIDAD") */
-        //buscar ultimo turno y basarme en esos datos para ofrecerle turnos relacionados
-        //si no hay turno previo no muestro nada.
 
         var historyAppointments = this.appointments.filter(app =>
         {
@@ -219,7 +193,6 @@ export class SignupAppointmentComponent implements OnInit
           }
         })
         this.lastAppointment = historyAppointments.shift();
-        /* console.log(this.lastAppointment); */
         this.newAppointment.professional = this.lastAppointment.professional;
         this.newAppointment.specialty = this.lastAppointment.specialty;
         this.newAppointmentList[0] = this.newAppointment;
@@ -228,7 +201,6 @@ export class SignupAppointmentComponent implements OnInit
           this.onChooseSpecialty(this.lastAppointment.specialty);
         }, 1000);
 
-        /* console.log(this.newAppointment); */
       }
 
     }
@@ -271,7 +243,6 @@ export class SignupAppointmentComponent implements OnInit
    */
   addDay(date: Date, days: number)
   {
-    /* console.log("recibo", date.valueOf()); */
     return date.valueOf() + 86400000 * days;
   }
   addMinutes(date: Date, minutes: number)
@@ -300,7 +271,6 @@ export class SignupAppointmentComponent implements OnInit
 
         if (proSpecialty.specialty == this.newAppointment.specialty.specialty)
         {
-          /* console.log("misma especialidad", proSpecialty.specialty, this.newAppointment.specialty.specialty); */
           isSameSpecialty = true;
         }
       })
@@ -353,7 +323,6 @@ export class SignupAppointmentComponent implements OnInit
       {
         if (proSpecialty.specialty == specialty.specialty)
         {
-          /* console.log("misma especialidad", proSpecialty.specialty, this.newAppointment.professional.specialty); */
           isSameSpecialty = true;
         }
       })
@@ -409,7 +378,6 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.appointmentService.getAppointments().subscribe(appointments =>
     {
-      /* console.log("TURNOS", appointments); */
       this.appointments = appointments;
       if (!this.newAppointment.professional && !this.newAppointment.specialty && !this.newAppointment.timeStamp)
       {
@@ -425,7 +393,6 @@ export class SignupAppointmentComponent implements OnInit
       let appDate = new Date(appointment.timeStamp)
       if (this.date.getDate() == appDate.getDate() && this.date.getMonth() == appDate.getMonth() && this.date.getFullYear() == appDate.getFullYear())
       {
-        /* console.log("TURNOS DE HOY",appointment); */
         return appointment;
       }
     })
@@ -441,6 +408,7 @@ export class SignupAppointmentComponent implements OnInit
 
   submit()
   {
+    this.newAppointment.state = AppointmentState.Solicitado;
     this.appointmentService.addAppointment(this.newAppointment).then(value =>
     {
       console.log("Creado", value);
