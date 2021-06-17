@@ -7,13 +7,15 @@
         <small *ngIf="!lastAppointment">Escoja Especialidad o Especialista Luego el horario</small>
         <small *ngIf="lastAppointment">Hemos escogido un turno para ti te interesa?</small>
         <app-appointment-list [appointments]="newAppointmentList"></app-appointment-list>
-        <a class="btn btn-success" (click)="submit()">Solicitar Turno</a>
+        <button class="btn btn-success" (click)="submit()" [disabled]="!newAppointment.timeStamp">Solicitar Turno</button>
         <a class="btn btn-danger" (click)="cleanForm()">Nuevo Turno</a>
     </div>
     <div class="card-footer text-muted">
         <a href="https://github.com/Dfedericovera/ClinicaOnline" target="_blank"> Como pedir un turno? </a>
     </div>
+    <boot-alert *ngIf="showAlert"  (dismiss)="dismissAlert()" color="success" mensaje="Turno Guardado con exito. Lo esperamos"></boot-alert>
 </div>
+
 <app-header></app-header>
 
 
@@ -53,7 +55,7 @@
                     {{appointmentForm.get('date').value | date }}
                 </div>
             </div> -->
-            <h4 class="mb-3">Seleccione Fecha y Hora</h4>
+            <h4 class="mb-3">Seleccione Turno Disponible</h4>
             <app-appointment-list [appointments]="freeAppointments" (chooseAppointment)="onSelectAppointment($event)"></app-appointment-list>
             <nav aria-label="Page navigation example" *ngIf="datesList">
                 <ul class="pagination justify-content-center pagination-sm">
