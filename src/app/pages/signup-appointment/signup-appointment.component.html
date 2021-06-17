@@ -1,6 +1,7 @@
 <div class="card text-center sticky-top pt-5">
     <div class="card-body">
-        <h5 class="card-title">Hola {{user.name}} {{user.lastName}}</h5>
+        <h5 class="card-title" *ngIf="user">Hola {{user.name}} {{user.lastName}}</h5>
+        <h5 class="card-title" *ngIf="userAdmin">Hola {{userAdmin.name}} {{userAdmin.lastName}}</h5>
         <small *ngIf="!lastAppointment">Escoja Especialidad o Especialista Luego el horario</small>
         <small *ngIf="lastAppointment">Hemos escogido un turno para ti te interesa?</small>
         <app-appointment-list [appointments]="newAppointmentList"></app-appointment-list>
@@ -34,7 +35,12 @@
                         (chooseProfessional)="onChooseProfessional($event)"></app-professional-list>
                 </div>
             </div>
+
             <div class="d-block my-3">
+                <hr class="mb-4">
+                <app-patient-list [patients]="patientList" (choosePatient)="onChoosePatient($event)">
+                </app-patient-list>
+                <hr class="mb-4">
             </div>
             <h4 class="mb-3">Seleccione Turno Disponible</h4>
             <app-appointment-list [appointments]="freeAppointments" (chooseAppointment)="onSelectAppointment($event)">

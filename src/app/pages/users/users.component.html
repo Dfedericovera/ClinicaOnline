@@ -36,7 +36,10 @@
 <div class="container">
 
     <app-patient-list *ngIf="userInfo" [patients]="patientsList"></app-patient-list>
-    <app-professional-list *ngIf="approveProfessional" [professionals]="professionalList"></app-professional-list>
+    <div *ngIf="approveProfessional">
+        <app-professional-list [professionals]="professionalList"></app-professional-list>
+    </div>
+    
     <app-form-administrator *ngIf="formAdministrator"></app-form-administrator>
     <app-form-patient *ngIf="formPatient"></app-form-patient>
     <app-form-professional *ngIf="formProfessional"></app-form-professional>

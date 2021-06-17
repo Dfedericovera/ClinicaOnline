@@ -16,6 +16,7 @@
         <td *ngIf="appointment.professional">{{appointment.professional.name}} {{appointment.professional.lastName}}</td>
         <td *ngIf="!appointment.professional" class="text-danger">Seleccione Profesional</td>
         <td *ngIf="appointment.patient">{{appointment.patient.name}} {{appointment.patient.lastName}}</td>
+        <td *ngIf="!appointment.patient" class="text-danger">Seleccione Turno</td>
         <td *ngIf="appointment.specialty">{{appointment.specialty.specialty}}</td>
         <td *ngIf="!appointment.specialty" class="text-danger">Seleccione Especialidad</td>
         <td *ngIf="appointment.timeStamp">{{appointment.timeStamp | date: 'dd/MM/yyyy HH:mm'}}</td>

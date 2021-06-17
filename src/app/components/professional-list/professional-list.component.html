@@ -7,7 +7,8 @@
     <tr>
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
-      <th scope="col">correo</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Foto</th>
       <th scope="col" *ngIf="isAdministrator">Estado</th>
     </tr>
   </thead>
@@ -16,6 +17,9 @@
       <td>{{professional.name}}</td>
       <td>{{professional.lastName}}</td>
       <td>{{professional.email}}</td>
+      <td style="width: 20%;">
+        <img src="{{professional.photos[0]}}" alt="" style="height: 100px; width: 100px;">
+      </td>
       <td *ngIf="isAdministrator" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="habilitar/deshabilitar"
       appResaltarHabilitado [isApproved]="professional.approved" (click)="approveProfessional(professional)">
         {{professional.approved | approved}}

@@ -1,11 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Administrator } from 'src/app/clases/administrator';
 import { Appointment, AppointmentState } from 'src/app/clases/appointment';
 import { Patient } from 'src/app/clases/patient';
 import { Professional } from 'src/app/clases/professional';
 import { Specialty } from 'src/app/clases/specialty';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { PatientService } from 'src/app/services/patient.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
 
@@ -17,6 +19,7 @@ import { SpecialtyService } from 'src/app/services/specialty-service';
 export class SignupAppointmentComponent implements OnInit
 {
   user: Patient;
+  userAdmin: Administrator;
   newAppointmentList: Appointment[] = [];
   newAppointment: Appointment;
   freeAppointments: Appointment[];
@@ -30,15 +33,15 @@ export class SignupAppointmentComponent implements OnInit
   lastAppointment: Appointment;
   specialtys: Specialty[];
   professionals: Professional[];
+  patientList:Patient[]=[];
   showAlert: boolean;
 
   appointmentForm: FormGroup;
   constructor(
-    private datePipe: DatePipe,
-    private fb: FormBuilder,
     private appointmentService: AppointmentService,
     private professionalService: ProfessionalService,
     private specialtyService: SpecialtyService,
+    private patientService:PatientService
   )
   {
     this.newAppointment = new Appointment({ patient: this.user });
@@ -48,12 +51,20 @@ export class SignupAppointmentComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.user = JSON.parse(localStorage.getItem("user"));
+    if (JSON.parse(localStorage.getItem("user")).usertype == 'administrator')
+    {
+      this.userAdmin = JSON.parse(localStorage.getItem("user"));
+    }
+    else{
+      this.user = JSON.parse(localStorage.getItem("user"));
+    }
+
     this.date = new Date();
     this.getSpecialtys();
     this.getProfessionals();
     this.getAppointments();
     this.createDatesList();
+    this.getPatients();
   }
 
   createAvailableList(date: Date)
@@ -186,19 +197,27 @@ export class SignupAppointmentComponent implements OnInit
 
         var historyAppointments = this.appointments.filter(app =>
         {
-          if (app.patient.id == this.user.id)
+          if (this.user && app.patient.id == this.user.id)
           {
             console.log("Tiene Historial", app);
             return app;
           }
         })
         this.lastAppointment = historyAppointments.shift();
-        this.newAppointment.professional = this.lastAppointment.professional;
-        this.newAppointment.specialty = this.lastAppointment.specialty;
+        if (this.lastAppointment)
+        {
+          this.newAppointment.professional = this.lastAppointment.professional;
+          this.newAppointment.specialty = this.lastAppointment.specialty;
+        }
+
         this.newAppointmentList[0] = this.newAppointment;
         setTimeout(v =>
         {
-          this.onChooseSpecialty(this.lastAppointment.specialty);
+          if (this.lastAppointment)
+          {
+            this.onChooseSpecialty(this.lastAppointment.specialty);
+          }
+
         }, 1000);
 
       }
@@ -370,6 +389,11 @@ export class SignupAppointmentComponent implements OnInit
       this.freeProfessionals = professionals;
     })
   }
+  getPatients(){
+    this.patientService.getPatients().subscribe(patients=>{
+      this.patientList = patients;
+    })
+  }
   /**
    * 
    * @param date Appointments for this Date 
@@ -430,6 +454,12 @@ export class SignupAppointmentComponent implements OnInit
     this.newAppointment = new Appointment({ patient: this.user });
     this.newAppointmentList[0] = this.newAppointment;
     this.lastAppointment = undefined;
+  }
+
+  onChoosePatient(patient:Patient){
+    this.user=patient;
+    this.newAppointment.patient = patient;
+    this.newAppointmentList[0] = this.newAppointment;
   }
 
 }
