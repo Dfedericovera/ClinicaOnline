@@ -12,19 +12,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit
 {
 
-  isAdministrator: boolean;
+  user: any
 
   constructor(private router: Router, private AuthService: AuthService)
-  {
-    this.isAdministrator = false;
-  }
+  { }
 
   ngOnInit(): void
   {
-    if (JSON.parse(localStorage.getItem("user")).usertype == "administrator")
-    {
-      this.isAdministrator = true;
-    }
+    this.user = JSON.parse(localStorage.getItem("user"));
   }
 
   ngAfterViewInit()
