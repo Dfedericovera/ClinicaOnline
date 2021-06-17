@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserType } from 'src/app/clases/userType';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
@@ -44,7 +45,7 @@ export class FormPatientComponent implements OnInit
       obraSocial: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
-      usertype:["patient"],
+      usertype:[UserType.PATIENT],
       id:[""]
     });
   }

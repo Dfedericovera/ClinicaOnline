@@ -1,4 +1,17 @@
 <app-header></app-header>
+    <h4 class="pt-5">-Opciones de flitrado:   </h4>
+<div class="row pt-5" >
+    <div class="col-sm">
+        <app-specialty-list [specialtys]="specialtyList" (chooseSpecialty)="onChooseSpecialty($event)">
+        </app-specialty-list>
+    </div>
+    <div class="col-sm">
+        <app-professional-list [professionals]="professionalList" (chooseProfessional)="onChooseProfessional($event)"></app-professional-list>
+    </div>
+</div>
+
 <div class="pt-5">
-    <app-appointment-list appointments="appointmentsList" ></app-appointment-list>
+    <h4 class="mb-3">Listado de turnos:  </h4> <button class="btn btn-warning" (click)="showAll()">Ver Todos</button>
+    <app-appointment-list [appointments]="appointmentsListFiltered" (chooseAppointment)="onSelectAppointment($event)">
+    </app-appointment-list>
 </div>

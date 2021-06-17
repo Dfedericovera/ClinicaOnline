@@ -1,19 +1,18 @@
 <div class="card text-center sticky-top pt-5">
-<!--     <div class="card-header">
-        Escoja sus preferencias para completar los datos faltantes
-    </div> -->
     <div class="card-body">
         <h5 class="card-title">Hola {{user.name}} {{user.lastName}}</h5>
         <small *ngIf="!lastAppointment">Escoja Especialidad o Especialista Luego el horario</small>
         <small *ngIf="lastAppointment">Hemos escogido un turno para ti te interesa?</small>
         <app-appointment-list [appointments]="newAppointmentList"></app-appointment-list>
-        <button class="btn btn-success" (click)="submit()" [disabled]="!newAppointment.timeStamp">Solicitar Turno</button>
+        <button class="btn btn-success" (click)="submit()" [disabled]="!newAppointment.timeStamp">Solicitar
+            Turno</button>
         <a class="btn btn-danger" (click)="cleanForm()">Nuevo Turno</a>
     </div>
     <div class="card-footer text-muted">
         <a href="https://github.com/Dfedericovera/ClinicaOnline" target="_blank"> Como pedir un turno? </a>
     </div>
-    <boot-alert *ngIf="showAlert"  (dismiss)="dismissAlert()" color="success" mensaje="Turno Guardado con exito. Lo esperamos"></boot-alert>
+    <boot-alert *ngIf="showAlert" (dismiss)="dismissAlert()" color="success"
+        mensaje="Turno Guardado con exito. Lo esperamos"></boot-alert>
 </div>
 
 <app-header></app-header>
@@ -36,27 +35,10 @@
                 </div>
             </div>
             <div class="d-block my-3">
-
-
             </div>
-
-            <!--  <div class="row">
-                <div class="col-md-6 mb-3">
-                    <div>
-                        <label for="date">Seleccione Fecha para ver turnos disponibles</label>
-                    </div>
-                    <input type="date" name="date" class="form-control" [min]="minDate" formControlName="date"
-                        (change)="changeDate($event,filtro)">
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
-                    Fecha elegida:
-                    <br>
-                    {{appointmentForm.get('date').value | date }}
-                </div>
-            </div> -->
             <h4 class="mb-3">Seleccione Turno Disponible</h4>
-            <app-appointment-list [appointments]="freeAppointments" (chooseAppointment)="onSelectAppointment($event)"></app-appointment-list>
+            <app-appointment-list [appointments]="freeAppointments" (chooseAppointment)="onSelectAppointment($event)">
+            </app-appointment-list>
             <nav aria-label="Page navigation example" *ngIf="datesList">
                 <ul class="pagination justify-content-center pagination-sm">
                     <li class="page-item" *ngFor="let date of datesList"><a class="page-link"

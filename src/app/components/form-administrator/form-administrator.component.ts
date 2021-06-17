@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Specialty } from 'src/app/clases/specialty';
+import { UserType } from 'src/app/clases/userType';
 import { FileI } from 'src/app/interface/file';
 import { AdministratorService } from 'src/app/services/administrator.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -46,7 +47,7 @@ export class FormAdministratorComponent implements OnInit {
       lastName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
-      usertype:["administrator"]
+      usertype:[UserType.ADMINISTRATOR]
     });
   }
 

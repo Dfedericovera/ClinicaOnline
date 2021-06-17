@@ -1,10 +1,12 @@
+import { UserType } from "./userType";
+
 export class Administrator {
     public id: string;
     public name: string;
     public lastName: string;
     public photos: Array<any>;
     public email: string;
-    public usertype:string;
+    public usertype:UserType;
 
     public constructor(init?: Partial<Administrator>) {
         if(init){

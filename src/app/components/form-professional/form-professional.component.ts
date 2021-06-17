@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Specialty } from 'src/app/clases/specialty';
+import { UserType } from 'src/app/clases/userType';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
@@ -60,7 +61,7 @@ export class FormProfessionalComponent implements OnInit
       password: ["", [Validators.required, Validators.minLength(6)]],
       specialty: [Array, Validators.required],
       approved: [""],
-      usertype:["professional"]
+      usertype:[UserType.PROFESSIONAL]
     });
   }
 

@@ -1,3 +1,5 @@
+import { UserType } from "./userType";
+
 export class Patient {
     public id: string;
     public name: string;
@@ -7,7 +9,7 @@ export class Patient {
     public obraSocial:string;    
     public email: string;
     public photos: Array<any>;
-    public usertype:string;
+    public usertype:UserType;
 
     public constructor(init?: Partial<Patient>) {
         if(init){
