@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Specialty } from 'src/app/clases/specialty';
+import { UserType } from 'src/app/clases/userType';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
@@ -19,10 +20,11 @@ export class FormProfessionalComponent implements OnInit
   professionalForm: FormGroup;
   photo1: FileI;
   photo2: FileI;
-  photos: Array<FileI> = new Array();
-  registered: boolean = false;
+  photos: Array<FileI>;
+  registered: boolean;
   specialtys: Specialty[];
   specialtysChoosen: Specialty[];
+  showSpecialtyForm:boolean;
 
   constructor(
     private authService: AuthService,
@@ -32,7 +34,9 @@ export class FormProfessionalComponent implements OnInit
     private specialtyService: SpecialtyService
   )
   {
-
+    this.showSpecialtyForm = false;
+    this.registered = false;
+    this.photos = new Array();
   }
 
   ngOnInit(): void
@@ -48,13 +52,22 @@ export class FormProfessionalComponent implements OnInit
   createForm()
   {
     this.professionalForm = this.fb.group({
-      id: ["", Validators.required],
+      id: [""],
       name: ["", Validators.required],
+      dni: ["", [Validators.required, Validators.minLength(7)]],
+      age: ["", Validators.required],
       lastName: ["", Validators.required],
-      email: ["", Validators.required],
-      password: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(6)]],
       specialty: [Array, Validators.required],
+      approved: [""],
+      usertype:[UserType.PROFESSIONAL]
     });
+  }
+
+  verError(){
+    console.log(this.professionalForm );
+    
   }
 
   onSubmit()
@@ -68,6 +81,8 @@ export class FormProfessionalComponent implements OnInit
         if (user)
         {
           this.professionalForm.controls['id'].setValue(user.uid);
+          this.professionalForm.controls['approved'].setValue(false);
+          this.professionalForm.removeControl("password");
           this.profesionalService.createProfessional(this.professionalForm.value, this.photos).then(patient =>
           {
             console.log('Professional Created', patient);
@@ -79,6 +94,7 @@ export class FormProfessionalComponent implements OnInit
               this.registered = true;
             })
           });
+          this.professionalForm.addControl("password",this.fb.control({password: "111111"}))
         }
       }).catch(error => { console.log('Error', error); });
 
@@ -128,7 +144,7 @@ export class FormProfessionalComponent implements OnInit
       let isAlreadyChoosen = false;
       this.specialtysChoosen.forEach(specialtyChoosen =>
       {
-        if (specialty.id == specialtyChoosen.id)
+        if (specialty.specialty == specialtyChoosen.specialty)
         {
           isAlreadyChoosen = true;
         }

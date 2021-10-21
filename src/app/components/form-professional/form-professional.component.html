@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container mt-5">
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../../../assets/images/medialSign.svg" alt="" width="72" height="72">
         <h2>Clinica Online</h2>
-        <p class="lead">Rellene el formulario para dar de alta un profesional.</p>
+        <p class="lead">Rellene el formulario para registrar un profesional.</p>
     </div>
 
     <div class="row">
@@ -14,9 +14,6 @@
                         <label for="firstName">Nombre</label>
                         <input type="text" class="form-control" id="firstName" formControlName="name" placeholder=""
                             value="" required>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
                         <div *ngIf="professionalForm.controls['name'].invalid && (professionalForm.controls['name'].dirty || professionalForm.controls['name'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="professionalForm.controls['name'].errors.required">
@@ -28,8 +25,39 @@
                         <label for="lastName">Apellido</label>
                         <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder=""
                             value="" required>
-                        <div class="invalid-feedback">
-                            Valid last name is required.
+                        <div *ngIf="professionalForm.controls['lastName'].invalid && (professionalForm.controls['lastName'].dirty || professionalForm.controls['lastName'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="professionalForm.controls['lastName'].errors.required">
+                                Apellido es requerido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="edad">Edad</label>
+                        <input type="text" class="form-control" id="edad" formControlName="age" placeholder="Edad"
+                            value="" required>
+                        <div *ngIf="professionalForm.controls['age'].invalid && (professionalForm.controls['age'].dirty || professionalForm.controls['age'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="professionalForm.controls['age'].errors.required">
+                                Edad es requerida.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="dni">DNI</label>
+                        <input type="text" class="form-control" id="dni" formControlName="dni" placeholder="DNI"
+                            value="" required>
+                        <div *ngIf="professionalForm.controls['dni'].invalid && (professionalForm.controls['dni'].dirty || professionalForm.controls['dni'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="professionalForm.controls['dni'].errors.required">
+                                DNI es requerido.
+                            </div>
+                            <div *ngIf="professionalForm.controls['dni'].errors.minlength">
+                                DNI debe tener al menos 7 caracteres.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,22 +66,34 @@
                     <label for="email">Correo <span class="text-muted"></span></label>
                     <input type="email" class="form-control" id="email" formControlName="email"
                         placeholder="minombre@ejemplo.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
+                    <div *ngIf="professionalForm.controls['email'].invalid && (professionalForm.controls['email'].dirty || professionalForm.controls['email'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="professionalForm.controls['email'].errors.required">
+                            Email es requerido.
+                        </div>
+                        <div *ngIf="professionalForm.controls['email'].errors.email">
+                            Email invalido.
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="address">Contraseña</label>
                     <input type="password" class="form-control" id="address" formControlName="password"
                         placeholder="Contraseña" required>
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
+                    <div *ngIf="professionalForm.controls['password'].invalid && (professionalForm.controls['password'].dirty || professionalForm.controls['password'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="professionalForm.controls['password'].errors.required">
+                            Contraseña requerida.
+                        </div>
+                        <div *ngIf="professionalForm.controls['password'].errors.minlength">
+                            La contraseña debe contener al menos 6 caracteres.
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <div class="form-group">
-                            <label for="fotos">Foto</label>
+                            <label for="fotos">Imagen de perfil</label>
                             <input type="file" class="form-control-file" id="fotos" (change)="handlePhoto1($event)">
                         </div>
                         <div class="invalid-feedback">
@@ -77,16 +117,28 @@
                             </ul>
                         </div>
                     </div>
+
                 </div>
                 <app-specialty-list [specialtys]="specialtys" (chooseSpecialty)="onChooseSpecialty($event)">
                 </app-specialty-list>
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()">Registrar
-                    Profesional</button>
 
+                <label for="newSpecialty"><b>Agregar nueva especialidad</b></label> &nbsp;
+                <button id="newSpecialty" *ngIf="!showSpecialtyForm" class="btn btn-outline-success"
+                    (click)="showSpecialtyForm = !showSpecialtyForm">➕</button>
+                <button id="newSpecialty" *ngIf="showSpecialtyForm" class="btn btn-outline-success"
+                    (click)="showSpecialtyForm = !showSpecialtyForm">➖</button>
+                <div class="row" *ngIf="showSpecialtyForm">
+                    <div class="col-md-6 mb-3">
+                        <app-specialty-form (specialty)="onChooseSpecialty($event)"></app-specialty-form>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="professionalForm.invalid"
+                    (click)="onSubmit()">Registrar
+                    Profesional</button>
                 <div class="container" *ngIf="registered">
-                    <boot-alert mensaje="Profesional Registrado correctamente." color="alert-warning"
-                        (dismiss)="navigate()"></boot-alert>
+                    <boot-alert mensaje="Profesional Registrado correctamente." color="warning" (dismiss)="navigate()">
+                    </boot-alert>
                 </div>
             </form>
         </div>
@@ -102,219 +154,3 @@
         </ul>
     </footer>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- 
-<div class="container" style="margin-top: 10%;">
-        
-    <div class="py-5 text-center">
-        
-        <img class="d-block mx-auto mb-4" src="../../../assets/images/medialSign.svg" alt="" width="72" height="72">
-        <h2>Clinica Online</h2>
-        <p class="lead">Registrar un Profesional.</p>
-    </div>
-
-    <div class="row"> -->
-<!--  <div class="col-md-4 order-md-2 mb-4">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your cart</span>
-                <span class="badge badge-secondary badge-pill">3</span>
-            </h4>
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$12</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$8</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$5</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between bg-light">
-                    <div class="text-success">
-                        <h6 class="my-0">Promo code</h6>
-                        <small>EXAMPLECODE</small>
-                    </div>
-                    <span class="text-success">-$5</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
-                </li>
-            </ul>
-
-            <form class="card p-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary">Redeem</button>
-                    </div>
-                </div>
-            </form>
-        </div> -->
-<!--  <div class="col-md-12 order-md-1">
-            <h4 class="mb-3">Datos Necesarios</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="firstName">Nombre</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="lastName">Apellido</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email">Correo <span class="text-muted"></span></label>
-                    <input type="email" class="form-control" id="email" placeholder="minombre@ejemplo.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
-                    </div>
-                </div> -->
-<!--                     <div class="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                </div> -->
-<!--    <div class="row">
-                    <div class="col-md-5 mb-3">
-                        <label for="country">Fotos</label>
-                        <select class="custom-select d-block w-100" id="country" required>
-                            <option value="">Choose...</option>
-                            <option>United States</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
-                        </div>
-                    </div>
-                </div> -->
-<!--             <div class="col-md-4 mb-3">
-                        <label for="state">State</label>
-                        <select class="custom-select d-block w-100" id="state" required>
-                            <option value="">Choose...</option>
-                            <option>California</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please provide a valid state.
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Zip code required.
-                        </div>
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="same-address">
-                    <label class="custom-control-label" for="same-address">Shipping address is the same as my
-                        billing address</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="save-info">
-                    <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                </div>
-                <hr class="mb-4">
-
-                <h4 class="mb-3">Payment</h4>
-
-                <div class="d-block my-3">
-                    <div class="custom-control custom-radio">
-                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked
-                            required>
-                        <label class="custom-control-label" for="credit">Credit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="debit">Debit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="paypal">PayPal</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-name">Name on card</label>
-                        <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                        <small class="text-muted">Full name as displayed on card</small>
-                        <div class="invalid-feedback">
-                            Name on card is required
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-number">Credit card number</label>
-                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Credit card number is required
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-expiration">Expiration</label>
-                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Expiration date required
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-cvv">CVV</label>
-                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Security code required
-                        </div>
-                    </div>
-                </div> -->
-<!--  <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Registrarme</button>
-            </form>
-        </div>
-    </div>
-
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; Federico Vera</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
-    </footer>
-</div> -->

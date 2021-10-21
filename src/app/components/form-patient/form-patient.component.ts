@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserType } from 'src/app/clases/userType';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
@@ -39,8 +40,13 @@ export class FormPatientComponent implements OnInit
     this.patientForm = this.fb.group({
       name: ["", Validators.required],
       lastName: ["", Validators.required],
+      age: ["", [Validators.required,Validators.min(1),Validators.max(110)]],
+      dni: ["", Validators.required],
+      obraSocial: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
+      usertype:[UserType.PATIENT],
+      id:[""]
     });
   }
 
@@ -54,6 +60,8 @@ export class FormPatientComponent implements OnInit
       {
         if (user)
         {
+          this.patientForm.controls.id.setValue(user.uid);
+          this.patientForm.removeControl("password");
           this.patientService.createPatient(this.patientForm.value, this.photos).then(patient =>
           {
             console.log('Created patient', patient);
@@ -65,6 +73,7 @@ export class FormPatientComponent implements OnInit
               this.registered = true;
             })
           });
+          this.patientForm.addControl("password",this.fb.control({password: "111111"}))
         }
       }).catch(error => { console.log('Error', error); });
 
@@ -86,13 +95,15 @@ export class FormPatientComponent implements OnInit
 
   assignPhotos()
   {
+    console.log("FOTO1",this.photo1,"Foto2",this.photo2)
     if (this.photo1)
     {
       this.photos.push(this.photo1);
-    }/* 
+    }
     if(this.photo2){
       this.photos.push(this.photo2);
-    } */
+    }
+    console.log(this.photos);
   }
 
   navigate(){

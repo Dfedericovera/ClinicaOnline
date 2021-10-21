@@ -1,0 +1,61 @@
+<div class="card text-center sticky-top pt-5">
+    <div class="card-body">
+        <h5 class="card-title" *ngIf="user">Hola {{user.name}} {{user.lastName}}</h5>
+        <h5 class="card-title" *ngIf="userAdmin">Hola {{userAdmin.name}} {{userAdmin.lastName}}</h5>
+        <small *ngIf="!lastAppointment">Escoja Especialidad o Especialista Luego el horario</small>
+        <small *ngIf="lastAppointment">Hemos escogido un turno para ti te interesa?</small>
+        <app-appointment-list [appointments]="newAppointmentList"></app-appointment-list>
+        <button class="btn btn-success" (click)="submit()" [disabled]="!newAppointment.timeStamp">Solicitar
+            Turno</button>
+        <a class="btn btn-danger" (click)="cleanForm()">Nuevo Turno</a>
+    </div>
+    <div class="card-footer text-muted">
+        <a href="https://github.com/Dfedericovera/ClinicaOnline" target="_blank"> Como pedir un turno? </a>
+    </div>
+    <boot-alert *ngIf="showAlert" (dismiss)="dismissAlert()" color="success"
+        mensaje="Turno Guardado con exito. Lo esperamos"></boot-alert>
+</div>
+
+<app-header></app-header>
+
+
+<div class="row">
+    <div class="col-md-12 order-md-1">
+        <h4 class="mb-3">Datos Necesarios</h4>
+
+        <form class="needs-validation" novalidate>
+
+            <div class="row">
+                <div class="col-sm">
+                    <app-specialty-list [specialtys]="freeSpecialtys" (chooseSpecialty)="onChooseSpecialty($event)">
+                    </app-specialty-list>
+                </div>
+                <div class="col-sm">
+                    <app-professional-list [professionals]="freeProfessionals"
+                        (chooseProfessional)="onChooseProfessional($event)"></app-professional-list>
+                </div>
+            </div>
+
+            <div class="d-block my-3">
+                <hr class="mb-4">
+                <app-patient-list [patients]="patientList" (choosePatient)="onChoosePatient($event)">
+                </app-patient-list>
+                <hr class="mb-4">
+            </div>
+            <h4 class="mb-3">Seleccione Turno Disponible</h4>
+            <app-appointment-list [appointments]="freeAppointments" (chooseAppointment)="onSelectAppointment($event)">
+            </app-appointment-list>
+            <nav aria-label="Page navigation example" *ngIf="datesList">
+                <ul class="pagination justify-content-center pagination-sm">
+                    <li class="page-item" *ngFor="let date of datesList"><a class="page-link"
+                            (click)="createAvailableList(date)">{{date | date : "dd/MM"}}</a>
+                    </li>
+                </ul>
+            </nav>
+            <hr class="mb-4">
+        </form>
+    </div>
+
+
+
+    <!-- <app-appointment-form></app-appointment-form> -->

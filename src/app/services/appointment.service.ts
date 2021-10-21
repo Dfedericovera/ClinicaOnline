@@ -36,10 +36,11 @@ export class AppointmentService {
     getAppointments(): Observable<Appointment[]>
     {
       return this.db.collection("appointments", (ref) =>
-        ref.orderBy('date')).snapshotChanges().pipe(
+        ref.orderBy('timeStamp')).snapshotChanges().pipe(
           map((snaps) =>
             snaps.map((snap) =>
             {
+              /* console.log(snap.payload.doc.data()); */
               return snap.payload.doc.data() as Appointment;
             }))
         )
@@ -66,7 +67,7 @@ export class AppointmentService {
       } */
     
     //Metodo para crear un nuevo Appointment en la DB
-    addAppointment(patient: Appointment)
+    addAppointment(appointment: Appointment)
     {
       //?Con esto FireBase se encarga de todo,
       //?no hay que pensar en endpoints o si esta o no creada la tabla.
@@ -74,25 +75,25 @@ export class AppointmentService {
       return new Promise<Appointment>((resolve, reject) =>
       {
         this.appointmentsDB
-          .add(JSON.parse(JSON.stringify(patient)))
+          .add(JSON.parse(JSON.stringify(appointment)))
           .then(res =>
           {
-            patient.id = res.id;
-            this.editAppointment(patient);
-            resolve(patient);
+            appointment.id = res.id;
+            this.editAppointment(appointment);
+            resolve(appointment);
           }, err => reject(console.error(err)));
       });
   
     }
   
     //Delete a Appointment de la DB
-    deleteAppointment(patient: Appointment)
+    deleteAppointment(appointment: Appointment)
     {
       try
       {
         return this.db
           .collection("appointments")
-          .doc(patient.id)
+          .doc(appointment.id)
           .delete()
           .then(res => { console.log(res) });
   
@@ -109,7 +110,6 @@ export class AppointmentService {
       return this.db
         .collection("appointments")
         .doc(newAppointment.id)
-        .set(newAppointment, { merge: true });
-  
+        .set(JSON.parse(JSON.stringify(newAppointment)));  
     }
 }

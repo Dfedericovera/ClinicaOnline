@@ -1,0 +1,38 @@
+<app-header></app-header>
+    <nav class="navbar navbar-expand-md navbar-dark mt-5 bg-dark">
+        <a class="navbar-brand ">Opciones de Administrador</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link btn-outline-secondary" (click)="showUserInfo()">Informacion de los usuarios </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link btn-outline-secondary" (click)="showApproveProfessional()">Habilitar
+                        especialistas</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link btn-outline-secondary" (click)="showform()">Nuevo Usuario
+                        </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+<div class="container">
+
+    <app-patient-list *ngIf="userInfo" [patients]="patientsList"></app-patient-list>
+    <div *ngIf="approveProfessional">
+        <app-professional-list [professionals]="professionalList"></app-professional-list>
+    </div>
+    
+    <app-form-administrator *ngIf="formAdministrator"></app-form-administrator>
+    <app-form-patient *ngIf="formPatient"></app-form-patient>
+    <app-form-professional *ngIf="formProfessional"></app-form-professional>
+    <app-signup *ngIf="forms"></app-signup>
+
+
+</div>

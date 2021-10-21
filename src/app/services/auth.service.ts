@@ -10,17 +10,17 @@ import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firest
 })
 export class AuthService
 {
-  user: User;
+  public static user;
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
     private afs: AngularFirestore
   )
   {
-    this.afAuth.authState.subscribe((user) =>
+    /* this.afAuth.authState.subscribe((user) =>
     {
       this.user = user;
-    });
+    }); */
   }
 
   async login(email: string, password: string)
@@ -66,7 +66,6 @@ export class AuthService
 
   isEmailVerified(user: User): Boolean
   {
-    console.log(user);
     if(user.email == 'medico@valderrama.com'||"medico2@delaolla.com" || "paciente@gonzales.com"){
       return true;
     }

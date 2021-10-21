@@ -1,20 +1,28 @@
 <nav class="navbar">
-  <h4>Tabla Pacientes</h4>
+  <h4>Listado Pacientes</h4>
 </nav>
-<table class="table table-striped table-responsive-sm">
-  <caption>Tabla Pacientes</caption>
+<table class="table table-striped table-responsive-sm table-hover">
+  <caption>Listado Pacientes</caption>
   <thead>
     <tr>
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
       <th scope="col">correo</th>
+      <th scope="col">Foto1</th>
+      <th scope="col">Foto2</th>
     </tr>
   </thead>
   <tbody *ngFor="let patient of patients">
-    <tr>
-      <td>{{patient.nombre}}</td>
-      <td>{{patient.apellido}}</td>
-      <td>{{patient.correo}}</td>
+    <tr style="cursor: pointer;" (click)="onChoosePatient(patient)">
+      <td>{{patient.name}}</td>
+      <td>{{patient.lastName}}</td>
+      <td>{{patient.email}}</td>
+      <td style="width: 20%;">
+        <img src="{{patient.photos[0]}}" alt="" style="height: 100px; width: 100px;">
+      </td>
+      <td style="width: 20%;">
+        <img src="{{patient.photos[1]}}" alt="" style="height: 100px; width: 100px;">
+      </td>
     </tr>
   </tbody>
 </table>

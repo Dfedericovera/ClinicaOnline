@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Specialty } from 'src/app/clases/specialty';
 import { FileI } from 'src/app/interface/file';
 import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
+import { textSpanIntersectsWithTextSpan } from 'typescript';
 
 @Component({
   selector: 'app-specialty-form',
@@ -13,11 +15,10 @@ import { SpecialtyService } from 'src/app/services/specialty-service';
 })
 export class SpecialtyFormComponent implements OnInit
 {
+  @Output() specialty = new EventEmitter<Specialty>();
   specialtyForm: FormGroup;
-  photo1: FileI;
-  photo2: FileI;
-  photos: Array<FileI> = new Array();
-  registered: boolean = false;
+  mostrarMensaje:boolean;
+  spinner:boolean;
 
   constructor(
     private authService: AuthService,
@@ -26,32 +27,41 @@ export class SpecialtyFormComponent implements OnInit
     private router: Router,
     private specialtyService: SpecialtyService
   )
-  { }
+  { 
+    this.mostrarMensaje = false;
+    this.spinner = false;
+  }
 
   ngOnInit(): void
   {
-    this.createForm();
+    this.createFormSpecialty();
   }
 
-  createForm()
+  createFormSpecialty()
   {
     this.specialtyForm = this.fb.group({
       specialty: ["", Validators.required],
-      duration: ["", Validators.required],
+      duration: ["", Validators.required]
     });
   }
-
-  onSubmit()
+  addSpecialty()
   {
-    this.specialtyService.addSpecialty(this.specialtyForm.value).then(()=>{
-      console.log('Specialty registered.');
-      this.registered = true;
+    this.spinner = true;
+    console.log(this.specialtyForm.value);
+    var newSpecialty = new Specialty();
+    newSpecialty.specialty = this.specialtyForm.controls['specialty'].value;
+    newSpecialty.duration = this.specialtyForm.controls['duration'].value;
+    this.specialtyService.addSpecialty(newSpecialty).then(value =>
+    {
+      this.spinner = false;
+      this.mostrarMensaje = !this.mostrarMensaje;
+      this.specialty.emit(newSpecialty);
     })
   }
 
-  navigate(){
-    this.router.navigate(['/home']);
+  resetForm(){
+    this.mostrarMensaje = !this.mostrarMensaje;
+    this.specialtyForm.reset();
   }
-
 
 }

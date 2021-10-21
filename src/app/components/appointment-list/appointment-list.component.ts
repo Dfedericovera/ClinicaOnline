@@ -17,4 +17,8 @@ export class AppointmentListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onChoose(Appointment:Appointment){
+    this.chooseAppointment.emit(Appointment);
+  }
+
 }

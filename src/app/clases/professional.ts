@@ -1,13 +1,17 @@
 import { Specialty } from './specialty';
+import { UserType } from './userType';
 
 export class Professional {
     public id: string;
     public name: string;
     public lastName: string;
-    public photo: any;
-    public email: string;
+    public age:number;
+    public dni:string;
     public specialty: Array<Specialty>;
+    public email: string;    
     public photos: Array<any>;
+    public approved:boolean;
+    public usertype:UserType;
 
     public constructor(init?: Partial<Professional>) {
         if(init){
@@ -24,7 +28,7 @@ export class Professional {
         profesional.id = id;
         profesional.name = name;
         profesional.lastName = lastName;
-        profesional.photo = photo;
+        profesional.photos = photo;
         profesional.email = email;
         profesional.specialty = specialty;
 
