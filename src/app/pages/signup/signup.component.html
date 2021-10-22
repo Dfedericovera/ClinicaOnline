@@ -8,7 +8,7 @@
         <button class="btn border-success button-image-professional rounded" (click)="onChooseForm('professional')">
         </button>
     </div>
-    <div class="d-block text-center" *ngIf="user.usertype == 'administrator'">
+    <div class="d-block text-center" *ngIf="user && user.usertype == 'administrator'">
         <button class="btn border-success button-image-administrator rounded" (click)="onChooseForm('administrator')">
         </button>
     </div>
