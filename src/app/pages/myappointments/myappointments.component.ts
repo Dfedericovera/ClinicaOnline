@@ -43,7 +43,6 @@ export class MyappointmentsComponent implements OnInit
   {
     this.appointmentService.getAppointments().subscribe(appointments =>
     {
-      console.log(appointments);
       this.appointmentsList = appointments.filter(app =>
       {
         if (this.user.usertype == UserType.PATIENT && app.patient.id == this.user.id)
@@ -75,7 +74,6 @@ export class MyappointmentsComponent implements OnInit
 
   onSelectAppointment(appoitment)
   {
-    console.log(appoitment);
     this.selectedAppointment = appoitment;
     this.selectedAppointmentList[0] = this.selectedAppointment;
   }
