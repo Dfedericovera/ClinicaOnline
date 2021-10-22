@@ -178,13 +178,10 @@ export class PatientService
         finalize(() =>
         {
           fileRef.getDownloadURL().subscribe(urlImage =>
-          {
-            console.log(urlImage);
+          {            
             this.downloadURL = urlImage;
-            /* patient.photos = new Array; */
             patient.photos.push(this.downloadURL);
-            /* console.log('URL_image', urlImage); */
-            this.editPatient(patient).then(() => console.log('Updated photo'));
+            this.editPatient(patient).then(() => {});
           });
         })
       ).subscribe();
