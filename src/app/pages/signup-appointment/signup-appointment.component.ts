@@ -80,7 +80,6 @@ export class SignupAppointmentComponent implements OnInit
       let taken: boolean = false;
       if (this.newAppointment.specialty && this.newAppointment.professional)
       {
-        console.log("HAY 2");
         date.setHours(hora, minutos, 0, 0);
         do
         {
@@ -199,7 +198,6 @@ export class SignupAppointmentComponent implements OnInit
         {
           if (this.user && app.patient.id == this.user.id)
           {
-            console.log("Tiene Historial", app);
             return app;
           }
         })
