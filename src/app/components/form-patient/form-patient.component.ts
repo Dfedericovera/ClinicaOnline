@@ -95,7 +95,6 @@ export class FormPatientComponent implements OnInit
 
   assignPhotos()
   {
-    console.log("FOTO1",this.photo1,"Foto2",this.photo2)
     if (this.photo1)
     {
       this.photos.push(this.photo1);
@@ -103,7 +102,6 @@ export class FormPatientComponent implements OnInit
     if(this.photo2){
       this.photos.push(this.photo2);
     }
-    console.log(this.photos);
   }
 
   navigate(){
