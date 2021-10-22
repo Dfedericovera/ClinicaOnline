@@ -54,7 +54,7 @@ export class FormProfessionalComponent implements OnInit
       id: [""],
       name: ["", Validators.required],
       dni: ["", [Validators.required, Validators.minLength(7)]],
-      age: ["", Validators.required],
+      age: ["", [Validators.required, Validators.min(18), Validators.max(99)]],
       lastName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
