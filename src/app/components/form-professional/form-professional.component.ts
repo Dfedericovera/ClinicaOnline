@@ -45,7 +45,6 @@ export class FormProfessionalComponent implements OnInit
     this.specialtyService.getSpecialtys().subscribe(specialtys =>
     {
       this.specialtys = specialtys;
-      console.log(specialtys);
     })
   }
 
