@@ -125,16 +125,12 @@ export class LoginComponent implements OnInit
 
     this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(userCredential =>
     {
-      console.log(userCredential, userCredential.user.emailVerified);
+      if(this.verificarUsuarioTesting(userCredential.user)){
+        return true;
+      }
       if (userCredential.user.emailVerified)
       {
-        this.bootColorAlert = "success"
-        this.mensaje = "Verificado✓";
-        this.submitted = true;
-        setTimeout(t =>
-        {
-          this.router.navigate(['/home']);
-        }, 2000)
+        this.onLoginSuccess();
       }
       else
       {
@@ -151,6 +147,44 @@ export class LoginComponent implements OnInit
       this.spinner = false;
       console.log('Error: ', error)
     })
+  }
+  onLoginSuccess()
+  {
+    this.bootColorAlert = "success"
+    this.mensaje = "Verificado✓";
+    this.submitted = true;
+    setTimeout(t =>
+    {
+      this.router.navigate(['/home']);
+    }, 2000)
+  }
+  verificarUsuarioTesting(user: User)
+  {
+    switch (user.email)
+    {
+      case "paciente@gonzales.com":
+        this.onLoginSuccess();
+        return true;
+        break;
+      case "jorge@gmail.com":
+        this.onLoginSuccess();
+        return true;
+        break;
+      case "medico@valderrama.com":
+        this.onLoginSuccess();
+        return true;
+        break;
+      case "Medico2@Delaolla.com":
+        this.onLoginSuccess();
+        return true;
+        break;
+      case "administrador@administrador.com":
+        this.onLoginSuccess();
+        return true;
+        break;
+      default: return false;
+        break;      
+    } 
   }
 
   cargarMensajeErrorAuth(error)
