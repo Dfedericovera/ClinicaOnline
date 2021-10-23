@@ -47,7 +47,11 @@ export class LoginComponent implements OnInit
   }
 
   ngOnInit(): void
-  {
+  {  
+    this.loadTesters();
+  }
+
+  loadTesters(){
     this.patientService.getPatientById("cEewD51RQsYrvaYHQ3eRAzkUHDJ3").then(testintgPatient=>{
       this.patientTesting = testintgPatient;
     })
@@ -63,7 +67,6 @@ export class LoginComponent implements OnInit
     this.administratorService.getAdministratorById("ieLf7BsRyOQH0I7WlRAzk9Fw0Bn1").then(testingAdministrator=>{
       this.administratorTesting = testingAdministrator;
     })
-
   }
 
   createForm()
@@ -155,7 +158,7 @@ export class LoginComponent implements OnInit
   }
   resolved(captchaResponse: string)
   {
-    console.log(`Resolved response token: ${captchaResponse}`);
+    /* console.log(`Resolved response token: ${captchaResponse}`); */
 
   }
 
