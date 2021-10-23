@@ -1,8 +1,6 @@
-import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { error } from 'protractor';
 import { Administrator } from 'src/app/clases/administrator';
 import { Patient } from 'src/app/clases/patient';
 import { Professional } from 'src/app/clases/professional';
@@ -21,15 +19,17 @@ export class LoginComponent implements OnInit
 {
 
   loginForm: FormGroup;
-  color = 'red';
-  condicion:boolean;
-  testing:boolean;
-  patientTesting:Patient;
-  patientTesting2:Patient;
-  professionalTesting:Professional;
-  professionalTesting2:Professional;
-  administratorTesting:Administrator;
-  spinner:boolean
+  bootColorAlert: string;
+  mensaje: string;
+  condicion: boolean;
+  testing: boolean;
+  patientTesting: Patient;
+  patientTesting2: Patient;
+  professionalTesting: Professional;
+  professionalTesting2: Professional;
+  administratorTesting: Administrator;
+  spinner: boolean;
+  submitted: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -44,27 +44,34 @@ export class LoginComponent implements OnInit
     this.condicion = false;
     this.testing = false;
     this.spinner = false;
+    this.submitted = false;
   }
 
   ngOnInit(): void
-  {  
+  {
     this.loadTesters();
   }
 
-  loadTesters(){
-    this.patientService.getPatientById("cEewD51RQsYrvaYHQ3eRAzkUHDJ3").then(testintgPatient=>{
+  loadTesters()
+  {
+    this.patientService.getPatientById("cEewD51RQsYrvaYHQ3eRAzkUHDJ3").then(testintgPatient =>
+    {
       this.patientTesting = testintgPatient;
     })
-    this.patientService.getPatientById("u7J9vE2bebTUh8rtLxBNEyEdOc73").then(testintgPatient=>{
+    this.patientService.getPatientById("u7J9vE2bebTUh8rtLxBNEyEdOc73").then(testintgPatient =>
+    {
       this.patientTesting2 = testintgPatient;
     })
-    this.professionalService.getProfessionalById("gyFb67SEpFPDD8FzTONy9XJCZM22").then(testingProfessional=>{
+    this.professionalService.getProfessionalById("gyFb67SEpFPDD8FzTONy9XJCZM22").then(testingProfessional =>
+    {
       this.professionalTesting = testingProfessional;
     })
-    this.professionalService.getProfessionalById("gxEvpY2NmUXicRjeIsBp3AdS72H3").then(testingProfessional=>{
+    this.professionalService.getProfessionalById("gxEvpY2NmUXicRjeIsBp3AdS72H3").then(testingProfessional =>
+    {
       this.professionalTesting2 = testingProfessional;
     })
-    this.administratorService.getAdministratorById("ieLf7BsRyOQH0I7WlRAzk9Fw0Bn1").then(testingAdministrator=>{
+    this.administratorService.getAdministratorById("ieLf7BsRyOQH0I7WlRAzk9Fw0Bn1").then(testingAdministrator =>
+    {
       this.administratorTesting = testingAdministrator;
     })
   }
@@ -85,7 +92,7 @@ export class LoginComponent implements OnInit
       if (patient)
       {
         console.log("Bienvenido PACIENTE", patient.name);
-        localStorage.setItem("user",JSON.stringify(patient))
+        localStorage.setItem("user", JSON.stringify(patient))
         AuthService.user = patient;
       }
 
@@ -95,42 +102,75 @@ export class LoginComponent implements OnInit
       if (professional)
       {
         console.log("Bienvenido PROFESIONAL", professional.name);
-        localStorage.setItem("user",JSON.stringify(professional))
+        localStorage.setItem("user", JSON.stringify(professional))
         AuthService.user = professional;
       }
 
     })
-    await this.administratorService.getAdministratorById(user.uid).then(administrator=>{
-      if(administrator){
+    await this.administratorService.getAdministratorById(user.uid).then(administrator =>
+    {
+      if (administrator)
+      {
         console.log("Bienvenido ADMINISTRADOR", administrator.name);
-        localStorage.setItem("user",JSON.stringify(administrator))
+        localStorage.setItem("user", JSON.stringify(administrator))
         AuthService.user = administrator;
       }
-    }
-      
-    )
+    })
   }
 
   onLogin()
   {
     this.spinner = true;
-    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(async user =>
+    console.log(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
+
+    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(userCredential =>
     {
-      await this.getUserAccount(user.user);
-      if (this.authService.isEmailVerified(user.user))
+      console.log(userCredential, userCredential.user.emailVerified);
+      if (userCredential.user.emailVerified)
       {
-        this.router.navigate(['/home']);
+        this.bootColorAlert = "success"
+        this.mensaje = "Verificado✓";
+        this.submitted = true;
+        setTimeout(t =>
+        {
+          this.router.navigate(['/home']);
+        }, 2000)
       }
       else
       {
-        console.log('Verifique su email');
+        this.bootColorAlert = "danger";
+        this.mensaje = "Verifique su email";
         this.spinner = false;
+        this.submitted = true;
       }
+    }).catch(error =>
+    {
+      this.bootColorAlert = "danger"
+      this.cargarMensajeErrorAuth(error);
+      this.submitted = true;
+      this.spinner = false;
+      console.log('Error: ', error)
+    })
+  }
 
-    }).catch(error => {
-       console.log('Paciente no registrado', error);
-       this.spinner = false;
-      })
+  cargarMensajeErrorAuth(error)
+  {
+    switch (error.code)
+    {
+      case "auth/user-not-found":
+        this.mensaje = "Usuario no registrado";
+        break;
+      case "auth/wrong-password":
+        this.mensaje = "Contraseña incorrecta";
+        break;
+      case "auth/invalid-email":
+        this.mensaje = "email invalido";
+        break;
+      case "auth/email-already-exists":
+        this.mensaje = "El email ya existe";/* (para singin) */
+      default: this.mensaje = "email invalido";
+        break;
+    }
   }
 
   enterAsClient()
@@ -138,7 +178,8 @@ export class LoginComponent implements OnInit
     this.loginForm.controls.email.setValue('paciente@gonzales.com');
     this.loginForm.controls.password.setValue('111111');
   }
-  enterAsClient1(){
+  enterAsClient1()
+  {
     this.loginForm.controls.email.setValue('jorge@gmail.com');
     this.loginForm.controls.password.setValue('111111');
   }
@@ -147,7 +188,8 @@ export class LoginComponent implements OnInit
     this.loginForm.controls.email.setValue('medico@valderrama.com');
     this.loginForm.controls.password.setValue('111111');
   }
-  enterAsProfessional1(){
+  enterAsProfessional1()
+  {
     this.loginForm.controls.email.setValue('Medico2@Delaolla.com');
     this.loginForm.controls.password.setValue('111111');
   }
@@ -159,7 +201,6 @@ export class LoginComponent implements OnInit
   resolved(captchaResponse: string)
   {
     /* console.log(`Resolved response token: ${captchaResponse}`); */
-
   }
 
 

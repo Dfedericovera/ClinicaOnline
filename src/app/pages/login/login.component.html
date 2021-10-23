@@ -2,7 +2,7 @@
     <div class="container">
         <div class="d-flex">
             <div *ngIf="testing">
-                <div >
+                <div>
                     <label>
                         <div *ngIf="administratorTesting">
                             <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsClient()">
@@ -49,10 +49,6 @@
                                 </div>
                             </button>
                         </div>
-
-                        <div class="spinner-grow text-warning" role="status" *ngIf="!administratorTesting">
-                            <span class="sr-only">Loading...</span>
-                        </div>
                     </label>
                 </div>
             </div>
@@ -72,10 +68,15 @@
                     <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
                         siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
                     </re-captcha>
-                    <button class="btn btn-lg btn-primary btn-block" *ngIf="!spinner" type="submit" (click)="onLogin()">Entrar</button>
-                    <div class="spinner-grow text-warning" role="status" *ngIf="spinner">
+                    
+                    <boot-alert [mensaje]="mensaje" [color]="bootColorAlert" *ngIf="submitted"></boot-alert>
+                    
+                    <button class="btn btn-lg btn-primary btn-block" *ngIf="!spinner" type="submit"
+                        (click)="onLogin()">Entrar</button>
+                    <div class="spinner-grow text-warning" role="status" *ngIf="spinner"><!-- *ngIf="spinner else alert  <ng-template #alert>-->
                         <span class="sr-only">Loading...</span>
                     </div>
+
                     <button class="btn btn-sm btn-secondary btn-block" type="submit"
                         routerLink="/signup">Registrarme</button>
                     <p class="mt-5 mb-3 text-muted">&copy; Federico Vera</p>
