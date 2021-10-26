@@ -72,7 +72,7 @@
                     <boot-alert [mensaje]="mensaje" [color]="bootColorAlert" *ngIf="submitted"></boot-alert>
                     
                     <button class="btn btn-lg btn-primary btn-block" *ngIf="!spinner" type="submit"
-                        (click)="onLogin()">Entrar</button>
+                        (click)="onLogin()"  [disabled]="loginForm.invalid">Entrar</button>
                     <div class="spinner-grow text-warning" role="status" *ngIf="spinner"><!-- *ngIf="spinner else alert  <ng-template #alert>-->
                         <span class="sr-only">Loading...</span>
                     </div>
