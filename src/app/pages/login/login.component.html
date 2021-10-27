@@ -1,57 +1,6 @@
 <div class="text-center body">
     <div class="container">
         <div class="d-flex">
-            <div *ngIf="testing">
-                <div>
-                    <label>
-                        <div *ngIf="administratorTesting">
-                            <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsClient()">
-                                <div class="media">
-                                    <img src="{{patientTesting.photos[0]}}" class="mr-3" style="width: 50px;">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">Paciente: {{patientTesting.name}}</h5>
-                                    </div>
-                                </div>
-                            </button>
-                            <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="enterAsClient1()">
-                                <div class="media">
-                                    <img src="{{patientTesting2.photos[0]}}" class="mr-3" style="width: 50px;">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">Paciente: {{patientTesting2.name}}</h5>
-                                    </div>
-                                </div>
-                            </button>
-                            <button class="btn btn-sm btn-primary btn-block" type="submit"
-                                (click)="enterAsProfessional()">
-                                <div class="media">
-                                    <img src="{{professionalTesting.photos[0]}}" class="mr-3" style="width: 50px;">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">Profesional: {{professionalTesting.name}}</h5>
-                                    </div>
-                                </div>
-                            </button>
-                            <button class="btn btn-sm btn-primary btn-block" type="submit"
-                                (click)="enterAsProfessional1()">
-                                <div class="media">
-                                    <img src="{{professionalTesting2.photos[0]}}" class="mr-3" style="width: 50px;">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">Profesional: {{professionalTesting2.name}}</h5>
-                                    </div>
-                                </div>
-                            </button>
-                            <button class="btn btn-sm btn-primary btn-block" type="submit"
-                                (click)="enterAsAdministrator()">
-                                <div class="media">
-                                    <img src="{{administratorTesting.photos[0]}}" class="mr-3" style="width: 50px;">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">Administrador: {{administratorTesting.name}}</h5>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                    </label>
-                </div>
-            </div>
             <div class="p-2 flex-grow-1">
                 <form class="form-signin" [formGroup]="loginForm">
                     <img class="mb-4" src="../../../assets/images/medialSign.svg" alt="" width="150" height="150">
@@ -84,9 +33,29 @@
                 </form>
             </div>
         </div>
-
     </div>
 
-
-
+</div>
+<div style="position: relative; top:-5rem" *ngIf="administratorTesting && testing">
+    <button class="mdc-fab" aria-label="Favorite" (click)="enterAsClient()">
+        <div class="mdc-fab__ripple"><img [src]="patientTesting.photos[0]" alt="" style="width: 5rem; height: 100%;">
+        </div>
+        <!-- <span class="mdc-fab__icon material-icons">favorite</span> -->
+    </button>
+    <button class="mdc-fab" aria-label="Favorite" (click)="enterAsClient1()">
+        <div class="mdc-fab__ripple"><img [src]="patientTesting2.photos[0]" alt="" style="width: 5rem; height: 100%;">
+        </div>
+    </button>
+    <button class="mdc-fab" aria-label="Favorite" (click)="enterAsProfessional()">
+        <div class="mdc-fab__ripple"><img [src]="professionalTesting.photos[0]" alt=""
+                style="width: 5rem; height: 100%;"></div>
+    </button>
+    <button class="mdc-fab" aria-label="Favorite" (click)="enterAsProfessional1()">
+        <div class="mdc-fab__ripple"><img [src]="professionalTesting2.photos[0]" alt=""
+                style="width: 5rem; height: 100%;"></div>
+    </button>
+    <button class="mdc-fab" aria-label="Favorite" (click)="enterAsAdministrator()">
+        <div class="mdc-fab__ripple"><img [src]="administratorTesting.photos[0]" alt=""
+                style="width: 5rem; height: 100%;"></div>
+    </button>
 </div>
