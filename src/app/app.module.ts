@@ -47,6 +47,7 @@ import { MyappointmentsComponent } from './pages/myappointments/myappointments.c
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
 import { SignupAppointmentComponent } from './pages/signup-appointment/signup-appointment.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,7 @@ import { MyProfileComponent } from './pages/my-profile/my-profile.component';
     AngularFireStorageModule,
     RecaptchaModule,  //this is the recaptcha main module
     RecaptchaFormsModule, //this is the module for form incase form validation
-    
+    BrowserAnimationsModule,    
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
