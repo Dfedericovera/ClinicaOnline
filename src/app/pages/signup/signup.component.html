@@ -1,15 +1,15 @@
 <button type="button" class="btn btn-outline-warning float-right position-right"
     (click)="isChoosingForm=true;formChoosen=''" *ngIf="!isChoosingForm">Elegir Perfil</button>
 <div class="container" style="height: 100vh;" *ngIf="isChoosingForm">
-    <div class="d-block text-center">
-        <button class="btn border-success button-image-patient rounded" (click)="onChooseForm('patient')"> </button>
+    <div class="d-block text-center boton">
+        <button class="btn button-image-patient rounded" (click)="onChooseForm('patient')"> </button>
     </div>
     <div class="d-block text-center">
-        <button class="btn border-success button-image-professional rounded" (click)="onChooseForm('professional')">
+        <button class="btn button-image-professional rounded" (click)="onChooseForm('professional')">
         </button>
     </div>
     <div class="d-block text-center" *ngIf="user && user.usertype == 'administrator'">
-        <button class="btn border-success button-image-administrator rounded" (click)="onChooseForm('administrator')">
+        <button class="btn button-image-administrator rounded" (click)="onChooseForm('administrator')">
         </button>
     </div>
 </div>
