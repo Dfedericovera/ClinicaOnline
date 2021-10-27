@@ -68,12 +68,13 @@
                     <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
                         siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
                     </re-captcha>
-                    
+
                     <boot-alert [mensaje]="mensaje" [color]="bootColorAlert" *ngIf="submitted"></boot-alert>
-                    
-                    <button class="btn btn-lg btn-primary btn-block" *ngIf="!spinner" type="submit"
-                        (click)="onLogin()"  [disabled]="loginForm.invalid">Entrar</button>
-                    <div class="spinner-grow text-warning" role="status" *ngIf="spinner"><!-- *ngIf="spinner else alert  <ng-template #alert>-->
+
+                    <button class="btn btn-lg btn-primary btn-block" *ngIf="!spinner" type="submit" (click)="onLogin()"
+                        [disabled]="loginForm.invalid">Entrar</button>
+                    <div class="spinner-grow text-warning" role="status" *ngIf="spinner">
+                        <!-- *ngIf="spinner else alert  <ng-template #alert>-->
                         <span class="sr-only">Loading...</span>
                     </div>
 
