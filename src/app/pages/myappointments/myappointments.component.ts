@@ -5,9 +5,12 @@ import { Professional } from 'src/app/clases/professional';
 import { Specialty } from 'src/app/clases/specialty';
 import { UserType } from 'src/app/clases/userType';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogReseniaComponent } from 'src/app/components/dialog-resenia/dialog-resenia.component';
 
 @Component({
   selector: 'app-myappointments',
@@ -32,44 +35,59 @@ export class MyappointmentsComponent implements OnInit
     private appointmentService: AppointmentService,
     private professionalService: ProfessionalService,
     private spacialtyService: SpecialtyService,
-    private patientService:PatientService,
+    private patientService: PatientService,
+    private authService: AuthService,
+    public dialog: MatDialog,
   )
   {
     this.appointmentsList = new Array();
-    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnInit(): void
   {
-    this.appointmentService.getAppointments().subscribe(appointments =>
+    this.authService.user$.subscribe(user =>
     {
-      this.appointmentsList = appointments.filter(app =>
+      this.user = user;
+      this.appointmentService.getAppointments().subscribe(appointments =>
       {
-        if (this.user.usertype == UserType.PATIENT && app.patient.id == this.user.id)
+        this.appointmentsList = appointments.filter(app =>
         {
-          return app;
-        }
-        else if (this.user.usertype == UserType.PROFESSIONAL && app.professional.id == this.user.id)
-        {
-          return app;
-        }
+          if (this.user.usertype == UserType.PATIENT && app.patient.id == this.user.id)
+          {
+            return app;
+          }
+          else if (this.user.usertype == UserType.PROFESSIONAL && app.professional.id == this.user.id)
+          {
+            return app;
+          }
+        });
+        this.appointmentsListFiltered = this.appointmentsList;
       });
-      this.appointmentsListFiltered = this.appointmentsList;
-    });
+    })
+
     this.professionalService.getProfessionals().subscribe(v =>
     {
-      this.professionalList = v;
+      this.professionalList = v.filter(professional => professional.usertype == UserType.PROFESSIONAL && professional.approved);
     });
     this.spacialtyService.getSpecialtys().subscribe(v =>
     {
       this.specialtyList = v;
     });
-    this.patientService.getPatients().subscribe(v=>{
-      this.patientList = v;
+    this.patientService.getPatients().subscribe(v =>
+    {
+      this.patientList = v.filter(professional => professional.usertype == UserType.PATIENT);;
     })
-    
+
 
   }
+
+  openDialog()
+  {
+    this.dialog.open(DialogReseniaComponent,{
+      data:{mensaje: this.selectedAppointment.review }
+    });
+  }
+
 
 
   onSelectAppointment(appoitment)
@@ -92,17 +110,20 @@ export class MyappointmentsComponent implements OnInit
   {
     this.appointmentsListFiltered = this.appointmentsList.filter(app =>
     {
-      if (app.professional.id == professional.id)
+      if (app.professional.email == professional.email)
       {
         return app;
       }
     })
 
   }
-  onChoosePatient(patient:Patient){
+  onChoosePatient(patient: Patient)
+  {
     console.log(patient);
-    this.appointmentsListFiltered = this.appointmentsList.filter(app=>{
-      if(app.patient.id == patient.id){
+    this.appointmentsListFiltered = this.appointmentsList.filter(app =>
+    {
+      if (app.patient.id == patient.id)
+      {
         return app;
       }
     })
@@ -127,13 +148,16 @@ export class MyappointmentsComponent implements OnInit
   {
 
   }
-  rejectAppointment(){
+  rejectAppointment()
+  {
 
   }
-  acceptAppointment(){
+  acceptAppointment()
+  {
 
   }
-  finishAppointment(){
+  finishAppointment()
+  {
 
   }
 }

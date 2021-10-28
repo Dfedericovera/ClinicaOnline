@@ -1,11 +1,11 @@
 <div class="card text-center sticky-top pt-5">
     <div class="card-body">
-        <h5 class="card-title">Hola {{user.name}} {{user.lastName}}</h5>
+        <h5 class="card-title" *ngIf="user">Hola {{user.name}} {{user.lastName}}</h5>
         <small *ngIf="!selectedAppointment">Seleccione un turno</small>
         <small *ngIf="selectedAppointment">Estado del Turno: <b>{{selectedAppointment.state}}</b> </small>
         <app-appointment-list [appointments]="selectedAppointmentList"></app-appointment-list>
         <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.review"
-            (click)="showReview()">Ver Reseña</button>
+        (click)="openDialog()">Ver Reseña</button>
 
         <button class="btn btn-success"
             *ngIf="selectedAppointment && selectedAppointment.state == 'Realizado' && selectedAppointment.review && user.usertype == 'patient'"
@@ -29,24 +29,24 @@
 </div>
 
 <app-header></app-header>
-<h4 class="pt-5">-Opciones de flitrado: </h4>
-<div class="row pt-5">
-    <div class="col-sm">
-        <app-specialty-list [specialtys]="specialtyList" (chooseSpecialty)="onChooseSpecialty($event)">
-        </app-specialty-list>
-    </div>
-    <div class="col-sm" *ngIf="user.usertype=='patient'">
-        <app-professional-list [professionals]="professionalList" (chooseProfessional)="onChooseProfessional($event)">
-        </app-professional-list>
-    </div>
-    <div class="col-sm" *ngIf="user.usertype=='professional'">
-        <app-patient-list [patients]="patientList" (choosePatient)="onChoosePatient($event)">
-        </app-patient-list>
-    </div>
-</div>
 
 <div class="pt-5">
     <h4 class="mb-3">Listado de turnos: </h4> <button class="btn btn-warning" (click)="showAll()">Ver Todos</button>
     <app-appointment-list [appointments]="appointmentsListFiltered" (chooseAppointment)="onSelectAppointment($event)">
     </app-appointment-list>
+</div>
+<h2 >-Opciones de flitrado: </h2>
+<div class="row">
+    <div class="col-sm">
+        <app-specialty-list [specialtys]="specialtyList" (chooseSpecialty)="onChooseSpecialty($event)">
+        </app-specialty-list>
+    </div>
+    <div class="col-sm" *ngIf=" user && user.usertype=='patient'">
+        <app-professional-list [professionals]="professionalList" (chooseProfessional)="onChooseProfessional($event)">
+        </app-professional-list>
+    </div>
+    <div class="col-sm" *ngIf="user && user.usertype=='professional'">
+        <app-patient-list [patients]="patientList" (choosePatient)="onChoosePatient($event)">
+        </app-patient-list>
+    </div>
 </div>
