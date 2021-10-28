@@ -149,7 +149,11 @@ export class LoginComponent implements OnInit
         this.onLoginSuccess();
         return true;
         break;
-      case "jorge@gmail.com":
+      case "paciente@diego.com":
+        this.onLoginSuccess();
+        return true;
+        break;
+      case "paciente@carlitos.com":
         this.onLoginSuccess();
         return true;
         break;
@@ -157,7 +161,7 @@ export class LoginComponent implements OnInit
         this.onLoginSuccess();
         return true;
         break;
-      case "Medico2@Delaolla.com":
+      case "medico2@delaolla.com":
         this.onLoginSuccess();
         return true;
         break;
@@ -220,7 +224,7 @@ export class LoginComponent implements OnInit
     this.loginForm.controls.email.setValue('administrador@dario.com');
     this.loginForm.controls.password.setValue('111111');
   }
-  
+
 
 
 }
