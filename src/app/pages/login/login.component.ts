@@ -89,45 +89,10 @@ export class LoginComponent implements OnInit
       recaptchaReactive: ["", Validators.required],
     });
   }
-/* 
-  async getUserAccount(user: User)
-  {
-    await this.patientService.getPatientById(user.uid).then(patient =>
-    {
-      if (patient)
-      {
-        console.log("Bienvenido PACIENTE", patient.name);
-        localStorage.setItem("user", JSON.stringify(patient))
-        AuthService.user = patient;
-      }
-
-    })
-    await this.professionalService.getProfessionalById(user.uid).then(professional =>
-    {
-      if (professional)
-      {
-        console.log("Bienvenido PROFESIONAL", professional.name);
-        localStorage.setItem("user", JSON.stringify(professional))
-        AuthService.user = professional;
-      }
-
-    })
-    await this.administratorService.getAdministratorById(user.uid).then(administrator =>
-    {
-      if (administrator)
-      {
-        console.log("Bienvenido ADMINISTRADOR", administrator.name);
-        localStorage.setItem("user", JSON.stringify(administrator))
-        AuthService.user = administrator;
-      }
-    })
-  } */
 
   onLogin()
   {
     this.spinner = true;
-    console.log(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
-
     this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(userCredential =>
     {
       if (this.verificarUsuarioTesting(userCredential.user))
@@ -136,7 +101,7 @@ export class LoginComponent implements OnInit
       }
       if (userCredential.user.emailVerified)
       {
-        this.onLoginSuccess();
+        this.onLoginSuccess(userCredential.user);
       }
       else
       {
@@ -154,15 +119,28 @@ export class LoginComponent implements OnInit
       console.log('Error: ', error)
     })
   }
-  onLoginSuccess()
+  onLoginSuccess(user?: User)
   {
-    this.bootColorAlert = "success"
-    this.mensaje = "Verificado✓";
-    this.submitted = true;
-    setTimeout(t =>
+    this.authService.user$.subscribe(value =>
     {
-      this.router.navigate(['/home']);
-    }, 2000)
+      if ((value as Professional).usertype == "professional" && !(value as Professional).approved)
+      {
+        this.bootColorAlert = "danger"
+        this.mensaje = "Espere ser aprobado por un Administrador";
+        this.submitted = true;
+        this.spinner = false;
+      } else
+      {
+        this.bootColorAlert = "success"
+        this.mensaje = "Verificado✓";
+        this.submitted = true;
+        setTimeout(t =>
+        {
+          this.router.navigate(['/home']);
+        }, 2000)
+      }
+    })
+
   }
   verificarUsuarioTesting(user: User)
   {
