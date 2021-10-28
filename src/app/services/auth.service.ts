@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService
 {
   public static user;
-  public user$:Observable<any>;
+  public user$: Observable<any>;
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
@@ -24,13 +24,34 @@ export class AuthService
     {
       this.user = user;
     }); */
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap(user =>{
-
-        if(user){
-          return this.afs.doc<any>(`usuarios/${user.uid}`).valueChanges();
+    this.afs
+      .collection("usuarios")
+      .doc('Gl3GGMtAYrWBeX4640f7mLvPTKx1')
+      .get()
+      .toPromise()
+      .then((doc) =>
+      {
+        if (doc.exists)
+        {
+          console.log(doc.data());
+          return doc.data();
         }
-        else{
+      })
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user =>
+      {
+        console.log(user);
+
+        if (user)
+        {
+          return this.afs.collection("usuarios")
+            .doc(user.uid).get().toPromise().then(v =>
+            {
+              console.log(v);
+            })
+        }
+        else
+        {
           return of(null);
         }
       })
@@ -80,7 +101,8 @@ export class AuthService
 
   isEmailVerified(user: User): Boolean
   {
-    if(user.email == 'medico@valderrama.com'||"medico2@delaolla.com" || "paciente@gonzales.com"){
+    if (user.email == 'medico@valderrama.com' || "medico2@delaolla.com" || "paciente@gonzales.com")
+    {
       return true;
     }
     return user.emailVerified === true ? true : false;
@@ -122,18 +144,18 @@ export class AuthService
     }
   }
 
-/*   async loginWithGoogle()
-  {
-    try
+  /*   async loginWithGoogle()
     {
-      const { user } = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
-      this.updateUserData(user);
-      return user;
-    } catch (error)
-    {
-      console.error("loginGoogle", error);
-    }
-  } */
+      try
+      {
+        const { user } = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
+        this.updateUserData(user);
+        return user;
+      } catch (error)
+      {
+        console.error("loginGoogle", error);
+      }
+    } */
 
   private updateUserData(user: User)
   {

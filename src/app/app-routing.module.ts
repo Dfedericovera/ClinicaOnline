@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'signupAdministrator', component: SignupAdministratorComponent, data: { animation: 'signupAdministrator' }
-    , canActivate: [AuthGuard]
+    , /* canActivate: [AuthGuard] */
   },
   {
     path: 'signupSpecialty', component: SpecialtyFormComponent, data: { animation: 'signupAdministrator' }

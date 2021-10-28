@@ -32,14 +32,14 @@ export class AdministratorService
     //? Vamos a acceder la lista de administrators en la db.
     //? y se implementa la funcionalidad en el segundo argumento.
     //? La referencia que es nuestra lista de administrators, se va a ordenar por nombre.
-    this.administratorsDB = this.db.collection('/administrators', (ref) =>
-      ref.orderBy('date')
+    this.administratorsDB = this.db.collection('/usuarios', (ref) =>
+      ref.orderBy('name')
     );
   }
   //Devuelve un Observable de tipo Administrator Array.
   getAdministrators(): Observable<Administrator[]>
   {
-    return this.db.collection("administrators").snapshotChanges().pipe(
+    return this.db.collection("usuarios").snapshotChanges().pipe(
       map((snaps) =>
         snaps.map((snap) =>
         {
@@ -54,7 +54,7 @@ export class AdministratorService
       try
       {
         const administratorPromise = await this.db
-          .collection("administrators")
+          .collection("usuarios")
           .doc(id)
           .get()
           /* .subscribe(value=>{
@@ -135,7 +135,7 @@ export class AdministratorService
     try
     {
       return this.db
-        .collection("administrators")
+        .collection("usuarios")
         .doc(administrator.id)
         .delete()
         .then(res => { console.log(res) });
@@ -151,7 +151,7 @@ export class AdministratorService
   editAdministrator(newAdministrator)
   {
     return this.db
-      .collection("administrators")
+      .collection("usuarios")
       .doc(newAdministrator.id)
       .set(newAdministrator, { merge: true });
 

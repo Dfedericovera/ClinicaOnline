@@ -19,7 +19,11 @@ export class HeaderComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.user = JSON.parse(localStorage.getItem("user"));
+    /* this.user = JSON.parse(localStorage.getItem("user")); */
+    this.AuthService.user$.subscribe(value=>{
+      console.log(value);
+      
+    })   
   }
 
   ngAfterViewInit()

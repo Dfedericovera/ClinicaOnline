@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit
     {
       this.professionalTesting2 = testingProfessional;
     })
-    this.administratorService.getAdministratorById("ieLf7BsRyOQH0I7WlRAzk9Fw0Bn1").then(testingAdministrator =>
+    this.administratorService.getAdministratorById("R3zdRbRiInOlAqSyD4NDakhcBR13").then(testingAdministrator =>
     {
       this.administratorTesting = testingAdministrator;
     })
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit
       recaptchaReactive: ["", Validators.required],
     });
   }
-
+/* 
   async getUserAccount(user: User)
   {
     await this.patientService.getPatientById(user.uid).then(patient =>
@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit
         AuthService.user = administrator;
       }
     })
-  }
+  } */
 
   onLogin()
   {
@@ -184,7 +184,7 @@ export class LoginComponent implements OnInit
         this.onLoginSuccess();
         return true;
         break;
-      case "administrador@administrador.com":
+      case "administrador@dario.com":
         this.onLoginSuccess();
         return true;
         break;
@@ -240,7 +240,7 @@ export class LoginComponent implements OnInit
   }
   enterAsAdministrator()
   {
-    this.loginForm.controls.email.setValue('administrador@administrador.com');
+    this.loginForm.controls.email.setValue('administrador@dario.com');
     this.loginForm.controls.password.setValue('111111');
   }
   resolved(captchaResponse: string)
