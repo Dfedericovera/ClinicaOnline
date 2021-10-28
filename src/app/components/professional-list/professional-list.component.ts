@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Professional } from 'src/app/clases/professional';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
 
 @Component({
@@ -13,17 +14,22 @@ export class ProfessionalListComponent implements OnInit
   @Input() professionals: Professional[];
   @Output() chooseProfessional: EventEmitter<Professional> = new EventEmitter<Professional>();
   spinner: boolean;
-  isAdministrator:boolean;
-  constructor(private professionalService: ProfessionalService)
+  isAdministrator: boolean;
+  constructor(
+    private professionalService: ProfessionalService,
+    private authService: AuthService,
+  )
   {
     this.spinner = false;
   }
 
   ngOnInit(): void
   {
-    if(JSON.parse(localStorage.getItem("user")).usertype == "administrator"){
-      this.isAdministrator = true;
-    }
+    this.authService.user$.subscribe(user=>{
+      if(user.usertype == "administrator"){
+        this.isAdministrator = true;
+      }
+    })
   }
   onChoose(specialty)
   {
