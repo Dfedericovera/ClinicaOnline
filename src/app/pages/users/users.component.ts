@@ -36,11 +36,10 @@ export class UsersComponent implements OnInit
   ngOnInit(): void
   {
     this.patientService.getPatients().subscribe(value=>{
-      console.log(value);
       this.patientsList = value.filter(user => user.usertype == "patient");
     });
     this.professionalService.getProfessionals().subscribe(value=>{
-      this.professionalList = value;
+      this.professionalList = value.filter(user => user.usertype == "professional");
     })
 
   }
