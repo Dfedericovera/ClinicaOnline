@@ -139,6 +139,10 @@
                     </div>
                 </div>
                 <hr class="mb-4">
+                <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
+                    siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
+                </re-captcha>
+                <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="professionalForm.invalid"
                     (click)="onSubmit()">Registrar
                     Profesional</button>

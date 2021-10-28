@@ -86,7 +86,6 @@ export class LoginComponent implements OnInit
     this.loginForm = this.fb.group({
       email: ["", Validators.required],
       password: ["", Validators.required],
-      recaptchaReactive: ["", Validators.required],
     });
   }
 
@@ -221,10 +220,7 @@ export class LoginComponent implements OnInit
     this.loginForm.controls.email.setValue('administrador@dario.com');
     this.loginForm.controls.password.setValue('111111');
   }
-  resolved(captchaResponse: string)
-  {
-    /* console.log(`Resolved response token: ${captchaResponse}`); */
-  }
+  
 
 
 }

@@ -37,8 +37,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="dni">DNI</label>
-                        <input type="text" class="form-control" id="dni" formControlName="dni" placeholder="DNI" minlength="7"
-                            value="" required>
+                        <input type="text" class="form-control" id="dni" formControlName="dni" placeholder="DNI"
+                            minlength="7" value="" required>
                         <div *ngIf="patientForm.controls['dni'].invalid && (patientForm.controls['dni'].dirty || patientForm.controls['dni'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="patientForm.controls['dni'].errors.required">
@@ -51,18 +51,18 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="edad">Edad</label>
-                        <input type="number" class="form-control" id="edad" formControlName="age" placeholder="Edad" min="2" max="99"
-                            value="" required>
+                        <input type="number" class="form-control" id="edad" formControlName="age" placeholder="Edad"
+                            min="2" max="99" value="" required>
                         <div *ngIf="patientForm.controls['age'].invalid && (patientForm.controls['age'].dirty || patientForm.controls['age'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="patientForm.controls['age'].errors.required">
                                 Edad es requerida.
                             </div>
                             <div *ngIf="patientForm.controls['age'].errors.min">
-                                la edad debe ser mayor a 1 y menor  a 110.
+                                la edad debe ser mayor a 1 y menor a 110.
                             </div>
                             <div *ngIf="patientForm.controls['age'].errors.max">
-                                la edad debe ser mayor a 1 y menor  a 110.
+                                la edad debe ser mayor a 1 y menor a 110.
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,8 @@
 
                 <div class="mb-3">
                     <label for="OS">Obra Social <span class="text-muted"></span></label>
-                    <input type="text" class="form-control" id="OS" formControlName="obraSocial" placeholder="Obra Social">
+                    <input type="text" class="form-control" id="OS" formControlName="obraSocial"
+                        placeholder="Obra Social">
                     <div *ngIf="patientForm.controls['obraSocial'].invalid && (patientForm.controls['obraSocial'].dirty || patientForm.controls['obraSocial'].touched)"
                         class="alert alert-danger">
                         <div *ngIf="patientForm.controls['obraSocial'].errors.required">
@@ -118,9 +119,13 @@
                     </div>
                 </div>
                 <hr class="mb-4">
+                <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
+                    siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
+                </re-captcha>
+                <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()"
                     [disabled]="patientForm.invalid">Registrar Paciente</button>
-<!--                 <button class="btn btn-danger btn-lg btn-block" routerLink="/login">Ya tengo una
+                <!--                 <button class="btn btn-danger btn-lg btn-block" routerLink="/login">Ya tengo una
                     cuenta</button> -->
                 <div class="container" *ngIf="registered">
                     <boot-alert mensaje="Verifique su correo para poder iniciar sesion, revise su buzón de entrada"

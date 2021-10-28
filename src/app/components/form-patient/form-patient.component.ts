@@ -46,7 +46,8 @@ export class FormPatientComponent implements OnInit
       email: ["", Validators.required],
       password: ["", Validators.required],
       usertype:[UserType.PATIENT],
-      id:[""]
+      id:[""],
+      recaptchaReactive: ["", Validators.required],
     });
   }
 
@@ -106,6 +107,11 @@ export class FormPatientComponent implements OnInit
 
   navigate(){
     this.router.navigate(['/login']);
+  }
+
+  resolved(captchaResponse: string)
+  {
+    /* console.log(`Resolved response token: ${captchaResponse}`); */
   }
 
 

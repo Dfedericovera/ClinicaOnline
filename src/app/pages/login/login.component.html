@@ -14,9 +14,6 @@
 
                     <button class="btn btn-sm btn-primary btn-block" type="submit" *ngIf="!testing"
                         (click)="testing=!testing">Mostrar usuarios testing</button>
-                    <re-captcha (resolved)="resolved($event)" formControlName="recaptchaReactive"
-                        siteKey="6LeKd98ZAAAAANCIjc5-WVR4PiaFaeLn9J1uh9bm" required>
-                    </re-captcha>
 
                     <boot-alert [mensaje]="mensaje" [color]="bootColorAlert" *ngIf="submitted"></boot-alert>
 

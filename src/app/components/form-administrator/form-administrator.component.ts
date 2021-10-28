@@ -44,7 +44,8 @@ export class FormAdministratorComponent implements OnInit {
       lastName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
-      usertype:[UserType.ADMINISTRATOR]
+      usertype:[UserType.ADMINISTRATOR],
+      recaptchaReactive: ["", Validators.required],
     });
   }
 
@@ -91,6 +92,11 @@ export class FormAdministratorComponent implements OnInit {
     {
       this.photos.push(this.photo1);
     }
+  }
+
+  resolved(captchaResponse: string)
+  {
+    /* console.log(`Resolved response token: ${captchaResponse}`); */
   }
 
 }

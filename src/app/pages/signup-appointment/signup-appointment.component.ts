@@ -1,12 +1,13 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, } from '@angular/forms';
 import { Administrator } from 'src/app/clases/administrator';
 import { Appointment, AppointmentState } from 'src/app/clases/appointment';
 import { Patient } from 'src/app/clases/patient';
 import { Professional } from 'src/app/clases/professional';
 import { Specialty } from 'src/app/clases/specialty';
+import { UserType } from 'src/app/clases/userType';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
@@ -33,7 +34,7 @@ export class SignupAppointmentComponent implements OnInit
   lastAppointment: Appointment;
   specialtys: Specialty[];
   professionals: Professional[];
-  patientList:Patient[]=[];
+  patientList: Patient[] = [];
   showAlert: boolean;
 
   appointmentForm: FormGroup;
@@ -41,7 +42,8 @@ export class SignupAppointmentComponent implements OnInit
     private appointmentService: AppointmentService,
     private professionalService: ProfessionalService,
     private specialtyService: SpecialtyService,
-    private patientService:PatientService
+    private patientService: PatientService,
+    private authService: AuthService
   )
   {
     this.newAppointment = new Appointment({ patient: this.user });
@@ -51,14 +53,17 @@ export class SignupAppointmentComponent implements OnInit
 
   ngOnInit(): void
   {
-    if (JSON.parse(localStorage.getItem("user")).usertype == 'administrator')
+    this.authService.user$.subscribe(user =>
     {
-      this.userAdmin = JSON.parse(localStorage.getItem("user"));
-    }
-    else{
-      this.user = JSON.parse(localStorage.getItem("user"));
-    }
-
+      if (user.usertype == 'administrator')
+      {
+        this.userAdmin = user;
+      }
+      else
+      {
+        this.user = user;
+      }
+    })
     this.date = new Date();
     this.getSpecialtys();
     this.getProfessionals();
@@ -383,13 +388,15 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.professionalService.getProfessionals().subscribe(professionals =>
     {
-      this.professionals = professionals;
-      this.freeProfessionals = professionals;
+      this.professionals = professionals.filter(pro=>pro.approved && pro.usertype==UserType.PROFESSIONAL);
+      this.freeProfessionals = professionals.filter(pro=>pro.approved && pro.usertype==UserType.PROFESSIONAL);
     })
   }
-  getPatients(){
-    this.patientService.getPatients().subscribe(patients=>{
-      this.patientList = patients;
+  getPatients()
+  {
+    this.patientService.getPatients().subscribe(patients =>
+    {
+      this.patientList = patients.filter(pat=>pat.usertype==UserType.PATIENT);;
     })
   }
   /**
@@ -454,8 +461,9 @@ export class SignupAppointmentComponent implements OnInit
     this.lastAppointment = undefined;
   }
 
-  onChoosePatient(patient:Patient){
-    this.user=patient;
+  onChoosePatient(patient: Patient)
+  {
+    this.user = patient;
     this.newAppointment.patient = patient;
     this.newAppointmentList[0] = this.newAppointment;
   }

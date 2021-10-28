@@ -60,7 +60,8 @@ export class FormProfessionalComponent implements OnInit
       password: ["", [Validators.required, Validators.minLength(6)]],
       specialty: [Array, Validators.required],
       approved: [""],
-      usertype:[UserType.PROFESSIONAL]
+      usertype:[UserType.PROFESSIONAL],
+      recaptchaReactive: ["", Validators.required],
     });
   }
 
@@ -162,5 +163,9 @@ export class FormProfessionalComponent implements OnInit
   deleteSpecialty(index)
   {
     this.specialtysChoosen.splice(index,1);
+  }
+  resolved(captchaResponse: string)
+  {
+    /* console.log(`Resolved response token: ${captchaResponse}`); */
   }
 }
