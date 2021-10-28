@@ -17,6 +17,7 @@ export class Appointment{
     specialty:Specialty;
     state:AppointmentState;
     review:string;
+    comment:string;
     
 
     public constructor(init?: Partial<Appointment>) {

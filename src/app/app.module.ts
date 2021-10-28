@@ -49,7 +49,8 @@ import { SignupAppointmentComponent } from './pages/signup-appointment/signup-ap
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
-import { DialogReseniaComponent } from './components/dialog-resenia/dialog-resenia.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -91,7 +92,7 @@ import { DialogReseniaComponent } from './components/dialog-resenia/dialog-resen
     AppointmentsComponent,
     SignupAppointmentComponent,
     MyProfileComponent,
-    DialogReseniaComponent
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +106,8 @@ import { DialogReseniaComponent } from './components/dialog-resenia/dialog-resen
     RecaptchaModule,  //this is the recaptcha main module
     RecaptchaFormsModule, //this is the module for form incase form validation
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

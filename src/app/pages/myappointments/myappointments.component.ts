@@ -10,7 +10,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogReseniaComponent } from 'src/app/components/dialog-resenia/dialog-resenia.component';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-myappointments',
@@ -81,10 +81,10 @@ export class MyappointmentsComponent implements OnInit
 
   }
 
-  openDialog()
+  verResenia()
   {
-    this.dialog.open(DialogReseniaComponent,{
-      data:{mensaje: this.selectedAppointment.review }
+    this.dialog.open(DialogComponent,{
+      data:{titulo: 'Reseña' , mensaje: this.selectedAppointment.review }
     });
   }
 
@@ -138,7 +138,9 @@ export class MyappointmentsComponent implements OnInit
   }
   cancelAppointment()
   {
-
+    this.dialog.open(DialogComponent,{
+      data:{titulo: 'Cancelar Turno' , mensaje: 'Esta seguro que decea cancelar el turno?', tipo:'cancelar',turno: this.selectedAppointment }
+    })
   }
   qualifyAttention()
   {
