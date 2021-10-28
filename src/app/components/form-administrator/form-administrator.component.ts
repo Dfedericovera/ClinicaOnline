@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Specialty } from 'src/app/clases/specialty';
 import { UserType } from 'src/app/clases/userType';
 import { FileI } from 'src/app/interface/file';
 import { AdministratorService } from 'src/app/services/administrator.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { ProfessionalService } from 'src/app/services/professional.service';
-import { SpecialtyService } from 'src/app/services/specialty-service';
 
 @Component({
   selector: 'app-form-administrator',
@@ -43,7 +40,7 @@ export class FormAdministratorComponent implements OnInit {
       id: [""],
       name: ["", Validators.required],
       dni: ["", [Validators.required, Validators.minLength(7)]],
-      age: ["", Validators.required],
+      age: ["", [Validators.required, Validators.min(18), Validators.max(99)]],
       lastName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
