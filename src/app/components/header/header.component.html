@@ -7,23 +7,26 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-            <!--     <li class="nav-item active" *ngIf="user.usertype == 'administrator'">
-                    <a class="nav-link btn-outline-secondary" routerLink="/users">Usuarios <span
-                            class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active" *ngIf="user.usertype == 'administrator'">
-                    <a class="nav-link btn-outline-secondary" routerLink="/appointments">Turnos <span
-                            class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active"  *ngIf="user.usertype == 'patient' || user.usertype == 'professional'">
-                    <a class="nav-link btn-outline-secondary " routerLink="/myAppointments">Mis Turnos<span
-                            class="sr-only">(current)</span></a>
-                </li>
+                <span *ngIf="user" style="display: flex;">
+                    <li class="nav-item active" *ngIf="user.usertype == 'administrator'">
+                        <a class="nav-link btn-outline-secondary" routerLink="/users">Usuarios <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active" *ngIf="user.usertype == 'administrator'">
+                        <a class="nav-link btn-outline-secondary" routerLink="/appointments">Turnos <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active" *ngIf="user.usertype == 'patient' || user.usertype == 'professional'">
+                        <a class="nav-link btn-outline-secondary " routerLink="/myAppointments">Mis Turnos<span
+                                class="sr-only">(current)</span></a>
+                    </li>
 
-                <li class="nav-item active" *ngIf="user.usertype == 'patient' || user.usertype == 'administrator'">
-                    <a class="nav-link btn-outline-secondary" routerLink="/signupAppointment">Solicitar Turno <span
-                            class="sr-only">(current)</span></a>
-                </li> -->
+                    <li class="nav-item active" *ngIf="user.usertype == 'patient' || user.usertype == 'administrator'">
+                        <a class="nav-link btn-outline-secondary" routerLink="/signupAppointment">Solicitar Turno <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                </span>
+
                 <li class="nav-item active">
                     <a class="nav-link btn-outline-secondary" routerLink="/myProfile"> Mi perfil <span
                             class="sr-only">(current)</span></a>

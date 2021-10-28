@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit
 {
 
-  user: any
+  user: any;
 
   constructor(private router: Router, private AuthService: AuthService)
   { }
@@ -21,9 +21,10 @@ export class HeaderComponent implements OnInit
   {
     /* this.user = JSON.parse(localStorage.getItem("user")); */
     this.AuthService.user$.subscribe(value=>{
+      this.user = value; 
       console.log(value);
-      
-    })   
+           
+    })
   }
 
   ngAfterViewInit()

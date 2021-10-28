@@ -24,7 +24,7 @@ export class AuthService
     {
       this.user = user;
     }); */
-    this.afs
+/*     this.afs
       .collection("usuarios")
       .doc('Gl3GGMtAYrWBeX4640f7mLvPTKx1')
       .get()
@@ -36,19 +36,24 @@ export class AuthService
           console.log(doc.data());
           return doc.data();
         }
-      })
+      }) */
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user =>
       {
-        console.log(user);
-
         if (user)
         {
-          return this.afs.collection("usuarios")
-            .doc(user.uid).get().toPromise().then(v =>
+          return  this.afs
+          .collection("usuarios")
+          .doc(user.uid)
+          .get()
+          .toPromise()
+          .then((doc) =>
+          {
+            if (doc.exists)
             {
-              console.log(v);
-            })
+              return doc.data();
+            }
+          })
         }
         else
         {
