@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit
   testing: boolean;
   patientTesting: Patient;
   patientTesting2: Patient;
+  patientTesting3: Patient;
   professionalTesting: Professional;
   professionalTesting2: Professional;
   administratorTesting: Administrator;
@@ -58,15 +59,19 @@ export class LoginComponent implements OnInit
     {
       this.patientTesting = testintgPatient;
     })
-    this.patientService.getPatientById("u7J9vE2bebTUh8rtLxBNEyEdOc73").then(testintgPatient =>
+    this.patientService.getPatientById("eJy59XbCO5e4zkUplxg8D2qTmpJ2").then(testintgPatient =>
     {
       this.patientTesting2 = testintgPatient;
     })
-    this.professionalService.getProfessionalById("gyFb67SEpFPDD8FzTONy9XJCZM22").then(testingProfessional =>
+    this.patientService.getPatientById("EDbEwSOa7LffKBoGvCb1tjYcdvf1").then(testintgPatient =>
+    {
+      this.patientTesting3 = testintgPatient;
+    })
+    this.professionalService.getProfessionalById("Gl3GGMtAYrWBeX4640f7mLvPTKx1").then(testingProfessional =>
     {
       this.professionalTesting = testingProfessional;
     })
-    this.professionalService.getProfessionalById("gxEvpY2NmUXicRjeIsBp3AdS72H3").then(testingProfessional =>
+    this.professionalService.getProfessionalById("R2imG9PU9RhpfrgMhztOcJP6dSM2").then(testingProfessional =>
     {
       this.professionalTesting2 = testingProfessional;
     })
@@ -125,7 +130,8 @@ export class LoginComponent implements OnInit
 
     this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).then(userCredential =>
     {
-      if(this.verificarUsuarioTesting(userCredential.user)){
+      if (this.verificarUsuarioTesting(userCredential.user))
+      {
         return true;
       }
       if (userCredential.user.emailVerified)
@@ -183,8 +189,8 @@ export class LoginComponent implements OnInit
         return true;
         break;
       default: return false;
-        break;      
-    } 
+        break;
+    }
   }
 
   cargarMensajeErrorAuth(error)
@@ -214,7 +220,12 @@ export class LoginComponent implements OnInit
   }
   enterAsClient1()
   {
-    this.loginForm.controls.email.setValue('jorge@gmail.com');
+    this.loginForm.controls.email.setValue('paciente@diego.com');
+    this.loginForm.controls.password.setValue('111111');
+  }
+  enterAsClient2()
+  {
+    this.loginForm.controls.email.setValue('paciente@carlitos.com');
     this.loginForm.controls.password.setValue('111111');
   }
   enterAsProfessional()
