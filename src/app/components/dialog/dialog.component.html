@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{titulo}}</h1>
+<div mat-dialog-content>{{mensaje}}</div>
+<div mat-dialog-actions>
+
+
+  <form class="needs-validation" [formGroup]="form" novalidate *ngIf="tipo == 'cancelar'">
+    <div class="row">
+        <div class="col">
+            <label for="firstName">Comentario</label>
+            <input type="text" class="form-control" id="firstName" formControlName="comment"
+                placeholder="Escriba aqui..." value="" required>
+            <div *ngIf="form.controls['comment'].invalid && (form.controls['comment'].dirty || form.controls['comment'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="form.controls['comment'].errors.required">
+                    Comentario requerido.
+                </div>
+            </div>
+        </div>
+    </div>
+  </form>
+  
+  
+
+  <button mat-button mat-dialog-close >Cerrar</button>
+  <button mat-button color="warn" mat-dialog-close (click)="cancelarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'cancelar'" style="float: right;">Aceptar</button>
+</div>
