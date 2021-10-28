@@ -1,5 +1,5 @@
 <div class="container" style="margin-top: 10%;">
-        
+
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../../../assets/images/medialSign.svg" alt="" width="72" height="72">
         <h2>Clinica Online</h2>
@@ -13,8 +13,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">Nombre</label>
-                        <input type="text" class="form-control" id="firstName" formControlName="name" placeholder=""
-                            value="" required>
+                        <input type="text" class="form-control" id="firstName" formControlName="name"
+                            placeholder="Nombre" value="" required>
                         <div *ngIf="administratorForm.controls['name'].invalid && (administratorForm.controls['name'].dirty || administratorForm.controls['name'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="administratorForm.controls['name'].errors.required">
@@ -24,8 +24,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Apellido</label>
-                        <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder=""
-                            value="" required>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                            placeholder="Apellido" value="" required>
                         <div *ngIf="administratorForm.controls['lastName'].invalid && (administratorForm.controls['lastName'].dirty || administratorForm.controls['lastName'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="administratorForm.controls['lastName'].errors.required">
@@ -38,14 +38,22 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="edad">Edad</label>
-                        <input type="text" class="form-control" id="edad" formControlName="age" placeholder="Edad"
-                            value="" required>
-                        <div *ngIf="administratorForm.controls['age'].invalid && (administratorForm.controls['age'].dirty || administratorForm.controls['age'].touched)"
+                        <input type="number" class="form-control" id="edad" formControlName="age" placeholder="Edad"
+                            required min="18" max="99">
+                            <div *ngIf="administratorForm.controls['age'].invalid && (administratorForm.controls['age'].dirty || administratorForm.controls['age'].touched)"
                             class="alert alert-danger">
                             <div *ngIf="administratorForm.controls['age'].errors.required">
                                 Edad es requerida.
                             </div>
+                            <div *ngIf="administratorForm.controls['age'].errors.min">
+                                La edad debe ser mayor a 18.
+                            </div>
+                            <div *ngIf="administratorForm.controls['age'].errors.max">
+                                La edad debe ser mayor a 99.
+                            </div>
                         </div>
+
+                        
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="dni">DNI</label>
@@ -101,13 +109,14 @@
                             Please select a valid country.
                         </div>
                     </div>
-                </div>        
+                </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="administratorForm.invalid"
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="administratorForm.invalid || !photo1"
                     (click)="onSubmit()">Registrar
                     Administrador</button>
                 <div class="container" *ngIf="registered">
-                    <boot-alert mensaje="Administrador Registrado correctamente." color="warning" (dismiss)="navigate()">
+                    <boot-alert mensaje="Administrador Registrado correctamente." color="warning"
+                        (dismiss)="navigate()">
                     </boot-alert>
                 </div>
             </form>
