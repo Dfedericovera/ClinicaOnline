@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from '../interface/user.interface';
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -11,6 +13,7 @@ import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firest
 export class AuthService
 {
   public static user;
+  public user$:Observable<any>;
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
@@ -21,6 +24,17 @@ export class AuthService
     {
       this.user = user;
     }); */
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user =>{
+
+        if(user){
+          return this.afs.doc<any>(`usuarios/${user.uid}`).valueChanges();
+        }
+        else{
+          return of(null);
+        }
+      })
+    )
   }
 
   async login(email: string, password: string)

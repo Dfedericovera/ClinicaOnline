@@ -30,7 +30,7 @@ export class PatientService
     //? Vamos a acceder la lista de patients en la db.
     //? y se implementa la funcionalidad en el segundo argumento.
     //? La referencia que es nuestra lista de patients, se va a ordenar por nombre.
-    this.patientsDB = this.db.collection('/patients', (ref) =>
+    this.patientsDB = this.db.collection('/usuarios', (ref) =>
       /* ref.orderBy('date') */ref
     );
   }
@@ -38,7 +38,7 @@ export class PatientService
   //Devuelve un Observable de tipo Patient Array.
   getPatients(): Observable<Patient[]>
   {
-    return this.db.collection("patients", (ref) =>
+    return this.db.collection("usuarios", (ref) =>
       ref).snapshotChanges().pipe(
         map((snaps) =>
           snaps.map((snap) =>
@@ -54,7 +54,7 @@ export class PatientService
     try
     {
       const patientPromise = await this.db
-        .collection("patients")
+        .collection("usuarios")
         .doc(id)
         .get()
         /* .subscribe(value=>{
@@ -146,7 +146,7 @@ export class PatientService
     try
     {
       return this.db
-        .collection("patients")
+        .collection("usuarios")
         .doc(patient.id)
         .delete()
         .then(res => { console.log(res) });
@@ -162,7 +162,7 @@ export class PatientService
   editPatient(newPatient)
   {
     return this.db
-      .collection("patients")
+      .collection("usuarios")
       .doc(newPatient.id)
       .set(newPatient, { merge: true });
 

@@ -33,14 +33,14 @@ export class ProfessionalService
     //? Vamos a acceder la lista de professionals en la db.
     //? y se implementa la funcionalidad en el segundo argumento.
     //? La referencia que es nuestra lista de professionals, se va a ordenar por nombre.
-    this.professionalsDB = this.db.collection('/professionals', (ref) =>
-      ref.orderBy('date')
+    this.professionalsDB = this.db.collection('/usuarios', (ref) =>
+      ref.orderBy('name')
     );
   }
   //Devuelve un Observable de tipo Professional Array.
   getProfessionals(): Observable<Professional[]>
   {
-    return this.db.collection("professionals").snapshotChanges().pipe(
+    return this.db.collection("usuarios").snapshotChanges().pipe(
       map((snaps) =>
         snaps.map((snap) =>
         {
@@ -55,7 +55,7 @@ export class ProfessionalService
       try
       {
         const professionalPromise = await this.db
-          .collection("professionals")
+          .collection("usuarios")
           .doc(id)
           .get()
           /* .subscribe(value=>{
@@ -136,7 +136,7 @@ export class ProfessionalService
     try
     {
       return this.db
-        .collection("professionals")
+        .collection("usuarios")
         .doc(professional.id)
         .delete()
         .then(res => { console.log(res) });
@@ -152,7 +152,7 @@ export class ProfessionalService
   editProfessional(newProfessional)
   {
     return this.db
-      .collection("professionals")
+      .collection("usuarios")
       .doc(newProfessional.id)
       .set(newProfessional, { merge: true });
 
