@@ -19,11 +19,8 @@ export class HeaderComponent implements OnInit
 
   ngOnInit(): void
   {
-    /* this.user = JSON.parse(localStorage.getItem("user")); */
     this.AuthService.user$.subscribe(value=>{
-      this.user = value; 
-      console.log(value);
-           
+      this.user = value;         
     })
   }
 
@@ -33,10 +30,10 @@ export class HeaderComponent implements OnInit
   }
 
   logOut()
-  {
-    localStorage.removeItem("user");
-    this.router.navigate(['/login']);
-    this.AuthService.logout().then(v=>{console.log("LogOut Successful");
+  {    
+    this.AuthService.logout().then(v=>{
+      this.router.navigate(['/login']);
+      console.log("LogOut Successful");
     })
   }
 
