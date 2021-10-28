@@ -14,12 +14,14 @@ export class SignupComponent implements OnInit {
   user:any;
 
 
-  constructor(private userService:AuthService) { 
+  constructor(private authService:AuthService) { 
     this.isChoosingForm = true;
   }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.authService.user$.subscribe(user=>{
+      this.user = user;
+    })
   }
 
   onChooseForm(formTipe){
