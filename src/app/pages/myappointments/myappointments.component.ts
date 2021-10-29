@@ -56,7 +56,7 @@ export class MyappointmentsComponent implements OnInit
           {
             return app;
           }
-          else if (this.user.usertype == UserType.PROFESSIONAL && app.professional.id == this.user.id)
+          else if (this.user.usertype == UserType.PROFESSIONAL && app.professional.email == this.user.email)
           {
             return app;
           }
@@ -75,7 +75,7 @@ export class MyappointmentsComponent implements OnInit
     });
     this.patientService.getPatients().subscribe(v =>
     {
-      this.patientList = v.filter(professional => professional.usertype == UserType.PATIENT);;
+      this.patientList = v.filter(patient => patient.usertype == UserType.PATIENT);;
     })
 
 
