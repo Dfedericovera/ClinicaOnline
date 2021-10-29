@@ -60,6 +60,9 @@ export class MyappointmentsComponent implements OnInit
           {
             return app;
           }
+          else{
+            return app;
+          }
         });
         this.appointmentsListFiltered = this.appointmentsList;
       });
