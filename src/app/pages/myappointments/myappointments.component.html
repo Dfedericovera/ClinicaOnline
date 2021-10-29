@@ -16,7 +16,7 @@
             (click)="cancelAppointment()">Cancelar Turno</a>
         <a class="btn btn-danger" *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'  && user.usertype == 'professional'"
             (click)="rejectAppointment()">Rechazar Turno</a>
-        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'  && user.usertype == 'professional'"
+        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'  && user.usertype == 'professional' && selectedAppointment.state != 'Aceptado'"
             (click)="acceptAppointment()">Aceptar Turno</button>
         <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.state == 'Aceptado'  && user.usertype == 'professional'"
             (click)="finishAppointment()">Finalizar Turno</button>
