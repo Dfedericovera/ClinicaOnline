@@ -11,6 +11,7 @@ import { ProfessionalService } from 'src/app/services/professional.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-myappointments',
@@ -29,7 +30,7 @@ export class MyappointmentsComponent implements OnInit
   showAlert: boolean = false;
   selectedAppointment: Appointment;
   selectedAppointmentList: Array<Appointment> = [];
-
+  filter: string;
 
   constructor(
     private appointmentService: AppointmentService,
@@ -60,7 +61,8 @@ export class MyappointmentsComponent implements OnInit
           {
             return app;
           }
-          else{
+          else if (this.user.usertype == UserType.ADMINISTRATOR)
+          {
             return app;
           }
         });
@@ -70,7 +72,7 @@ export class MyappointmentsComponent implements OnInit
 
     this.professionalService.getProfessionals().subscribe(v =>
     {
-      this.professionalList = v.filter(professional => professional.usertype == UserType.PROFESSIONAL && professional.approved);
+      this.professionalList = v.filter(professional => professional.usertype == UserType.PROFESSIONAL);
     });
     this.spacialtyService.getSpecialtys().subscribe(v =>
     {
@@ -86,11 +88,32 @@ export class MyappointmentsComponent implements OnInit
 
   verResenia()
   {
-    this.dialog.open(DialogComponent,{
-      data:{titulo: 'Reseña' , mensaje: this.selectedAppointment.review }
+    this.dialog.open(DialogComponent, {
+      data: { titulo: 'Reseña', mensaje: this.selectedAppointment.review }
     });
   }
+  filterAppointments()
+  {
+    this.filter = this.filter.toLowerCase();
+    this.appointmentsListFiltered = this.appointmentsList.filter(appointment =>
+    {
+      let date = new Date(appointment.timeStamp);
+      console.log(date.getHours(), date.getMinutes());
 
+      if (appointment.professional.name.toLowerCase().includes(this.filter) ||
+        appointment.specialty.specialty.toLowerCase().includes(this.filter) ||
+        appointment.professional.lastName.toLowerCase().includes(this.filter) ||
+        date.getDate().toString().includes(this.filter) ||
+        date.getMonth().toString().includes(this.filter) ||
+        date.getHours().toString().includes(this.filter) ||
+        date.getMinutes().toString().includes(this.filter)
+      )
+      {
+        return appointment;
+      }
+
+    })
+  }
 
 
   onSelectAppointment(appoitment)
@@ -141,8 +164,8 @@ export class MyappointmentsComponent implements OnInit
   }
   cancelAppointment()
   {
-    this.dialog.open(DialogComponent,{
-      data:{titulo: 'Cancelar Turno' , mensaje: 'Esta seguro que decea cancelar el turno?', tipo:'cancelar',turno: this.selectedAppointment }
+    this.dialog.open(DialogComponent, {
+      data: { titulo: 'Cancelar Turno', mensaje: 'Esta seguro que decea cancelar el turno?', tipo: 'cancelar', turno: this.selectedAppointment }
     })
   }
   qualifyAttention()
@@ -165,4 +188,5 @@ export class MyappointmentsComponent implements OnInit
   {
 
   }
+
 }

@@ -1,4 +1,4 @@
-<div class="card text-center  pt-5">
+<!-- <div class="card text-center  pt-5">
     <div class="card-body">
         <h5 class="card-title" *ngIf="user">Hola {{user.name}} {{user.lastName}}</h5>
         <small *ngIf="!selectedAppointment">Seleccione un turno</small>
@@ -26,16 +26,53 @@
     </div>
     <boot-alert *ngIf="showAlert" (dismiss)="dismissAlert()" color="success"
         mensaje="Turno Guardado con exito. Lo esperamos"></boot-alert>
-</div>
+</div> -->
 
 <app-header></app-header>
+<div class="container mt-5 pt-5">
+    <div>
+        <h2>Puede buscar un turno ingresando cualquier dato que recuerde: </h2>
+    </div>
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" [(ngModel)]="filter" (ngModelChange)="filterAppointments()"
+            [ngModelOptions]="{standalone: true}" placeholder="Escriba aqui..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    <h3 *ngIf="selectedAppointment" class="d-flex justify-content-center">Estado del Turno: <b
+            class="text-primary">{{selectedAppointment.state}}</b> </h3>
+    <app-appointment-list [appointments]="selectedAppointmentList"></app-appointment-list>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.review"
+            (click)="verResenia()">Ver Reseña</button>
+
+        <button class="btn btn-success"
+            *ngIf="selectedAppointment && selectedAppointment.state == 'Realizado' && selectedAppointment.review && user.usertype == 'patient'"
+            (click)="showPool()">Completar Encuesta</button>
+        <button class="btn btn-success"
+            *ngIf="selectedAppointment && selectedAppointment.state == 'Realizado' && user.usertype == 'patient'"
+            (click)="qualifyAttention()">Calificar Atención</button>
+        <a class="btn btn-danger"
+            *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado' && selectedAppointment.state != 'Cancelado' && selectedAppointment.state !='Rechazado'"
+            (click)="cancelAppointment()">Cancelar Turno</a>
+        <a class="btn btn-danger"
+            *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'  && user.usertype == 'professional'"
+            (click)="rejectAppointment()">Rechazar Turno</a>
+        <button class="btn btn-success"
+            *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'  && user.usertype == 'professional' && selectedAppointment.state != 'Aceptado'"
+            (click)="acceptAppointment()">Aceptar Turno</button>
+        <button class="btn btn-success"
+            *ngIf="selectedAppointment && selectedAppointment.state == 'Aceptado'  && user.usertype == 'professional'"
+            (click)="finishAppointment()">Finalizar Turno</button>
+    </div>
+
+</div>
 
 <div class="pt-5">
-    <h4 class="mb-3">Listado de turnos: </h4> <button class="btn btn-warning" (click)="showAll()">Ver Todos</button>
+    <button class="btn btn-warning" (click)="showAll()">Ver todos los turnos</button>
     <app-appointment-list [appointments]="appointmentsListFiltered" (chooseAppointment)="onSelectAppointment($event)">
     </app-appointment-list>
 </div>
-<h2 >-Opciones de flitrado: </h2>
+<!-- <h2 >-Opciones de flitrado: </h2>
 <div class="row">
     <div class="col-sm">
         <app-specialty-list [specialtys]="specialtyList" (chooseSpecialty)="onChooseSpecialty($event)">
@@ -49,4 +86,4 @@
         <app-patient-list [patients]="patientList" (choosePatient)="onChoosePatient($event)">
         </app-patient-list>
     </div>
-</div>
+</div> -->
