@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Appointment } from 'src/app/clases/appointment';
+import { Appointment, AppointmentState } from 'src/app/clases/appointment';
 import { Patient } from 'src/app/clases/patient';
 import { Professional } from 'src/app/clases/professional';
 import { Specialty } from 'src/app/clases/specialty';
@@ -182,7 +182,11 @@ export class MyappointmentsComponent implements OnInit
   }
   acceptAppointment()
   {
-
+    this.selectedAppointment.state = AppointmentState.Aceptado;
+    this.appointmentService.editAppointment(this.selectedAppointment).then(app=>{
+      console.log("aceptado");
+      
+    });
   }
   finishAppointment()
   {
