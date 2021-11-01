@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Administrator } from 'src/app/clases/administrator';
 import { Patient } from 'src/app/clases/patient';
 import { Professional } from 'src/app/clases/professional';
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit
   administratorTesting: Administrator;
   spinner: boolean;
   submitted: boolean;
+  user$: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +55,9 @@ export class LoginComponent implements OnInit
     this.loadTesters();
   }
 
+  ngOnDestroy(){
+    this.user$.unsubscribe();
+  }
   loadTesters()
   {
     this.patientService.getPatientById("cEewD51RQsYrvaYHQ3eRAzkUHDJ3").then(testintgPatient =>
@@ -120,7 +125,7 @@ export class LoginComponent implements OnInit
   }
   onLoginSuccess(user?: User)
   {
-    this.authService.user$.subscribe(value =>
+    this.user$ = this.authService.user$.subscribe(value =>
     {
       if ((value as Professional).usertype == "professional" && !(value as Professional).approved)
       {
