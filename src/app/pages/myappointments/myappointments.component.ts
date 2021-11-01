@@ -91,7 +91,7 @@ export class MyappointmentsComponent implements OnInit
   verResenia()
   {
     this.dialog.open(DialogComponent, {
-      data: { titulo: 'Reseña', mensaje: this.selectedAppointment.review }
+      data: { titulo: 'Reseña: ', mensaje: this.selectedAppointment.review }
     });
   }
   filterAppointments()
@@ -180,7 +180,9 @@ export class MyappointmentsComponent implements OnInit
   }
   rejectAppointment()
   {
-
+    this.dialog.open(DialogComponent, {
+      data: { titulo: 'Rechazar Turno', mensaje: 'Esta seguro que decea rechazar el turno?', tipo: 'rechazar', turno: this.selectedAppointment }
+    })
   }
   acceptAppointment()
   {
@@ -194,7 +196,9 @@ export class MyappointmentsComponent implements OnInit
   }
   finishAppointment()
   {
-
+    this.dialog.open(DialogComponent, {
+      data: { titulo: 'Finalizar Turno', mensaje: 'Esta seguro que decea finalizar el turno?', tipo: 'finalizar', turno: this.selectedAppointment }
+    })
   }
 
   dismissAlert()

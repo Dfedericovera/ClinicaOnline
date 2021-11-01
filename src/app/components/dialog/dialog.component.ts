@@ -35,16 +35,28 @@ export class DialogComponent implements OnInit
   createForm()
   {    
     this.form = this.fb.group({
-      comment: ["", Validators.required],
+      review: ["", Validators.required],
     });
   }
 
 
   cancelarTurno(){
     
-    this.turno.comment = this.form.controls['comment'].value;
+    this.turno.review = this.form.controls['review'].value;
 
     this.turno.state = AppointmentState.Cancelado;
+    this.appointmentService.editAppointment(this.turno);
+  }
+
+  rechazarTurno(){
+    this.turno.review = this.form.controls['review'].value;
+    this.turno.state = AppointmentState.Rechazado;
+    this.appointmentService.editAppointment(this.turno);
+  }
+
+  finalizarTurno(){
+    this.turno.review = this.form.controls['review'].value;
+    this.turno.state = AppointmentState.Realizado;
     this.appointmentService.editAppointment(this.turno);
   }
 

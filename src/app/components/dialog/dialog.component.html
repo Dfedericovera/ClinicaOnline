@@ -3,15 +3,15 @@
 <div mat-dialog-actions>
 
 
-  <form class="needs-validation" [formGroup]="form" novalidate *ngIf="tipo == 'cancelar'">
+  <form class="needs-validation" [formGroup]="form" novalidate *ngIf="tipo == 'cancelar' || tipo == 'rechazar' || tipo=='finalizar'">
     <div class="row">
         <div class="col">
             <label for="firstName">Comentario</label>
-            <input type="text" class="form-control" id="firstName" formControlName="comment"
+            <input type="text" class="form-control" id="firstName" formControlName="review"
                 placeholder="Escriba aqui..." value="" required>
-            <div *ngIf="form.controls['comment'].invalid && (form.controls['comment'].dirty || form.controls['comment'].touched)"
+            <div *ngIf="form.controls['review'].invalid && (form.controls['review'].dirty || form.controls['review'].touched)"
                 class="alert alert-danger">
-                <div *ngIf="form.controls['comment'].errors.required">
+                <div *ngIf="form.controls['review'].errors.required">
                     Comentario requerido.
                 </div>
             </div>
@@ -23,4 +23,6 @@
 
   <button mat-button mat-dialog-close >Cerrar</button>
   <button mat-button color="warn" mat-dialog-close (click)="cancelarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'cancelar'" style="float: right;">Aceptar</button>
+  <button mat-button color="warn" mat-dialog-close (click)="rechazarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'rechazar'" style="float: right;">Aceptar</button>
+  <button mat-button color="warn" mat-dialog-close (click)="finalizarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'finalizar'" style="float: right;">Aceptar</button>
 </div>
