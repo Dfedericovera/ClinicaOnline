@@ -185,11 +185,11 @@ export class MyappointmentsComponent implements OnInit
   acceptAppointment()
   {
     this.selectedAppointment.state = AppointmentState.Aceptado;
-    this.spinner = !this.spinner;
+    this.spinner = true;
     this.appointmentService.editAppointment(this.selectedAppointment).then(app=>{      
       this.message = "Turno Aceptado.";
-      this.showAlert = !this.showAlert;
-      this.spinner = !this.spinner;
+      this.showAlert = true;
+      this.spinner = false;
     });
   }
   finishAppointment()
@@ -199,7 +199,7 @@ export class MyappointmentsComponent implements OnInit
 
   dismissAlert()
   {
-    this.showAlert = !this.showAlert;
+    this.showAlert = false;
   }
 
 }
