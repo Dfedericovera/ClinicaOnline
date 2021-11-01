@@ -3,10 +3,10 @@
 <div mat-dialog-actions>
 
 
-  <form class="needs-validation" [formGroup]="form" novalidate *ngIf="tipo == 'cancelar' || tipo == 'rechazar' || tipo=='finalizar'">
+  <form class="needs-validation" [formGroup]="form" novalidate *ngIf="tipo == 'cancelar' || tipo == 'rechazar' || tipo=='finalizar' || tipo == 'calificar'">
     <div class="row">
         <div class="col">
-            <label for="firstName">Comentario</label>
+            <label for="firstName"></label>
             <input type="text" class="form-control" id="firstName" formControlName="review"
                 placeholder="Escriba aqui..." value="" required>
             <div *ngIf="form.controls['review'].invalid && (form.controls['review'].dirty || form.controls['review'].touched)"
@@ -18,11 +18,39 @@
         </div>
     </div>
   </form>
-  
+
+  <form class="needs-validation" [formGroup]="encuestaForm" novalidate *ngIf="tipo == 'encuesta'">
+    <div class="row">
+        <div class="col">
+            <label for="firstName">¿Recomendaría este Hospital a otras personas?</label>
+            <input type="text" class="form-control" id="firstName" formControlName="recomienda"
+                placeholder="Escriba aqui..." value="" required>
+            <div *ngIf="encuestaForm.controls['recomienda'].invalid && (encuestaForm.controls['recomienda'].dirty || encuestaForm.controls['recomienda'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="encuestaForm.controls['recomienda'].errors.required">
+                    Respuesta requerida.
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <label for="firstName">¿Se le solicitó su consentimiento o autorización para hacerle las pruebas que le indicó el médico?</label>
+            <input type="text" class="form-control" id="firstName" formControlName="consentimiento"
+                placeholder="Escriba aqui..." value="" required>
+            <div *ngIf="encuestaForm.controls['consentimiento'].invalid && (encuestaForm.controls['consentimiento'].dirty || encuestaForm.controls['consentimiento'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="encuestaForm.controls['consentimiento'].errors.required">
+                    Respuesta requerida.
+                </div>
+            </div>
+        </div>
+    </div>
+  </form>
   
 
   <button mat-button mat-dialog-close >Cerrar</button>
   <button mat-button color="warn" mat-dialog-close (click)="cancelarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'cancelar'" style="float: right;">Aceptar</button>
   <button mat-button color="warn" mat-dialog-close (click)="rechazarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'rechazar'" style="float: right;">Aceptar</button>
   <button mat-button color="warn" mat-dialog-close (click)="finalizarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'finalizar'" style="float: right;">Aceptar</button>
+  <button mat-button color="warn" mat-dialog-close (click)="calificarTurno()" [disabled]="form.invalid" *ngIf="tipo == 'calificar'" style="float: right;">Aceptar</button>
+  <button mat-button color="warn" mat-dialog-close (click)="encuesta()" [disabled]="encuestaForm.invalid" *ngIf="tipo == 'encuesta'" style="float: right;">Aceptar</button>
 </div>

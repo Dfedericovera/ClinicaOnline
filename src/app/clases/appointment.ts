@@ -1,3 +1,4 @@
+import { Iencuesta } from '../interface/iencuesta';
 import { Patient } from './patient';
 import { Professional } from './professional';
 import { Specialty } from './specialty';
@@ -18,6 +19,7 @@ export class Appointment{
     state:AppointmentState;
     review:string;
     comment:string;
+    quiz:Iencuesta;
     
 
     public constructor(init?: Partial<Appointment>) {

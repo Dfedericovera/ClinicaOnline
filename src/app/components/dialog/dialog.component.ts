@@ -17,6 +17,7 @@ export class DialogComponent implements OnInit
   tipo:string;
   turno:Appointment;
   form:FormGroup;
+  encuestaForm:FormGroup;
   constructor(
     private appointmentService:AppointmentService,
     private fb: FormBuilder,
@@ -37,6 +38,10 @@ export class DialogComponent implements OnInit
     this.form = this.fb.group({
       review: ["", Validators.required],
     });
+    this.encuestaForm = this.fb.group({
+      recomienda: ["", Validators.required],
+      consentimiento: ["", Validators.required],
+    })
   }
 
 
@@ -57,6 +62,19 @@ export class DialogComponent implements OnInit
   finalizarTurno(){
     this.turno.review = this.form.controls['review'].value;
     this.turno.state = AppointmentState.Realizado;
+    this.appointmentService.editAppointment(this.turno);
+  }
+
+  calificarTurno(){
+    this.turno.comment = this.form.controls['review'].value;
+    this.appointmentService.editAppointment(this.turno);
+  }
+
+  encuesta(){
+    this.turno.quiz = {
+      recomienda : this.encuestaForm.controls['recomienda'].value,
+      consentimiento: this.encuestaForm.controls['consentimiento'].value
+    }    
     this.appointmentService.editAppointment(this.turno);
   }
 

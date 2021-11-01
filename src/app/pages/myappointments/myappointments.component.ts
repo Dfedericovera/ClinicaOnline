@@ -172,11 +172,19 @@ export class MyappointmentsComponent implements OnInit
   }
   qualifyAttention()
   {
+    this.spinner = true;
+    this.dialog.open(DialogComponent, {
+      data: { titulo: 'Calificar Atención', mensaje: 'Nos gustaria saber su opinión', tipo: 'calificar', turno: this.selectedAppointment }
+    }).afterClosed().subscribe(v=>{
+      this.spinner = false;
+    })
 
   }
   showPool()
   {
-
+    this.dialog.open(DialogComponent, {
+      data: { titulo: 'Encuesta', mensaje: 'Responda algunas preguntas', tipo: 'encuesta', turno: this.selectedAppointment }
+    })
   }
   rejectAppointment()
   {
