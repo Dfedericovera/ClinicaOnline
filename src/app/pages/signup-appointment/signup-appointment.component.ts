@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Administrator } from 'src/app/clases/administrator';
 import { Appointment, AppointmentState } from 'src/app/clases/appointment';
 import { Patient } from 'src/app/clases/patient';
@@ -38,6 +39,9 @@ export class SignupAppointmentComponent implements OnInit
   showAlert: boolean;
 
   appointmentForm: FormGroup;
+  user$: Subscription;
+
+
   constructor(
     private appointmentService: AppointmentService,
     private professionalService: ProfessionalService,
@@ -49,11 +53,26 @@ export class SignupAppointmentComponent implements OnInit
     this.newAppointment = new Appointment({ patient: this.user });
     this.freeAppointments = [];
     this.showAlert = false;
+    this.date = new Date();
   }
 
   ngOnInit(): void
   {
-    this.authService.user$.subscribe(user =>
+    this.getUser();
+    this.getSpecialtys();
+    this.getProfessionals();
+    this.getAppointments();
+    this.createDatesList();
+    this.getPatients();
+  }
+  ngOnDestroy()
+  {
+    this.user$.unsubscribe();
+  }
+
+  getUser()
+  {
+    this.user$ = this.authService.user$.subscribe(user =>
     {
       if (user.usertype == 'administrator')
       {
@@ -64,12 +83,6 @@ export class SignupAppointmentComponent implements OnInit
         this.user = user;
       }
     })
-    this.date = new Date();
-    this.getSpecialtys();
-    this.getProfessionals();
-    this.getAppointments();
-    this.createDatesList();
-    this.getPatients();
   }
 
   createAvailableList(date: Date)
@@ -388,15 +401,15 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.professionalService.getProfessionals().subscribe(professionals =>
     {
-      this.professionals = professionals.filter(pro=>pro.approved && pro.usertype==UserType.PROFESSIONAL);
-      this.freeProfessionals = professionals.filter(pro=>pro.approved && pro.usertype==UserType.PROFESSIONAL);
+      this.professionals = professionals.filter(pro => pro.approved && pro.usertype == UserType.PROFESSIONAL);
+      this.freeProfessionals = professionals.filter(pro => pro.approved && pro.usertype == UserType.PROFESSIONAL);
     })
   }
   getPatients()
   {
     this.patientService.getPatients().subscribe(patients =>
     {
-      this.patientList = patients.filter(pat=>pat.usertype==UserType.PATIENT);;
+      this.patientList = patients.filter(pat => pat.usertype == UserType.PATIENT);;
     })
   }
   /**

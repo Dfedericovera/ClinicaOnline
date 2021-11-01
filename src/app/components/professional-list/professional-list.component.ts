@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Professional } from 'src/app/clases/professional';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
@@ -15,6 +16,9 @@ export class ProfessionalListComponent implements OnInit
   @Output() chooseProfessional: EventEmitter<Professional> = new EventEmitter<Professional>();
   spinner: boolean;
   isAdministrator: boolean;
+  user$:Subscription;
+
+
   constructor(
     private professionalService: ProfessionalService,
     private authService: AuthService,
@@ -25,7 +29,15 @@ export class ProfessionalListComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.authService.user$.subscribe(user=>{
+    this.getUser()
+  }
+
+  ngOnDestroy(){
+    this.user$.unsubscribe();
+  }
+
+  getUser(){
+    this.user$ = this.authService.user$.subscribe(user=>{
       if(user.usertype == "administrator"){
         this.isAdministrator = true;
       }

@@ -11,7 +11,7 @@ import { ProfessionalService } from 'src/app/services/professional.service';
 import { SpecialtyService } from 'src/app/services/specialty-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-myappointments',
@@ -32,7 +32,8 @@ export class MyappointmentsComponent implements OnInit
   selectedAppointmentList: Array<Appointment> = [];
   filter: string;
   message: string;
-  spinner:boolean;
+  spinner: boolean;
+  user$: Subscription;
 
   constructor(
     private appointmentService: AppointmentService,
@@ -48,7 +49,29 @@ export class MyappointmentsComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.authService.user$.subscribe(user =>
+    this.getMyAppointments();
+    this.professionalService.getProfessionals().subscribe(v =>
+    {
+      this.professionalList = v.filter(professional => professional.usertype == UserType.PROFESSIONAL);
+    });
+    this.spacialtyService.getSpecialtys().subscribe(v =>
+    {
+      this.specialtyList = v;
+    });
+    this.patientService.getPatients().subscribe(v =>
+    {
+      this.patientList = v.filter(patient => patient.usertype == UserType.PATIENT);;
+    })
+  }
+
+  ngOnDestroy()
+  {
+    this.user$.unsubscribe();
+  }
+
+  getMyAppointments()
+  {
+    this.user$ = this.authService.user$.subscribe(user =>
     {
       this.user = user;
       this.appointmentService.getAppointments().subscribe(appointments =>
@@ -71,21 +94,6 @@ export class MyappointmentsComponent implements OnInit
         this.appointmentsListFiltered = this.appointmentsList;
       });
     })
-
-    this.professionalService.getProfessionals().subscribe(v =>
-    {
-      this.professionalList = v.filter(professional => professional.usertype == UserType.PROFESSIONAL);
-    });
-    this.spacialtyService.getSpecialtys().subscribe(v =>
-    {
-      this.specialtyList = v;
-    });
-    this.patientService.getPatients().subscribe(v =>
-    {
-      this.patientList = v.filter(patient => patient.usertype == UserType.PATIENT);;
-    })
-
-
   }
 
   verResenia()
@@ -175,7 +183,8 @@ export class MyappointmentsComponent implements OnInit
     this.spinner = true;
     this.dialog.open(DialogComponent, {
       data: { titulo: 'Calificar Atención', mensaje: 'Nos gustaria saber su opinión', tipo: 'calificar', turno: this.selectedAppointment }
-    }).afterClosed().subscribe(v=>{
+    }).afterClosed().subscribe(v =>
+    {
       this.spinner = false;
     })
 
@@ -196,7 +205,8 @@ export class MyappointmentsComponent implements OnInit
   {
     this.selectedAppointment.state = AppointmentState.Aceptado;
     this.spinner = true;
-    this.appointmentService.editAppointment(this.selectedAppointment).then(app=>{      
+    this.appointmentService.editAppointment(this.selectedAppointment).then(app =>
+    {
       this.message = "Turno Aceptado.";
       this.showAlert = true;
       this.spinner = false;
