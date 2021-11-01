@@ -64,7 +64,14 @@
             *ngIf="selectedAppointment && selectedAppointment.state == 'Aceptado'  && user.usertype == 'professional'"
             (click)="finishAppointment()">Finalizar Turno</button>
     </div>
+    <boot-alert *ngIf="showAlert" (dismiss)="dismissAlert()" color="success" [mensaje]="message"></boot-alert>
+    <div class="d-flex justify-content-center">
+        <div class="spinner-grow text-warning" role="status" *ngIf="spinner">
+            <!-- *ngIf="spinner else alert  <ng-template #alert>-->
+            <span class="sr-only">Loading...</span>
+        </div>
 
+    </div>
 </div>
 
 <div class="pt-5">

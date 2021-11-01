@@ -31,6 +31,8 @@ export class MyappointmentsComponent implements OnInit
   selectedAppointment: Appointment;
   selectedAppointmentList: Array<Appointment> = [];
   filter: string;
+  message: string;
+  spinner:boolean;
 
   constructor(
     private appointmentService: AppointmentService,
@@ -183,14 +185,21 @@ export class MyappointmentsComponent implements OnInit
   acceptAppointment()
   {
     this.selectedAppointment.state = AppointmentState.Aceptado;
-    this.appointmentService.editAppointment(this.selectedAppointment).then(app=>{
-      console.log("aceptado");
-      
+    this.spinner = !this.spinner;
+    this.appointmentService.editAppointment(this.selectedAppointment).then(app=>{      
+      this.message = "Turno Aceptado.";
+      this.showAlert = !this.showAlert;
+      this.spinner = !this.spinner;
     });
   }
   finishAppointment()
   {
 
+  }
+
+  dismissAlert()
+  {
+    this.showAlert = !this.showAlert;
   }
 
 }
