@@ -102,8 +102,22 @@ export class SignupAppointmentComponent implements OnInit
     {//weekday
       let hora = 8;
       let minutos = 0;
-      let taken: boolean = false;
-      if (this.newAppointment.specialty && this.newAppointment.professional)
+      let horaFin = 19;
+      this.filtrarHorarios(date,hora,minutos,horaFin);      
+
+    }
+    else
+    { //saturday
+      let hora = 8;
+      let minutos = 0;
+      let horaFin = 14;
+      this.filtrarHorarios(date,hora,minutos,horaFin);
+    }
+  }
+
+  filtrarHorarios(date:Date,hora,minutos,horaFin){
+    let taken: boolean = false;
+    if (this.newAppointment.specialty && this.newAppointment.professional)
       {
         date.setHours(hora, minutos, 0, 0);
         do
@@ -132,7 +146,7 @@ export class SignupAppointmentComponent implements OnInit
           date = new Date(this.addMinutes(date, this.newAppointment.specialty.duration));
 
           hora = date.getHours();
-        } while (hora < 19)
+        } while (hora < horaFin)
         hora = 8;
         minutos = 0;
 
@@ -169,7 +183,7 @@ export class SignupAppointmentComponent implements OnInit
             date = new Date(this.addMinutes(date, this.newAppointment.specialty.duration));
 
             hora = date.getHours();
-          } while (hora < 19)
+          } while (hora < horaFin)
           hora = 8;
           minutos = 0;
         })
@@ -207,7 +221,7 @@ export class SignupAppointmentComponent implements OnInit
             date = new Date(this.addMinutes(date, specialty.duration));
 
             hora = date.getHours();
-          } while (hora < 19)
+          } while (hora < horaFin)
           hora = 8;
           minutos = 0;
         })
@@ -244,12 +258,6 @@ export class SignupAppointmentComponent implements OnInit
         }, 1000);
 
       }
-
-    }
-    else
-    { //saturday
-
-    }
   }
   createDatesList()
   {
@@ -306,7 +314,7 @@ export class SignupAppointmentComponent implements OnInit
 
     this.newAppointmentList[0] = this.newAppointment;
     let isSameSpecialty: boolean;
-    this.freeProfessionals = this.professionals.filter(profesional =>
+    /* this.freeProfessionals = this.professionals.filter(profesional =>
     {
       isSameSpecialty = false;
       profesional.specialty.forEach(proSpecialty =>
@@ -321,7 +329,7 @@ export class SignupAppointmentComponent implements OnInit
       {
         return profesional;
       }
-    })
+    }) */
     if (this.newAppointment.professional)
     {
       let coincidence: Professional;
@@ -341,7 +349,7 @@ export class SignupAppointmentComponent implements OnInit
         this.newAppointmentList[0] = this.newAppointment;
       }
     }
-
+    this.date = new Date();
     this.createAvailableList(this.date);
   }
 
@@ -349,6 +357,7 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.selectedProfessional = professional;
     this.lastAppointment = undefined;
+    this.selectedSpecialty = undefined;
     if (this.newAppointment.specialty)
     {
       this.newAppointment = new Appointment({ professional: professional, specialty: this.newAppointment.specialty, patient: this.user });
