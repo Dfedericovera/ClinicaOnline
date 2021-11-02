@@ -32,9 +32,12 @@ export class SignupAppointmentComponent implements OnInit
 
   appointments: Array<Appointment>;
   todaysAppointments: Array<Appointment>;
+  selectedDay:Date;
   lastAppointment: Appointment;
   specialtys: Specialty[];
+  selectedSpecialty:Specialty;
   professionals: Professional[];
+  selectedProfessional:Professional;
   patientList: Patient[] = [];
   showAlert: boolean;
 
@@ -83,6 +86,10 @@ export class SignupAppointmentComponent implements OnInit
         this.user = user;
       }
     })
+  }
+  onChooseDate(date:Date){
+    this.selectedDay = date;
+    this.createAvailableList(date);
   }
 
   createAvailableList(date: Date)
@@ -287,6 +294,7 @@ export class SignupAppointmentComponent implements OnInit
 
   onChooseSpecialty(specialty: Specialty)
   {
+    this.selectedSpecialty = specialty;
     if (this.newAppointment.professional)
     {
       this.newAppointment = new Appointment({ professional: this.newAppointment.professional, specialty: specialty, patient: this.user });
@@ -339,6 +347,7 @@ export class SignupAppointmentComponent implements OnInit
 
   onChooseProfessional(professional: Professional)
   {
+    this.selectedProfessional = professional;
     this.lastAppointment = undefined;
     if (this.newAppointment.specialty)
     {
