@@ -43,7 +43,8 @@
     <app-appointment-list [appointments]="selectedAppointmentList"></app-appointment-list>
     <!-- Botones Paciente -->
     <div class="d-flex justify-content-center" *ngIf="user && user.usertype == 'patient'">
-        <button class="btn btn-danger" *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado' && selectedAppointment.state != 'Cancelado'"
+        <button class="btn btn-danger"
+            *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado' && selectedAppointment.state != 'Cancelado'"
             (click)="cancelAppointment()">Cancelar Turno</button>
         <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.review"
             (click)="verResenia()">Ver Reseña</button>
@@ -64,11 +65,17 @@
         <button class="btn btn-success"
             *ngIf="selectedAppointment && selectedAppointment.state != 'Realizado'&& selectedAppointment.state != 'Cancelado'&& selectedAppointment.state != 'Aceptado' && selectedAppointment.state != 'Rechazado'"
             (click)="acceptAppointment()">Aceptar Turno</button>
-        <button class="btn btn-success"
-            *ngIf="selectedAppointment && selectedAppointment.state == 'Aceptado' "
+        <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.state == 'Aceptado' "
             (click)="finishAppointment()">Finalizar Turno</button>
         <button class="btn btn-success" *ngIf="selectedAppointment && selectedAppointment.review"
             (click)="verResenia()">Ver Reseña</button>
+    </div>
+    <!-- Botones Administrador -->
+    <div class="d-flex justify-content-center" *ngIf="user && user.usertype == 'administrator'">
+        <button class="btn btn-danger"
+            *ngIf="selectedAppointment && selectedAppointment.state != 'Aceptado' && selectedAppointment.state != 'Realizado' && selectedAppointment.state !='Rechazado' && selectedAppointment.state != 'Cancelado'"
+            (click)="cancelAppointment()">Cancelar Turno
+        </button>
     </div>
     <boot-alert *ngIf="showAlert" (dismiss)="dismissAlert()" color="success" [mensaje]="message"></boot-alert>
     <div class="d-flex justify-content-center">

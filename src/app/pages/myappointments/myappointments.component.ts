@@ -108,15 +108,15 @@ export class MyappointmentsComponent implements OnInit
     this.appointmentsListFiltered = this.appointmentsList.filter(appointment =>
     {
       let date = new Date(appointment.timeStamp);
-      console.log(date.getHours(), date.getMinutes());
-
       if (appointment.professional.name.toLowerCase().includes(this.filter) ||
         appointment.specialty.specialty.toLowerCase().includes(this.filter) ||
         appointment.professional.lastName.toLowerCase().includes(this.filter) ||
         date.getDate().toString().includes(this.filter) ||
         date.getMonth().toString().includes(this.filter) ||
         date.getHours().toString().includes(this.filter) ||
-        date.getMinutes().toString().includes(this.filter)
+        date.getMinutes().toString().includes(this.filter) ||
+        appointment.patient.name.toLocaleLowerCase().includes(this.filter) ||
+        appointment.patient.lastName.toLocaleLowerCase().includes(this.filter)
       )
       {
         return appointment;
