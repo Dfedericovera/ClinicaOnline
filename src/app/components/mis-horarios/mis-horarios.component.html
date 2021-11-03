@@ -1,1 +1,37 @@
-<p>mis-horarios works!</p>
+<h4 class="mb-3">Mis Horarios</h4>
+<label for="newSpecialty"><b>Mis Horarios</b></label> &nbsp;
+<button id="newSpecialty" *ngIf="!showForm" class="btn btn-outline-success" (click)="showForm = !showForm">➕</button>
+<button id="newSpecialty" *ngIf="showForm" class="btn btn-outline-success" (click)="showForm = !showForm">➖</button>
+<div class="row" *ngIf="showForm">
+    <div class="col-md-6 mb-3">
+        <app-specialty-list [specialtys]="specialtys" (chooseSpecialty)="onChooseSpecialty($event)"></app-specialty-list>
+        <form class="needs-validation" [formGroup]="specialtyForm" novalidate>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="edad">Horario Entrada</label>
+                    <input type="number" class="form-control" id="edad" formControlName="horarioEntrada" placeholder="Edad"
+                        min="18" max="99" placeholder="Entrada" required>
+                    <div *ngIf="specialtyForm.controls['horarioEntrada'].invalid && (specialtyForm.controls['horarioEntrada'].dirty || specialtyForm.controls['horarioEntrada'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="specialtyForm.controls['horarioEntrada'].errors.required">
+                            Edad es requerida.
+                        </div>
+                        <div *ngIf="specialtyForm.controls['horarioEntrada'].errors.min">
+                            Edad debe ser mayor a 18.
+                        </div>
+                        <div *ngIf="specialtyForm.controls['horarioEntrada'].errors.max">
+                            Edad debe ser menor a 99.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="specialtyForm.invalid"
+                (click)="onSubmit()">Modificar Horarios</button>
+            <div class="container" *ngIf="isSubmitted">
+                <boot-alert mensaje="Horarios modificados correctamente" color="warning" (dismiss)="navigate()">
+                </boot-alert>
+            </div>
+        </form>
+    </div>
+</div>
