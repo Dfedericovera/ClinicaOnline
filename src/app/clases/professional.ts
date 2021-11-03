@@ -1,19 +1,16 @@
 import { Specialty } from './specialty';
-import { UserType } from './userType';
+import { Usuario } from './usuario';
 
-export class Professional {
-    public id: string;
-    public name: string;
-    public lastName: string;
+export class Professional extends Usuario{
+    
     public age:number;
     public dni:string;
-    public specialty: Array<Specialty>;
-    public email: string;    
-    public photos: Array<any>;
+    public specialty: Array<Specialty>;    
     public approved:boolean;
-    public usertype:UserType;
+    
 
     public constructor(init?: Partial<Professional>) {
+        super()
         if(init){
             Object.assign(this, init);
         }        
