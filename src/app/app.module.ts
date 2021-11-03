@@ -51,6 +51,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import {MatInputModule} from '@angular/material/input';
+import { MisHorariosComponent } from './components/mis-horarios/mis-horarios.component';
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import {MatInputModule} from '@angular/material/input';
     AppointmentsComponent,
     SignupAppointmentComponent,
     MyProfileComponent,
-    DialogComponent
+    DialogComponent,
+    MisHorariosComponent
   ],
   imports: [
     BrowserModule,
