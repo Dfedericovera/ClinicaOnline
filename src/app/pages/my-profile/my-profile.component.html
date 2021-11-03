@@ -1,13 +1,27 @@
 <app-header></app-header>
 <div class="container mt-5">
-    <div class="col mt-5 pt-5"*ngIf="user">
-        <img  [src]="user.photos[0]" alt="" class="bd-placeholder-img rounded-circle" width="140" height="140">
-        <img  [src]="user.photos[1]" *ngIf="user.usertype == 'patient'" alt="" class="bd-placeholder-img rounded-circle" width="140" height="140">
-        <h2>{{user.name}} - {{user.lastName}}</h2>
+    <div class="col mt-5 pt-5" *ngIf="user">
+        <img [src]="user.photos[0]" alt="" class="bd-placeholder-img rounded-circle" width="140" height="140">
+        <img [src]="user.photos[1]" *ngIf="user.usertype == 'patient'" alt="" class="bd-placeholder-img rounded-circle"
+            width="140" height="140">
+        <div class="card mt-5" style="width: 18rem;">
 
-        <label for="">{{user.email}}</label>
+            <div class="card-body">
+                <h1 class="card-title " *ngIf="user.usertype=='patient'"> Paciente</h1>
+                <h1 class="card-title " *ngIf="user.usertype=='professional'">Profesional</h1>
+                <h1 class="card-title " *ngIf="user.usertype=='administrator'">Administrador</h1>
+            </div>
 
-        <p *ngIf="user.usertype != 'administrator'">Obra social: {{user.obraSocial}}</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{user.name}} - {{user.lastName}}</li>
+                <li class="list-group-item">{{user.email}}</li>
+                <li class="list-group-item" *ngIf="user.usertype != 'administrator'">Obra social: {{user.obraSocial}}
+                </li>
+            </ul>
+
+
+        </div>
+
         <app-mis-horarios *ngIf="user.usertype == 'professional'"></app-mis-horarios>
     </div>
 </div>
