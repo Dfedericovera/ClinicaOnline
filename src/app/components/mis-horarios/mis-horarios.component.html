@@ -1,35 +1,129 @@
-<h4 class="mb-3">Mis Horarios</h4>
-<label for="newSpecialty"><b>Mis Horarios</b></label> &nbsp;
+
+<label for="newSpecialty" class="mt-5"><b>Mis Horarios</b></label> &nbsp;
 <button id="newSpecialty" *ngIf="!showForm" class="btn btn-outline-success" (click)="showForm = !showForm">➕</button>
 <button id="newSpecialty" *ngIf="showForm" class="btn btn-outline-success" (click)="showForm = !showForm">➖</button>
 <div class="row" *ngIf="showForm">
     <div class="col-md-6 mb-3">
-        <app-specialty-list [specialtys]="specialtys" (chooseSpecialty)="onChooseSpecialty($event)"></app-specialty-list>
-        <form class="needs-validation" [formGroup]="specialtyForm" novalidate>
-            <div class="row">
+        <!-- <app-specialty-list [specialtys]="specialtys" (chooseSpecialty)="onChooseSpecialty($event)">
+        </app-specialty-list> -->
+        <form class="needs-validation" [formGroup]="horarioForm" novalidate>
+            <!-- <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="edad">Horario Entrada</label>
+                    <label for="edad">Horario Entrada Dia de Semana </label>
                     <input type="number" class="form-control" id="edad" formControlName="horarioEntrada" placeholder="Edad"
-                        min="18" max="99" placeholder="Entrada" required>
-                    <div *ngIf="specialtyForm.controls['horarioEntrada'].invalid && (specialtyForm.controls['horarioEntrada'].dirty || specialtyForm.controls['horarioEntrada'].touched)"
+                        min="8" max="19" placeholder="Entrada" required>
+                    <div *ngIf="horarioForm.controls['horarioEntrada'].invalid && (horarioForm.controls['horarioEntrada'].dirty || horarioForm.controls['horarioEntrada'].touched)"
                         class="alert alert-danger">
-                        <div *ngIf="specialtyForm.controls['horarioEntrada'].errors.required">
-                            Edad es requerida.
+                        <div *ngIf="horarioForm.controls['horarioEntrada'].errors.required">
+                            Horario Requerido.
                         </div>
-                        <div *ngIf="specialtyForm.controls['horarioEntrada'].errors.min">
+                        <div *ngIf="horarioForm.controls['horarioEntrada'].errors.min">
+                            El horario de entrada es a partir de las 8.
+                        </div>
+                        <div *ngIf="horarioForm.controls['horarioEntrada'].errors.max">
+                            El horario de entrada no puede ser mas de las 19.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="edad">Horario Salida Dia de Semana </label>
+                    <input type="number" class="form-control" id="edad" formControlName="horarioSalida" placeholder="Edad"
+                        min="18" max="99" placeholder="Entrada" required>
+                    <div *ngIf="horarioForm.controls['horarioSalida'].invalid && (horarioForm.controls['horarioSalida'].dirty || horarioForm.controls['horarioSalida'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="horarioForm.controls['horarioSalida'].errors.required">
+                            Horario Requerido.
+                        </div>
+                        <div *ngIf="horarioForm.controls['horarioSalida'].errors.min">
+                            El horario de salida no puede ser antes de las 8.
+                        </div>
+                        <div *ngIf="horarioForm.controls['horarioSalida'].errors.max">
+                            El horario de salida no puede ser antes de las 8.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="edad">Horario Entrada Sabado </label>
+                    <input type="number" class="form-control" id="edad" formControlName="horarioEntradaSab" placeholder="Edad"
+                        min="18" max="99" placeholder="Entrada" required>
+                    <div *ngIf="horarioForm.controls['horarioEntradaSab'].invalid && (horarioForm.controls['horarioEntradaSab'].dirty || horarioForm.controls['horarioEntradaSab'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="horarioForm.controls['horarioEntradaSab'].errors.required">
+                            Horario Requerido.
+                        </div>
+                        <div *ngIf="horarioForm.controls['horarioEntradaSab'].errors.min">
+                            El horario de entrada es a partir de las 8.
+                        </div>
+                        <div *ngIf="horarioForm.controls['horarioEntradaSab'].errors.max">
+                            El horario de entrada no puede ser mas de las 14.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="edad">Horario Salida Sabado </label>
+                    <input type="number" class="form-control" id="edad" formControlName="horarioSalidaSab" placeholder="Edad"
+                        min="18" max="99" placeholder="Entrada" required>
+                    <div *ngIf="horarioForm.controls['horarioSalidaSab'].invalid && (horarioForm.controls['horarioSalidaSab'].dirty || horarioForm.controls['horarioSalidaSab'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="horarioForm.controls['horarioSalidaSab'].errors.required">
+                            Horario Requerido.
+                        </div>
+                        <div *ngIf="horarioForm.controls['horarioSalidaSab'].errors.min">
                             Edad debe ser mayor a 18.
                         </div>
-                        <div *ngIf="specialtyForm.controls['horarioEntrada'].errors.max">
+                        <div *ngIf="horarioForm.controls['horarioSalidaSab'].errors.max">
                             Edad debe ser menor a 99.
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <ng-container ><!-- *ngIf="ngSalidaSabado" -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="">Horario Entrada dia de Semana</label>
+                        <!-- <input [ngxTimepicker]="pickerEntradaSemana"  format="24" >
+                        <ngx-material-timepicker #pickerEntradaSemana format="24" (timeChanged)="entradaSemana($event)"></ngx-material-timepicker> -->
+                        <mat-form-field class="w-50 float-left pr-2 text-right" >
+                            <input matInput [format]="24" [ngxTimepicker]="pickerEntradaSemana" readonly min="8:00" max="18:59" [value]="ngEntradaSemana">
+                            <ngx-material-timepicker #pickerEntradaSemana format="24" (timeChanged)="entradaSemana($event)"></ngx-material-timepicker>
+                            <mat-icon [for]="pickerEntradaSemana" matSuffix> &nbsp; hs</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="">Horario Salida dia de Semana</label>
+                        <mat-form-field class="w-50 float-left pr-2 text-right" >
+                            <input matInput [format]="24" [ngxTimepicker]="pickerSalidaSemana" readonly min="8:01" max="19:00" [value]="ngSalidaSemana">
+                            <ngx-material-timepicker #pickerSalidaSemana format="24" (timeChanged)="salidaSemana($event)"></ngx-material-timepicker>
+                            <mat-icon [for]="pickerSalidaSemana" matSuffix> &nbsp; hs</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="">Horario Entrada dia Sabado</label>
+                        <mat-form-field class="w-50 float-left pr-2 text-right" >
+                            <input matInput [format]="24" [ngxTimepicker]="pickerEntradaSab" readonly min="8:00" max="13:59" [value]="ngEntradaSabado">
+                            <ngx-material-timepicker #pickerEntradaSab format="24" (timeChanged)="entradaSabado($event)"></ngx-material-timepicker>
+                            <mat-icon [for]="pickerEntradaSab" matSuffix> &nbsp; hs</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="">Horario Salida dia Sabado</label>
+                        <mat-form-field class="w-50 float-left pr-2 text-right" >
+                            <input matInput [format]="24" [ngxTimepicker]="pickerSalidaSab" readonly min="8:01" max="14:00" [value]="ngSalidaSabado">
+                            <ngx-material-timepicker #pickerSalidaSab format="24" (timeChanged)="salidaSabado($event)"></ngx-material-timepicker>
+                            <mat-icon [for]="pickerSalidaSab" matSuffix> &nbsp; hs</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
+            
+
+
+
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="specialtyForm.invalid"
+            <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="horarioForm.invalid"
                 (click)="onSubmit()">Modificar Horarios</button>
             <div class="container" *ngIf="isSubmitted">
-                <boot-alert mensaje="Horarios modificados correctamente" color="warning" (dismiss)="navigate()">
+                <boot-alert mensaje="Horarios modificados correctamente" color="success" (dismiss)="navigate()">
                 </boot-alert>
             </div>
         </form>

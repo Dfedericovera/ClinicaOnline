@@ -15,13 +15,13 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">{{user.name}} - {{user.lastName}}</li>
                 <li class="list-group-item">{{user.email}}</li>
-                <li class="list-group-item" *ngIf="user.usertype != 'administrator'">Obra social: {{user.obraSocial}}
+                <li class="list-group-item" *ngIf="user.usertype == 'patient'">Obra social: {{user.obraSocial}}
                 </li>
             </ul>
 
 
         </div>
 
-        <app-mis-horarios *ngIf="user.usertype == 'professional'"></app-mis-horarios>
+        <app-mis-horarios [user]="user" *ngIf="user.usertype == 'professional'"></app-mis-horarios>
     </div>
 </div>
