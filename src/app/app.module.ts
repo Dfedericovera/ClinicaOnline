@@ -52,6 +52,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import {MatInputModule} from '@angular/material/input';
 import { MisHorariosComponent } from './components/mis-horarios/mis-horarios.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { MisHorariosComponent } from './components/mis-horarios/mis-horarios.com
     RecaptchaFormsModule, //this is the module for form incase form validation
     BrowserAnimationsModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
