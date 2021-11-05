@@ -31,9 +31,7 @@ export class MyProfileComponent implements OnInit
   getUser()
   {
     this.userSubscription = this.authService.user$.subscribe(user =>
-    {
-      console.log(user);
-      
+    {      
       this.user = user;
     })
   }
