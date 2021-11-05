@@ -1,3 +1,4 @@
+import { DisponibilidadHoraria } from '../interface/disponibilidad-horaria';
 import { Specialty } from './specialty';
 import { Usuario } from './usuario';
 
@@ -7,8 +8,7 @@ export class Professional extends Usuario{
     public dni:string;
     public specialty: Array<Specialty>;    
     public approved:boolean;
-    public horarioEntrada:number;
-    public horarioSalida:number;
+    public disponibilidadHoraria:DisponibilidadHoraria;
     
 
     public constructor(init?: Partial<Professional>) {
