@@ -21,7 +21,6 @@ import { SpecialtyService } from 'src/app/services/specialty-service';
 export class SignupAppointmentComponent implements OnInit
 {
   user: Patient;
-  userAdmin: Administrator;
   newAppointmentList: Appointment[] = [];
   newAppointment: Appointment;
   freeAppointments: Appointment[];
@@ -54,7 +53,6 @@ export class SignupAppointmentComponent implements OnInit
     private authService: AuthService
   )
   {
-    this.newAppointment = new Appointment({ patient: this.user });
     this.freeAppointments = [];
     this.showAlert = false;
     this.date = new Date();
@@ -78,10 +76,6 @@ export class SignupAppointmentComponent implements OnInit
     this.user$ = this.authService.user$.subscribe(user =>
     {
       if (user.usertype == 'administrator')
-      {
-        this.userAdmin = user;
-      }
-      else
       {
         this.user = user;
       }
@@ -211,14 +205,7 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.selectedSpecialty = specialty;
     this.selectedDay = false;
-    if (this.newAppointment.professional)
-    {
-      this.newAppointment = new Appointment({ professional: this.newAppointment.professional, specialty: specialty, patient: this.user });
-    }
-    else
-    {
-      this.newAppointment = new Appointment({ specialty: specialty, patient: this.user });
-    }
+    this.newAppointment.specialty =  specialty;
 
     this.newAppointmentList[0] = this.newAppointment;
     let isSameSpecialty: boolean;
@@ -235,8 +222,6 @@ export class SignupAppointmentComponent implements OnInit
       if (!coincidence)
       {
         console.log("NO COINCIDE");
-        this.newAppointment = new Appointment({ patient: this.user });
-
         this.newAppointment.specialty = specialty;
         this.newAppointmentList[0] = this.newAppointment;
       }
@@ -251,9 +236,9 @@ export class SignupAppointmentComponent implements OnInit
     this.selectedProfessional = professional;
     this.lastAppointment = undefined;
     this.selectedSpecialty = undefined;
-    if (this.newAppointment.specialty)
+    if (this.user.usertype == UserType.ADMINISTRATOR)
     {
-      this.newAppointment = new Appointment({ professional: professional, specialty: this.newAppointment.specialty, patient: this.user });
+      this.newAppointment = new Appointment({ professional: professional });
     }
     else
     {
@@ -352,7 +337,6 @@ export class SignupAppointmentComponent implements OnInit
 
   cleanForm()
   {
-    this.newAppointment = new Appointment({ patient: this.user });
     this.newAppointmentList = [];
     this.freeProfessionals = this.professionals;
     this.freeSpecialtys = this.specialtys;
@@ -382,7 +366,6 @@ export class SignupAppointmentComponent implements OnInit
   dismissAlert()
   {
     this.showAlert = !this.showAlert;
-    this.newAppointment = new Appointment({ patient: this.user });
     this.newAppointmentList[0] = this.newAppointment;
     this.lastAppointment = undefined;
   }
