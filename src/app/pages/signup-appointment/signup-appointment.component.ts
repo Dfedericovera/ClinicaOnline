@@ -38,6 +38,7 @@ export class SignupAppointmentComponent implements OnInit
   professionals: Professional[];
   selectedProfessional: Professional;
   patients: Patient[] = [];
+  patient: Patient;
   showAlert: boolean;
   spinner: boolean;
 
@@ -76,6 +77,10 @@ export class SignupAppointmentComponent implements OnInit
     this.user$ = this.authService.user$.subscribe(user =>
     {
       this.user = user;
+      if (this.user.usertype == UserType.PATIENT)
+      {
+        this.patient = user;
+      }
     })
   }
   onChooseDate(date: Date)
@@ -118,7 +123,7 @@ export class SignupAppointmentComponent implements OnInit
       do
       {
         taken = false;
-        let newAppointment = new Appointment({ patient: this.user });
+        let newAppointment = new Appointment({ patient: this.patient });
 
         newAppointment.professional = this.newAppointment.professional;
         newAppointment.specialty = this.newAppointment.specialty;
@@ -202,7 +207,7 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.selectedSpecialty = specialty;
     this.selectedDay = false;
-    this.newAppointment.specialty =  specialty;
+    this.newAppointment.specialty = specialty;
 
     this.newAppointmentList[0] = this.newAppointment;
     let isSameSpecialty: boolean;
@@ -233,14 +238,8 @@ export class SignupAppointmentComponent implements OnInit
     this.selectedProfessional = professional;
     this.lastAppointment = undefined;
     this.selectedSpecialty = undefined;
-    if (this.user.usertype == UserType.ADMINISTRATOR)
-    {
-      this.newAppointment = new Appointment({ professional: professional });
-    }
-    else
-    {
-      this.newAppointment = new Appointment({ professional: professional, patient: this.user });
-    }
+
+    this.newAppointment = new Appointment({ professional: professional, patient: this.patient });
 
 
     this.newAppointmentList[0] = this.newAppointment;
@@ -272,7 +271,7 @@ export class SignupAppointmentComponent implements OnInit
       if (!coincidence)
       {
         console.log("NO COINCIDE");
-        this.newAppointment = new Appointment({ patient: this.user });
+        this.newAppointment = new Appointment({ patient: this.patient });
 
         this.newAppointment.professional = professional;
         this.newAppointmentList[0] = this.newAppointment;
@@ -369,8 +368,7 @@ export class SignupAppointmentComponent implements OnInit
 
   onChoosePatient(patient: Patient)
   {
-    this.user = patient;
-    this.newAppointment.patient = patient;
+    this.patient = patient;
     this.newAppointmentList[0] = this.newAppointment;
   }
 

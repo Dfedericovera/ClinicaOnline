@@ -13,21 +13,24 @@
         </div>
     </div>
     <hr class="mb-4">
-    <div class="row" *ngIf="user && user.usertype == 'administrator'">
-        <div class="col d-flex justify-content-center" *ngFor="let patient of patients">
-            <button class="card mb-4 rounded-3 shadow-sm" class="card card-cover overflow-hidden text-dark rounded-5 "
-                [style.background]="'url(' + patient.photos[0] +') no-repeat center'"
-                style="background-size: cover;  width: 6rem; height: 6rem;"
-                (click)="onChoosePatient(patient)">
-            </button>
-        </div>        
-    <hr class="mb-4">
-    </div>
+    <ng-container *ngIf="selectedProfessional && user.usertype == 'administrator'">
+        <div class="row"  >
+            <div class="col d-flex justify-content-center" *ngFor="let patient of patients">
+                <button class="card mb-4 rounded-3 shadow-sm"
+                    class="card card-cover overflow-hidden text-dark rounded-5 "
+                    [style.background]="'url(' + patient.photos[0] +') no-repeat center'"
+                    style="background-size: cover;  width: 6rem; height: 6rem;" (click)="onChoosePatient(patient)">
+                </button>
+            </div>
+        </div>
+        <hr class="mb-4">
+    </ng-container>
+
     <div class="container">
         <div class="row">
             <div class="col">
             </div>
-            <ng-container *ngIf="selectedProfessional">
+            <ng-container *ngIf="selectedProfessional && patient">
                 <div class="col row  mb-3 text-center d-flex justify-content-center">
                     <div *ngFor="let specialty of freeSpecialtys">
                         <button class="card card-cover overflow-hidden text-dark rounded-5 "
