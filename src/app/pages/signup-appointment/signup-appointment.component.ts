@@ -37,7 +37,7 @@ export class SignupAppointmentComponent implements OnInit
   selectedSpecialty: Specialty;
   professionals: Professional[];
   selectedProfessional: Professional;
-  patientList: Patient[] = [];
+  patients: Patient[] = [];
   showAlert: boolean;
   spinner: boolean;
 
@@ -75,10 +75,7 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.user$ = this.authService.user$.subscribe(user =>
     {
-      if (user.usertype == 'administrator')
-      {
-        this.user = user;
-      }
+      this.user = user;
     })
   }
   onChooseDate(date: Date)
@@ -303,7 +300,7 @@ export class SignupAppointmentComponent implements OnInit
   {
     this.patientService.getPatients().subscribe(patients =>
     {
-      this.patientList = patients.filter(pat => pat.usertype == UserType.PATIENT);;
+      this.patients = patients.filter(pat => pat.usertype == UserType.PATIENT);;
     })
   }
   /**
