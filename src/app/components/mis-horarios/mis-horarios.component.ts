@@ -74,9 +74,7 @@ export class MisHorariosComponent implements OnInit
   }
 
   validarMinutos(date: Date)
-  {
-    console.log(date.getMinutes());
-    
+  {    
     if (date.getMinutes() < 10)
     {
       return '0' + date.getMinutes().toString();
