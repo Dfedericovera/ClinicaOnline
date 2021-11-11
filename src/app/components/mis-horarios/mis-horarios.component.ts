@@ -29,6 +29,7 @@ export class MisHorariosComponent implements OnInit
   ngEntradaSabado: string;
   ngSalidaSabado: string;
   indexSpecialtySelected: number = 0;
+  specialtySelected:Specialty;
   @Input() user: Professional;
 
   constructor(
@@ -52,8 +53,6 @@ export class MisHorariosComponent implements OnInit
 
   cargarHorarios()
   {
-    console.log(typeof(this.specialtys[this.indexSpecialtySelected].disponibilidadHoraria));
-    
     if (typeof(this.specialtys[this.indexSpecialtySelected].disponibilidadHoraria) == 'undefined')
     {
       this.ngEntradaSemana = DEFAULTHOURS.entradaSemana;
@@ -63,20 +62,21 @@ export class MisHorariosComponent implements OnInit
     }
     else
     {
-      let ESem = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.EntradaSemana).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[0].disponibilidadHoraria.EntradaSemana));
-      let SSem = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.SalidaSemana).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[0].disponibilidadHoraria.SalidaSemana));
-      let ESab = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.EntradaSabado).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[0].disponibilidadHoraria.EntradaSabado));
-      let SSab = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.SalidaSabado).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[0].disponibilidadHoraria.SalidaSabado));
+      let ESem = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.EntradaSemana).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.EntradaSemana));
+      let SSem = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.SalidaSemana).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.SalidaSemana));
+      let ESab = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.EntradaSabado).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.EntradaSabado));
+      let SSab = new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.SalidaSabado).getHours().toString() + ':' + this.validarMinutos(new Date(this.user.specialty[this.indexSpecialtySelected].disponibilidadHoraria.SalidaSabado));
       this.ngEntradaSemana = ESem;
       this.ngSalidaSemana = SSem;
       this.ngEntradaSabado = ESab;
       this.ngSalidaSabado = SSab;
     }
-
   }
 
   validarMinutos(date: Date)
   {
+    console.log(date.getMinutes());
+    
     if (date.getMinutes() < 10)
     {
       return '0' + date.getMinutes().toString();
@@ -113,6 +113,7 @@ export class MisHorariosComponent implements OnInit
       if (specialty.id == v.id)
       {
         this.indexSpecialtySelected = i;
+        this.specialtySelected = v;
       }
     })
     this.cargarHorarios();
@@ -135,9 +136,10 @@ export class MisHorariosComponent implements OnInit
   convertirTimepickerToDate(timepicker: string)
   {
     let horario = timepicker.split(':');//Horas
-    horario[1] = horario[1].split(' ')[0];//Minutos
+    horario[1] = horario[1].split(' ')[0];//Minutos    
     let date = new Date();
-    date.setHours(Number.parseInt(horario[0]), Number.parseInt(horario[1]));
+    date.setHours(Number.parseInt(horario[0]));
+    date.setMinutes(Number.parseInt(horario[1]));
     return date;
   }
 

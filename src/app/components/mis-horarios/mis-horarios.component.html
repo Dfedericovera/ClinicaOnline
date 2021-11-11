@@ -6,81 +6,15 @@
         <app-specialty-list [specialtys]="specialtys" (chooseSpecialty)="onChooseSpecialty($event)">
         </app-specialty-list>
         <form class="needs-validation" [formGroup]="horarioForm" novalidate>
-            <!-- <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="edad">Horario Entrada Dia de Semana </label>
-                    <input type="number" class="form-control" id="edad" formControlName="horarioEntrada" placeholder="Edad"
-                        min="8" max="19" placeholder="Entrada" required>
-                    <div *ngIf="horarioForm.controls['horarioEntrada'].invalid && (horarioForm.controls['horarioEntrada'].dirty || horarioForm.controls['horarioEntrada'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="horarioForm.controls['horarioEntrada'].errors.required">
-                            Horario Requerido.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioEntrada'].errors.min">
-                            El horario de entrada es a partir de las 8.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioEntrada'].errors.max">
-                            El horario de entrada no puede ser mas de las 19.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="edad">Horario Salida Dia de Semana </label>
-                    <input type="number" class="form-control" id="edad" formControlName="horarioSalida" placeholder="Edad"
-                        min="18" max="99" placeholder="Entrada" required>
-                    <div *ngIf="horarioForm.controls['horarioSalida'].invalid && (horarioForm.controls['horarioSalida'].dirty || horarioForm.controls['horarioSalida'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="horarioForm.controls['horarioSalida'].errors.required">
-                            Horario Requerido.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioSalida'].errors.min">
-                            El horario de salida no puede ser antes de las 8.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioSalida'].errors.max">
-                            El horario de salida no puede ser antes de las 8.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="edad">Horario Entrada Sabado </label>
-                    <input type="number" class="form-control" id="edad" formControlName="horarioEntradaSab" placeholder="Edad"
-                        min="18" max="99" placeholder="Entrada" required>
-                    <div *ngIf="horarioForm.controls['horarioEntradaSab'].invalid && (horarioForm.controls['horarioEntradaSab'].dirty || horarioForm.controls['horarioEntradaSab'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="horarioForm.controls['horarioEntradaSab'].errors.required">
-                            Horario Requerido.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioEntradaSab'].errors.min">
-                            El horario de entrada es a partir de las 8.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioEntradaSab'].errors.max">
-                            El horario de entrada no puede ser mas de las 14.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="edad">Horario Salida Sabado </label>
-                    <input type="number" class="form-control" id="edad" formControlName="horarioSalidaSab" placeholder="Edad"
-                        min="18" max="99" placeholder="Entrada" required>
-                    <div *ngIf="horarioForm.controls['horarioSalidaSab'].invalid && (horarioForm.controls['horarioSalidaSab'].dirty || horarioForm.controls['horarioSalidaSab'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="horarioForm.controls['horarioSalidaSab'].errors.required">
-                            Horario Requerido.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioSalidaSab'].errors.min">
-                            Edad debe ser mayor a 18.
-                        </div>
-                        <div *ngIf="horarioForm.controls['horarioSalidaSab'].errors.max">
-                            Edad debe ser menor a 99.
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <ng-container>
-                <!-- *ngIf="ngSalidaSabado" -->
+            <ng-container *ngIf="specialtySelected; else chooseSpecialty">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="">Horario Entrada dia de Semana</label>
+                        <label for=""> <I>Horarios para la especialidad: </I>  <b>{{specialtySelected.specialty}}</b></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="">Entrada dia de Semana :</label>
                         <mat-form-field class="w-50 float-left pr-2 text-right">
                             <input matInput [format]="24" [ngxTimepicker]="pickerEntradaSemana" readonly min="8:00"
                                 max="18:59" [value]="ngEntradaSemana">
@@ -90,7 +24,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="">Horario Salida dia de Semana</label>
+                        <label for="">Salida dia de Semana :</label>
                         <mat-form-field class="w-50 float-left pr-2 text-right">
                             <input matInput [format]="24" [ngxTimepicker]="pickerSalidaSemana" readonly min="8:01"
                                 max="19:00" [value]="ngSalidaSemana">
@@ -99,8 +33,10 @@
                             <mat-icon [for]="pickerSalidaSemana" matSuffix> &nbsp; hs</mat-icon>
                         </mat-form-field>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="">Horario Entrada dia Sabado</label>
+                        <label for="">Entrada dia Sabado :</label>
                         <mat-form-field class="w-50 float-left pr-2 text-right">
                             <input matInput [format]="24" [ngxTimepicker]="pickerEntradaSab" readonly min="8:00"
                                 max="13:59" [value]="ngEntradaSabado">
@@ -110,7 +46,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="">Horario Salida dia Sabado</label>
+                        <label for=""> Salida dia Sabado : </label><br>
                         <mat-form-field class="w-50 float-left pr-2 text-right">
                             <input matInput [format]="24" [ngxTimepicker]="pickerSalidaSab" readonly min="8:01"
                                 max="14:00" [value]="ngSalidaSabado">
@@ -121,8 +57,13 @@
                     </div>
                 </div>
             </ng-container>
-
-
+            <ng-template #chooseSpecialty> 
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="" class="text-danger">Seccione una especialidad para asignar sus horarios</label>                        
+                    </div>
+                </div>
+            </ng-template>
 
 
             <hr class="mb-4">
