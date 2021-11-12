@@ -17,9 +17,10 @@ Al ingresar al sistema podrá elegir entre loguearse o registrarse
 Desde el menú principial se puede acceder a las diferentes pantallas del sistema.
 - Registro : Formularios para ingresar datos de paciente y de profesional.
 - Login: Ingreso para usuarios ya registrados con validación de datos
-![Menu](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2FMenuPrincipal.png?alt=media&token=6898260d-400c-4dc4-8d56-3196b63ad585 "Menu principal")
-![login](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Flogin.png?alt=media&token=d713660f-10ea-45fe-9f13-ba686690a93f "login")  
-
+![Menu](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2FMenuPrincipal.png?alt=media&token=6898260d-400c-4dc4-8d56-3196b63ad585 "Menu principal") 
+<p align="center">
+  <img src="https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Flogin.png?alt=media&token=d713660f-10ea-45fe-9f13-ba686690a93f" />
+</p>
 
 ## Pedir un turno
 
