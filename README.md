@@ -40,25 +40,34 @@ Ejemplo de cómo cargar un turno desde la cartilla.
 
 ## Registro de Paciente
 
-Ingreso de usuarios según perfil con datos validados para mayor seguridad
+Registro de paciente con datos validados.
 
-- Cada usuario deberá ingresar sus datos personales y datos correspondientes a su rol como usuario. Se podrá ingresar dos fotos que se mostrarán junto con su ficha. Los datos serán editables mientras se complete el formulario para mayor comodidad del usuario.
+- Cada paciente deberá ingresar sus datos personales
+- 2 fotos de perfil
+- Y completar el Captcha
 
 ![RegistroPaciente](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2FregistroPaciente.png?alt=media&token=d9449577-bfd6-4489-a707-d751add7743d "RegistroPaciente")
 
 ## Registro de Profesional
 
-Ingreso de usuarios según perfil con datos validados para mayor seguridad
+Registro de profesional con datos validados.
 
-- Cada usuario deberá ingresar sus datos personales y datos correspondientes a su rol como usuario. Se podrá ingresar dos fotos que se mostrarán junto con su ficha. Los datos serán editables mientras se complete el formulario para mayor comodidad del usuario.
+- Cada profesional deberá ingresar sus datos personales
+- 1 foto de perfil
+- Elegir su especialidad
+- Crear una nueva especialidad si lo nesesitase, indicando el horario promedio de un turno.
+- Y completar el Captcha
 
 ![RegistroProfesional](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2FregistroProfesional.png?alt=media&token=fd21699c-44e4-4521-b8f9-b96fa07e1322 "RegistroProfesional")
 
 ## Registro de Administrador
 
-Ingreso de usuarios según perfil con datos validados para mayor seguridad
+Registro de administrador con datos validados.
 
-- Cada usuario deberá ingresar sus datos personales y datos correspondientes a su rol como usuario. Se podrá ingresar dos fotos que se mostrarán junto con su ficha. Los datos serán editables mientras se complete el formulario para mayor comodidad del usuario.
+- Para registrar un administrador deberá ingresar sus datos personales
+- 1 foto de perfil
+- Y completar el Captcha
+
 
 ![RegistroAdministrador](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2FregistroAdministrador.png?alt=media&token=3e14df52-e303-4f6c-ad5f-f62fc96bfbf7 "RegistroAdministrador")
 
@@ -68,7 +77,7 @@ Menu con listado de turnos.
 
 - Se mostrarán todos los turnos relacionados al paciente o profesional.
 - En caso de ser Administrador mostrará todos los turnos
-- Cuanta con un filtro unico, donde podra filtrar por cualquier dato del turno que recuerde.
+- Cuenta con un filtro unico, donde podra filtrar por cualquier dato del turno que recuerde.
 
 ![Turno](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Fturnos.png?alt=media&token=6f59960d-20de-415b-8305-3fe08fbefc7e "Turno")
 
