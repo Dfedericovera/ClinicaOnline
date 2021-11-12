@@ -35,6 +35,7 @@ export class SignupAppointmentComponent implements OnInit
   lastAppointment: Appointment;
   specialtys: Specialty[];
   selectedSpecialty: Specialty;
+  specialtyIndex: number;
   professionals: Professional[];
   selectedProfessional: Professional;
   patients: Patient[] = [];
@@ -97,28 +98,35 @@ export class SignupAppointmentComponent implements OnInit
 
     if (date.getDay() > 0 && date.getDay() != 6)
     {//weekday
-      let hora = 8;
-      let minutos = 0;
-      let horaFin = 19;
+      console.log("Dia de semana! se trabaja hasta:");
+      let hora = new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.EntradaSemana).getHours();
+      let minutos = new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.EntradaSemana).getMinutes();
+      let horaFin = new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.SalidaSemana);
+      console.log(new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.SalidaSemana).toLocaleTimeString());
       this.filtrarHorarios(date, hora, minutos, horaFin);
-
     }
     else
     { //saturday
-      let hora = 8;
-      let minutos = 0;
-      let horaFin = 14;
+      console.log("sabado! se trabaja hasta:");
+      
+      let hora = new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.EntradaSabado).getHours();
+      let minutos = new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.EntradaSabado).getMinutes();
+      let horaFin = new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.SalidaSabado);
+      console.log(new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.SalidaSabado).toLocaleTimeString());
+      
       this.filtrarHorarios(date, hora, minutos, horaFin);
     }
   }
 
-  filtrarHorarios(date: Date, hora, minutos, horaFin)
+  filtrarHorarios(date: Date, hora, minutos, horaFin:Date)
   {
+    /* console.log(date.toLocaleTimeString());
+    console.log(hora,minutos,horaFin); */
+    
+    horaFin.setFullYear(date.getFullYear(),date.getMonth(),date.getDate());
     let taken: boolean = false;
-    /* console.log(this.todaysAppointments); */
-
     if (this.newAppointment.specialty && this.newAppointment.professional)
-    {
+    {            
       date.setHours(hora, minutos, 0, 0);
       do
       {
@@ -143,11 +151,8 @@ export class SignupAppointmentComponent implements OnInit
           this.freeAppointments.push(newAppointment);
         }
         date = new Date(this.addMinutes(date, this.newAppointment.specialty.duration));
-        hora = date.getHours();
+        hora = date.getTime();        
       } while (hora < horaFin)
-      hora = 8;
-      minutos = 0;
-
     }
     if (this.freeAppointments.length < 1)
     {
@@ -167,7 +172,7 @@ export class SignupAppointmentComponent implements OnInit
       if (today.getDay() == 1 || today.getDay() == 2 || today.getDay() == 3 || today.getDay() == 4 || today.getDay() == 5)
       {
         /* console.log("HOY ES DIA DE SEMANA:", today.getDay()); */
-        if (this.filtrarHorarios(today, 8, 0, 19))
+        if (this.filtrarHorarios(today, 8, 0, new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.SalidaSemana)))
         {
           this.datesList.push(new Date(today.valueOf()));
         }
@@ -175,7 +180,7 @@ export class SignupAppointmentComponent implements OnInit
       else if (today.getDay() == 6)
       {
         /* console.log("HOY ES SABADO:", today.getDay()); */
-        if (this.filtrarHorarios(today, 8, 0, 14))
+        if (this.filtrarHorarios(today, 8, 0, new Date(this.selectedProfessional.specialty[this.specialtyIndex].disponibilidadHoraria.SalidaSabado)))
         {
           this.datesList.push(new Date(today.valueOf()));
         }
@@ -208,9 +213,8 @@ export class SignupAppointmentComponent implements OnInit
     this.selectedSpecialty = specialty;
     this.selectedDay = false;
     this.newAppointment.specialty = specialty;
-
+    this.findSpecialtyIndex(specialty);
     this.newAppointmentList[0] = this.newAppointment;
-    let isSameSpecialty: boolean;
     if (this.newAppointment.professional)
     {
       let coincidence: Professional;
@@ -229,8 +233,17 @@ export class SignupAppointmentComponent implements OnInit
       }
     }
     this.createDatesList();
-    /* this.date = new Date();
-    this.createAvailableList(this.date); */
+  }
+  findSpecialtyIndex(specialty: Specialty)
+  {
+    this.selectedProfessional.specialty.forEach((s, i) =>
+    {
+      if (s.id == this.selectedSpecialty.id)
+      {
+        this.specialtyIndex = i;
+      }
+    })
+
   }
 
   onChooseProfessional(professional: Professional)
@@ -238,7 +251,7 @@ export class SignupAppointmentComponent implements OnInit
     this.selectedProfessional = professional;
     this.lastAppointment = undefined;
     this.selectedSpecialty = undefined;
-
+    this.selectedDay = false;
     this.newAppointment = new Appointment({ professional: professional, patient: this.patient });
 
 
