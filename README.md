@@ -70,7 +70,7 @@ Menu con listado de turnos.
 - En caso de ser Administrador mostrará todos los turnos
 - Cuanta con un filtro unico, donde podra filtrar por cualquier dato del turno que recuerde.
 
-![Turno](https://firebasestorage.googleapis.com/v0/b/tp-clinica-online---labiv.appspot.com/o/private%2FimgTP1.png?alt=media&token=cd1043a9-153f-4b7b-b578-d00bcaac4a18 "Turno")
+![Turno](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Fturnos.png?alt=media&token=6f59960d-20de-415b-8305-3fe08fbefc7e "Turno")
 
 ## Mi perfil
 
