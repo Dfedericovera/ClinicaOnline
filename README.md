@@ -18,23 +18,19 @@ Desde el menú principial se puede acceder a las diferentes pantallas del sistem
 - Registro : Formularios para ingresar datos de paciente y de profesional.
 - Login: Ingreso para usuarios ya registrados con validación de datos
 ![Menu](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2FMenuPrincipal.png?alt=media&token=6898260d-400c-4dc4-8d56-3196b63ad585 "Menu principal")
-![login](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Flogin.png?alt=media&token=67257fe4-5bd5-4c6b-a92e-31d2963bf06b "login")
-![RegistroMenu](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Fregistro.png?alt=media&token=2b0c2175-d7ad-4b66-a87e-9018977a7cdb "RegistroMenu")
-![home](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Fhome.png?alt=media&token=aeae423f-33e7-4c4a-971a-3609780edd60 "home")
+![login](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2Flogin.png?alt=media&token=d713660f-10ea-45fe-9f13-ba686690a93f "login")  
 
 
 ## Pedir un turno
 
-A continuación verá los pasos para pedir un turno:
+Pantalla para solicitar un turno.
 
-- Desde la pantalla 'Solicitar Turno' podra elegir un profesional
+- Desde el menu 'Solicitar Turno' podra elegir un profesional
 - Una especialidad
 - Una fecha
 - Y por último un horario.
 
-
-Ejemplo de cómo cargar un turno desde la cartilla.
-
+A continuación puede ver como cargar un turno.
 ![pedirTurno](https://firebasestorage.googleapis.com/v0/b/clinica-online-ae136.appspot.com/o/capturas%2FpedirTurno.gif?alt=media&token=8f1ea990-0ac6-43b9-b038-78bb510de14b "pedirTurno")
 
 
