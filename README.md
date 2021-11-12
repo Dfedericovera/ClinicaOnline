@@ -1,11 +1,11 @@
 # Clínica Online
 ## https://clinicaonlinevera.herokuapp.com/
 
-Sistema de gestión web para clinicas con el que podrás brindar un servicio moderno y seguro para los pacientes, profesionales y administrativos del equipo de trabajo.
+Sistema de gestión web para clinicas con el que podrás brindar un servicio moderno y seguro para los pacientes, profesionales y administradores del equipo de trabajo.
 
 
 # :information_source: ¿Cuáles son las funciones de la aplicación?
-- Gestionar de perfiles para pacientes, profesionales y administradores
+- Gestionar perfiles para pacientes, profesionales y administradores
 - Gestionar turnos de acuerdo a los horarios del especialista y su especialidad.
 
 # :information_source: ¿Qué contiene la aplicación?
