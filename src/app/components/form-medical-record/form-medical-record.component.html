@@ -62,34 +62,27 @@
                     </div>
                 </div>
 
-                <!-- <div class="mb-3">
-                    <label for="email">Correo <span class="text-muted"></span></label>
-                    <input type="email" class="form-control" id="email" formControlName="email"
-                        placeholder="minombre@ejemplo.com">
-                    <div *ngIf="medicalRecordForm.controls['email'].invalid && (medicalRecordForm.controls['email'].dirty || medicalRecordForm.controls['email'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="medicalRecordForm.controls['email'].errors.required">
-                            Email es requerido.
-                        </div>
-                        <div *ngIf="medicalRecordForm.controls['email'].errors.email">
-                            Email invalido.
-                        </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3" *ngIf="medicalRecordForm.controls['label1'].value">
+                        <label for="dato1">{{medicalRecordForm.controls['label1'].value}}</label>
+                        <input type="text" class="form-control" id="dato1"
+                            [value]="medicalRecordForm.controls['valor1'].value" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3" *ngIf="medicalRecordForm.controls['label2'].value">
+                        <label for="dato2">{{medicalRecordForm.controls['label2'].value}}</label>
+                        <input type="text" class="form-control" id="dato2"
+                            [value]="medicalRecordForm.controls['valor2'].value" readonly>
+
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="address">Contraseña</label>
-                    <input type="password" class="form-control" id="address" formControlName="password"
-                        placeholder="Contraseña" required>
-                    <div *ngIf="medicalRecordForm.controls['password'].invalid && (medicalRecordForm.controls['password'].dirty || medicalRecordForm.controls['password'].touched)"
-                        class="alert alert-danger">
-                        <div *ngIf="medicalRecordForm.controls['password'].errors.required">
-                            Contraseña requerida.
-                        </div>
-                        <div *ngIf="medicalRecordForm.controls['password'].errors.minlength">
-                            La contraseña debe contener al menos 6 caracteres.
-                        </div>
+                <div class="row" *ngIf="medicalRecordForm.controls['label3'].value">
+                    <div class="col-md-6 mb-3">
+                        <label for="dato3">{{medicalRecordForm.controls['label3'].value}}</label>
+                        <input type="text" class="form-control" id="dato3"
+                            [value]="medicalRecordForm.controls['valor3'].value" readonly>
                     </div>
-                </div> -->
+                </div>
 
 
                 <label for="newSpecialty"><b>Agregar nuevo dato</b></label> &nbsp;
@@ -114,7 +107,7 @@
                         </div>
                         <button *ngIf="!mostrarMensaje" class="btn btn-primary btn-lg btn-block" type="submit"
                             (click)="addDinamicData()"
-                            [disabled]="!dataDinamic||!labelDinamic || labelDinamic.length==0 || dataDinamic.length==0">Agregar
+                            [disabled]="!dataDinamic||!labelDinamic || labelDinamic.length==0 || dataDinamic.length==0 || totalDinamicData >2">Agregar
                             Dato </button>
                         <button *ngIf="mostrarMensaje" class="btn btn-primary btn-lg btn-block" type="submit"
                             (click)="resetForm()">Agregar otro
@@ -125,7 +118,9 @@
                         <boot-alert *ngIf="mostrarMensaje" mensaje="Dato Agregado" color="success"
                             (dismiss)="resetForm()">
                         </boot-alert>
-
+                        <boot-alert *ngIf="totalDinamicData >2" mensaje="Solo se pueden agregar 3 datos dinamicos"
+                            color="danger">
+                        </boot-alert>
 
 
                     </div>
@@ -135,8 +130,12 @@
                 <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="medicalRecordForm.invalid"
                     (click)="onSubmit()">Registrar
                     Historia Clinica</button>
+                <div class="spinner-grow text-warning" role="status" *ngIf="spinner">
+                    <!-- *ngIf="spinner else alert  <ng-template #alert>-->
+                    <span class="sr-only">Loading...</span>
+                </div>
                 <div class="container" *ngIf="registered">
-                    <boot-alert mensaje="Historia Clinica Registrada correctamente." color="warning"
+                    <boot-alert mensaje="Historia Clinica Registrada correctamente." color="success"
                         (dismiss)="navigate()">
                     </boot-alert>
                 </div>

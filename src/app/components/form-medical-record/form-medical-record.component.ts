@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { MedicalRecordService } from 'src/app/services/medical-record.service';
 
 @Component({
   selector: 'app-form-medical-record',
@@ -16,10 +17,12 @@ export class FormMedicalRecordComponent implements OnInit {
   dataDinamic:string;
   totalDinamicData:number=0;
   mostrarMensaje=false;
+  spinner:boolean = false;
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    
+    private medicalRecordService:MedicalRecordService
   )
   {
     this.showSpecialtyForm = false;
@@ -56,10 +59,13 @@ export class FormMedicalRecordComponent implements OnInit {
   {
     try
     {
-      this.authService.register(this.medicalRecordForm.controls.email.value, this.medicalRecordForm.controls.password.value).then(user =>
-      {
-        
-      }).catch(error => { console.log('Error', error); });
+      console.log(this.medicalRecordForm.value);
+      
+      this.spinner = true;
+      this.medicalRecordService.addMedicalRecord(this.medicalRecordForm.value).then(v=>{
+        this.spinner = false;
+        this.registered = true;        
+      })
 
     } catch (error)
     {
@@ -69,12 +75,23 @@ export class FormMedicalRecordComponent implements OnInit {
 
   addDinamicData(){
     console.log(this.labelDinamic,this.dataDinamic, this.totalDinamicData);
-    
+    if(this.totalDinamicData == 0){
+      this.medicalRecordForm.controls["label1"].setValue(this.labelDinamic);
+      this.medicalRecordForm.controls["valor1"].setValue(this.dataDinamic);
+    }else if(this.totalDinamicData == 1){
+      this.medicalRecordForm.controls["label2"].setValue(this.labelDinamic);
+      this.medicalRecordForm.controls["valor2"].setValue(this.dataDinamic);
+    }
+    else if(this.totalDinamicData == 2){
+      this.medicalRecordForm.controls["label3"].setValue(this.labelDinamic);
+      this.medicalRecordForm.controls["valor3"].setValue(this.dataDinamic);
+    }
     this.totalDinamicData++;
     this.mostrarMensaje=true;
   }
   navigate()
   {
+    this.registered = false;
   }
   resetForm(){
     this.labelDinamic = "";
