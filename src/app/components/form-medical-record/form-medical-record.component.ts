@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserType } from 'src/app/clases/userType';
 import { AuthService } from 'src/app/services/auth.service';
-import { ProfessionalService } from 'src/app/services/professional.service';
-import { SpecialtyService } from 'src/app/services/specialty-service';
 
 @Component({
   selector: 'app-form-medical-record',
@@ -17,6 +14,8 @@ export class FormMedicalRecordComponent implements OnInit {
   showSpecialtyForm:boolean;
   labelDinamic:string;
   dataDinamic:string;
+  totalDinamicData:number=0;
+  mostrarMensaje=false;
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -69,9 +68,17 @@ export class FormMedicalRecordComponent implements OnInit {
   }
 
   addDinamicData(){
-
+    console.log(this.labelDinamic,this.dataDinamic, this.totalDinamicData);
+    
+    this.totalDinamicData++;
+    this.mostrarMensaje=true;
   }
   navigate()
   {
+  }
+  resetForm(){
+    this.labelDinamic = "";
+    this.dataDinamic = "";
+    this.mostrarMensaje = false;
   }
 }

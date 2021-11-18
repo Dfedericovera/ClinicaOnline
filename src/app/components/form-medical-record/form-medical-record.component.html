@@ -2,12 +2,11 @@
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../../../assets/images/medialSign.svg" alt="" width="72" height="72">
         <h2>Clinica Online</h2>
-        <p class="lead">Rellene el formulario para registrar un profesional.</p>
+        <p class="lead">Rellene el formulario para registrar la historia clinica.</p>
     </div>
 
     <div class="row">
         <div class="col-md-12 order-md-1">
-            <h4 class="mb-3">Datos Necesarios</h4>
             <form class="needs-validation" [formGroup]="medicalRecordForm" novalidate>
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -108,25 +107,31 @@
                     <div class="col-md-6 mb-3">
 
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md mb-4">
                             <label for="livespan">Nombre del dato</label>
-                            <input type="text" class="form-control" id="livespan" [(ngModel)]="labelDinamic" placeholder="Promedio de turno"
-                                value="" required>
+                            <input type="text" class="form-control" id="livespan" [(ngModel)]="labelDinamic"
+                                placeholder="Nombre" [ngModelOptions]="{standalone: true}" value="" required>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md mb-4">
                             <label for="livespan">Valor del dato</label>
                             <input type="text" class="form-control" id="livespan" [(ngModel)]="dataDinamic"
-                                placeholder="Promedio de turno" value="" required>
+                                [ngModelOptions]="{standalone: true}" placeholder="Valor" value="" required>
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="addDinamicData()"
-                            [disabled]="medicalRecordForm.invalid">Agregar Dato </button>
+                        <button *ngIf="!mostrarMensaje" class="btn btn-primary btn-lg btn-block" type="submit"
+                            (click)="addDinamicData()"
+                            [disabled]="!dataDinamic||!labelDinamic || labelDinamic.length==0 || dataDinamic.length==0">Agregar
+                            Dato </button>
+                        <button *ngIf="mostrarMensaje" class="btn btn-primary btn-lg btn-block" type="submit"
+                            (click)="resetForm()">Agregar otro
+                            Dato </button>
                         <div *ngIf="spinner" class="spinner-grow text-warning" role="status">
                             <span class="sr-only">Guardando...</span>
                         </div>
-                        <boot-alert *ngIf="mostrarMensaje" mensaje="Especialidad Agregada" color="danger" (dismiss)="resetForm()">
+                        <boot-alert *ngIf="mostrarMensaje" mensaje="Dato Agregado" color="success"
+                            (dismiss)="resetForm()">
                         </boot-alert>
-                        
-                        
+
+
 
                     </div>
                 </div>
@@ -134,24 +139,13 @@
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="medicalRecordForm.invalid"
                     (click)="onSubmit()">Registrar
-                    Profesional</button>
+                    Historia Clinica</button>
                 <div class="container" *ngIf="registered">
-                    <boot-alert
-                        mensaje="Profesional Registrado correctamente. Verifique su casilla de correo y aguarde a ser aprobado por un Administrador"
-                        color="warning" (dismiss)="navigate()">
+                    <boot-alert mensaje="Historia Clinica Registrada correctamente." color="warning"
+                        (dismiss)="navigate()">
                     </boot-alert>
                 </div>
             </form>
         </div>
     </div>
-
-
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; Federico Vera</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
-    </footer>
 </div>
