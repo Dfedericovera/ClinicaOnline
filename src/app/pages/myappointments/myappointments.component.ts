@@ -12,6 +12,7 @@ import { SpecialtyService } from 'src/app/services/specialty-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { Observable, Subscription } from 'rxjs';
+import { FormMedicalRecordComponent } from 'src/app/components/form-medical-record/form-medical-record.component';
 
 @Component({
   selector: 'app-myappointments',
@@ -214,7 +215,7 @@ export class MyappointmentsComponent implements OnInit
   }
   finishAppointment()
   {
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(FormMedicalRecordComponent, {
       data: { titulo: 'Finalizar Turno', mensaje: 'Esta seguro que decea finalizar el turno?', tipo: 'finalizar', turno: this.selectedAppointment }
     })
   }
