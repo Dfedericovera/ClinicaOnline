@@ -1,0 +1,157 @@
+<div class="container mt-5">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../../../assets/images/medialSign.svg" alt="" width="72" height="72">
+        <h2>Clinica Online</h2>
+        <p class="lead">Rellene el formulario para registrar un profesional.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">Datos Necesarios</h4>
+            <form class="needs-validation" [formGroup]="medicalRecordForm" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">Altura</label>
+                        <input type="text" class="form-control" id="firstName" formControlName="altura"
+                            placeholder="Altura" value="" required>
+                        <div *ngIf="medicalRecordForm.controls['altura'].invalid && (medicalRecordForm.controls['altura'].dirty || medicalRecordForm.controls['altura'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="medicalRecordForm.controls['altura'].errors.required">
+                                Altura es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="peso">Peso</label>
+                        <input type="text" class="form-control" id="peso" formControlName="peso" placeholder="Peso"
+                            value="" required>
+                        <div *ngIf="medicalRecordForm.controls['peso'].invalid && (medicalRecordForm.controls['peso'].dirty || medicalRecordForm.controls['peso'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="medicalRecordForm.controls['peso'].errors.required">
+                                Peso es requerido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="temperatura">Temperatura</label>
+                        <input type="number" class="form-control" id="temperatura" formControlName="temperatura"
+                            placeholder="Temperatura" min="18" max="99" placeholder="Temperatura" required>
+                        <div *ngIf="medicalRecordForm.controls['temperatura'].invalid && (medicalRecordForm.controls['temperatura'].dirty || medicalRecordForm.controls['temperatura'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="medicalRecordForm.controls['temperatura'].errors.required">
+                                Temperatura es requerida.
+                            </div>
+                            <div *ngIf="medicalRecordForm.controls['temperatura'].errors.min">
+                                Temperatura debe ser mayor a 18.
+                            </div>
+                            <div *ngIf="medicalRecordForm.controls['temperatura'].errors.max">
+                                Temperatura debe ser menor a 99.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="presion">Presión</label>
+                        <input type="text" class="form-control" id="presion" formControlName="presion"
+                            placeholder="Presión" value="" required>
+                        <div *ngIf="medicalRecordForm.controls['presion'].invalid && (medicalRecordForm.controls['presion'].dirty || medicalRecordForm.controls['presion'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="medicalRecordForm.controls['presion'].errors.required">
+                                Presión es requerido.
+                            </div>
+                            <div *ngIf="medicalRecordForm.controls['presion'].errors.minlength">
+                                Presión debe tener al menos 7 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="mb-3">
+                    <label for="email">Correo <span class="text-muted"></span></label>
+                    <input type="email" class="form-control" id="email" formControlName="email"
+                        placeholder="minombre@ejemplo.com">
+                    <div *ngIf="medicalRecordForm.controls['email'].invalid && (medicalRecordForm.controls['email'].dirty || medicalRecordForm.controls['email'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="medicalRecordForm.controls['email'].errors.required">
+                            Email es requerido.
+                        </div>
+                        <div *ngIf="medicalRecordForm.controls['email'].errors.email">
+                            Email invalido.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Contraseña</label>
+                    <input type="password" class="form-control" id="address" formControlName="password"
+                        placeholder="Contraseña" required>
+                    <div *ngIf="medicalRecordForm.controls['password'].invalid && (medicalRecordForm.controls['password'].dirty || medicalRecordForm.controls['password'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="medicalRecordForm.controls['password'].errors.required">
+                            Contraseña requerida.
+                        </div>
+                        <div *ngIf="medicalRecordForm.controls['password'].errors.minlength">
+                            La contraseña debe contener al menos 6 caracteres.
+                        </div>
+                    </div>
+                </div> -->
+
+
+                <label for="newSpecialty"><b>Agregar nuevo dato</b></label> &nbsp;
+                <button id="newSpecialty" *ngIf="!showSpecialtyForm" class="btn btn-outline-success"
+                    (click)="showSpecialtyForm = !showSpecialtyForm">➕</button>
+                <button id="newSpecialty" *ngIf="showSpecialtyForm" class="btn btn-outline-success"
+                    (click)="showSpecialtyForm = !showSpecialtyForm">➖</button>
+
+                <div class="row" *ngIf="showSpecialtyForm">
+                    <div class="col-md-6 mb-3">
+
+
+                        <div class="col-md-6 mb-3">
+                            <label for="livespan">Nombre del dato</label>
+                            <input type="text" class="form-control" id="livespan" [(ngModel)]="labelDinamic" placeholder="Promedio de turno"
+                                value="" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="livespan">Valor del dato</label>
+                            <input type="text" class="form-control" id="livespan" [(ngModel)]="dataDinamic"
+                                placeholder="Promedio de turno" value="" required>
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="addDinamicData()"
+                            [disabled]="medicalRecordForm.invalid">Agregar Dato </button>
+                        <div *ngIf="spinner" class="spinner-grow text-warning" role="status">
+                            <span class="sr-only">Guardando...</span>
+                        </div>
+                        <boot-alert *ngIf="mostrarMensaje" mensaje="Especialidad Agregada" color="danger" (dismiss)="resetForm()">
+                        </boot-alert>
+                        
+                        
+
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="medicalRecordForm.invalid"
+                    (click)="onSubmit()">Registrar
+                    Profesional</button>
+                <div class="container" *ngIf="registered">
+                    <boot-alert
+                        mensaje="Profesional Registrado correctamente. Verifique su casilla de correo y aguarde a ser aprobado por un Administrador"
+                        color="warning" (dismiss)="navigate()">
+                    </boot-alert>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Federico Vera</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+</div>

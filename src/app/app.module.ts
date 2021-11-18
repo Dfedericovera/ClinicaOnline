@@ -53,6 +53,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import {MatInputModule} from '@angular/material/input';
 import { MisHorariosComponent } from './components/mis-horarios/mis-horarios.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { FormMedicalRecordComponent } from './components/form-medical-record/form-medical-record.component';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     SignupAppointmentComponent,
     MyProfileComponent,
     DialogComponent,
-    MisHorariosComponent
+    MisHorariosComponent,
+    FormMedicalRecordComponent
   ],
   imports: [
     BrowserModule,
