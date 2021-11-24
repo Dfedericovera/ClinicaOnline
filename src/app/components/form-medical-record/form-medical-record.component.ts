@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Appointment, AppointmentState } from 'src/app/clases/appointment';
+import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MedicalRecordService } from 'src/app/services/medical-record.service';
 
@@ -22,7 +25,8 @@ export class FormMedicalRecordComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private medicalRecordService:MedicalRecordService
+    private appointmentService:AppointmentService,
+    @Inject(MAT_DIALOG_DATA) public data: { titulo:string, mensaje: string, tipo:string, turno:Appointment },
   )
   {
     this.showSpecialtyForm = false;
@@ -60,9 +64,10 @@ export class FormMedicalRecordComponent implements OnInit {
     try
     {
       console.log(this.medicalRecordForm.value);
-      
+      this.data.turno.medicalRecord=this.medicalRecordForm.value;
+      this.data.turno.state = AppointmentState.Realizado;
       this.spinner = true;
-      this.medicalRecordService.addMedicalRecord(this.medicalRecordForm.value).then(v=>{
+      this.appointmentService.editAppointment(this.data.turno).then(v=>{
         this.spinner = false;
         this.registered = true;        
       })
