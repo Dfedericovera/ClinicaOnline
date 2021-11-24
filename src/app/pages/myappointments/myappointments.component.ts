@@ -216,7 +216,7 @@ export class MyappointmentsComponent implements OnInit
   finishAppointment()
   {
     this.dialog.open(FormMedicalRecordComponent, {
-      data: { titulo: 'Finalizar Turno', mensaje: 'Esta seguro que decea finalizar el turno?', tipo: 'finalizar', turno: this.selectedAppointment }
+      data: { titulo: 'Historia Clinica', mensaje: 'Para finalizar el turno ingrese datos de historia clinica', tipo: 'finalizar', turno: this.selectedAppointment }
     })
   }
 
