@@ -1,4 +1,5 @@
 import { Iencuesta } from '../interface/iencuesta';
+import { MedicalRecord } from './medicalRecord';
 import { Patient } from './patient';
 import { Professional } from './professional';
 import { Specialty } from './specialty';
@@ -20,6 +21,7 @@ export class Appointment{
     review:string;
     comment:string;
     quiz:Iencuesta;
+    medicalRecord:MedicalRecord;
     
 
     public constructor(init?: Partial<Appointment>) {
