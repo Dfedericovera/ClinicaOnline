@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-my-profile',
@@ -34,6 +37,22 @@ export class MyProfileComponent implements OnInit
     {      
       this.user = user;
     })
+  }
+
+  pdf(){
+      var data = document.getElementById('pdf');
+      html2canvas(data).then(canvas=>{
+        var imgWidht = 309;
+        var pageHeight = 295;
+        var imgHeight = canvas.height * imgWidht /canvas.width;
+        var heightLeft = imgHeight;
+
+        const contentDataURL = canvas.toDataURL('image/svg')
+        let pdf = new jsPDF('p','mm','a4');
+        var position = 0;
+        pdf.addImage(contentDataURL,'SVG',0,position,imgWidht,imgHeight);
+        pdf.save('MisDatos');
+      })
   }
 
 }
