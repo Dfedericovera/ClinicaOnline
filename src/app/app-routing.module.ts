@@ -18,6 +18,7 @@ import { SignupAppointmentComponent } from './pages/signup-appointment/signup-ap
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
 import { MyappointmentsComponent } from './pages/myappointments/myappointments.component';
 import { AuthGuard } from './guards/auth.guard';
+import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -74,6 +75,10 @@ const routes: Routes = [
   },
   {
     path: 'myProfile', component: MyProfileComponent, data: { animation: 'home' }
+    , canActivate: [AuthGuard]
+  },
+  {
+    path: 'historiaClinica', component: HistoriaClinicaComponent, data: { animation: 'home' }
     , canActivate: [AuthGuard]
   },
 ];
