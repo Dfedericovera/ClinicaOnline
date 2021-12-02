@@ -27,8 +27,9 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent, data: { animation: 'signupPatient' } },
 
   {
-    path: 'signupProfessional', component: SignupProfessionalComponent, data: { animation: 'signupProfessional' }
-    , canActivate: [AuthGuard]
+    path: 'signupProfessional',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/signup-professional/signup-professional.module').then(m => m.SignupProfessionalModule),
   },
   {
     path: 'signupAdministrator', component: SignupAdministratorComponent, data: { animation: 'signupAdministrator' }

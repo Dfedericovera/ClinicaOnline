@@ -56,6 +56,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormMedicalRecordComponent } from './components/form-medical-record/form-medical-record.component';
 import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
 import { PatientsComponent } from './pages/patients/patients.component';
+import { SignupProfessionalModule } from './pages/signup-professional/signup-professional.module';
 
 
 @NgModule({
@@ -117,7 +118,8 @@ import { PatientsComponent } from './pages/patients/patients.component';
     BrowserAnimationsModule,
     MatDialogModule,
     MatInputModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    SignupProfessionalModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
