@@ -233,6 +233,8 @@ export class LoginComponent implements OnInit
     this.loginForm.controls.password.setValue('111111');
   }
 
-
+  navigate(route){
+    this.router.navigate(route);
+  }
 
 }

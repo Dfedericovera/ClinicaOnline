@@ -108,10 +108,10 @@ export class MyappointmentsComponent implements OnInit
     this.filter = this.filter.toLowerCase();
     this.appointmentsListFiltered = this.appointmentsList.filter(appointment =>
     {
-      if(appointment.medicalRecord){
-        console.log(JSON.stringify(appointment?.medicalRecord).toLowerCase());
+      if(appointment.medicalRecord && JSON.stringify(appointment.medicalRecord).toLowerCase().includes(this.filter)){
+        /* console.log(JSON.stringify(appointment.medicalRecord).toLowerCase().includes(this.filter)); */     
+        return appointment;   
       }
-      
       
       let date = new Date(appointment.timeStamp);
       if (appointment.professional.name.toLowerCase().includes(this.filter) ||
@@ -122,8 +122,7 @@ export class MyappointmentsComponent implements OnInit
         date.getHours().toString().includes(this.filter) ||
         date.getMinutes().toString().includes(this.filter) ||
         appointment.patient.name.toLowerCase().includes(this.filter) ||
-        appointment.patient.lastName.toLowerCase().includes(this.filter) ||
-        JSON.stringify(appointment?.medicalRecord).toLowerCase().includes(this.filter)
+        appointment.patient.lastName.toLowerCase().includes(this.filter)
       )
       {
         return appointment;
