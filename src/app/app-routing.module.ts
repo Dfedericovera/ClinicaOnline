@@ -19,6 +19,7 @@ import { AppointmentsComponent } from './pages/appointments/appointments.compone
 import { MyappointmentsComponent } from './pages/myappointments/myappointments.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
+import { PatientsComponent } from './pages/patients/patients.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -79,6 +80,10 @@ const routes: Routes = [
   },
   {
     path: 'historiaClinica', component: HistoriaClinicaComponent, data: { animation: 'home' }
+    , canActivate: [AuthGuard]
+  },
+  {
+    path: 'patients', component: PatientsComponent, data: { animation: 'home' }
     , canActivate: [AuthGuard]
   },
 ];

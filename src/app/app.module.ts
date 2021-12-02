@@ -55,6 +55,7 @@ import { MisHorariosComponent } from './components/mis-horarios/mis-horarios.com
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormMedicalRecordComponent } from './components/form-medical-record/form-medical-record.component';
 import { HistoriaClinicaComponent } from './components/historia-clinica/historia-clinica.component';
+import { PatientsComponent } from './pages/patients/patients.component';
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import { HistoriaClinicaComponent } from './components/historia-clinica/historia
     DialogComponent,
     MisHorariosComponent,
     FormMedicalRecordComponent,
-    HistoriaClinicaComponent
+    HistoriaClinicaComponent,
+    PatientsComponent
   ],
   imports: [
     BrowserModule,
