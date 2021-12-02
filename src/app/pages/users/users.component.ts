@@ -4,7 +4,10 @@ import { Professional } from 'src/app/clases/professional';
 import { PatientService } from 'src/app/services/patient.service';
 import { ProfessionalService } from 'src/app/services/professional.service';
 import * as XLSX from 'xlsx';
-
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { Appointment } from 'src/app/clases/appointment';
 
 @Component({
   selector: 'app-users',
@@ -21,10 +24,14 @@ export class UsersComponent implements OnInit
   patientsList: Patient[];
   professionalList: Array<Professional> = [];
   forms: boolean;
+  patient:Patient;
+  patientAppointments:Appointment[];
+  fecha: Date = new Date();
 
   constructor(
     private patientService: PatientService,
-    private professionalService: ProfessionalService
+    private professionalService: ProfessionalService,
+    private appointmentService:AppointmentService
   )
   {
     this.userInfo = true;
@@ -118,30 +125,40 @@ export class UsersComponent implements OnInit
     XLSX.writeFile(wb, "Usuarios.xlsx");
   }
 
-//npm i --save exceljs file-saver
-/*   excel2()
+  onChoosePatient(patient:Patient){
+    this.patient = patient;
+    this.getMedicalRecords(patient);
+  }
+  getMedicalRecords(patient: Patient)
   {
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('ProductSheet');
-
-    worksheet.columns = [
-      { header: 'Id', key: 'id', width: 10 },
-      { header: 'Name', key: 'name', width: 32 },
-      { header: 'Brand', key: 'brand', width: 10 },
-      { header: 'Color', key: 'color', width: 10 },
-      { header: 'Price', key: 'price', width: 10, style: { font: { name: 'Arial Black', size: 10 } } },
-    ];
-
-    this.data.forEach(e =>
+    this.appointmentService.getAppointments().subscribe(appointments =>
     {
-      worksheet.addRow({ id: e.id, name: e.name, brand: e.brand, color: e.color, price: e.price }, "n");
+      this.patientAppointments = appointments.filter(app =>
+      {
+        if (app.patient.id == patient.id && app.medicalRecord)
+        {
+          return app;
+        }
+      });
     });
+  }
 
-    workbook.xlsx.writeBuffer().then((data) =>
+  pdf()
+  {
+    var data = document.getElementById('pdf');
+    html2canvas(data).then(canvas =>
     {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      fs.saveAs(blob, 'ProductData.xlsx');
+      var imgWidht = 210;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidht / canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png');
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      var position = 0;
+      pdf.addImage(contentDataURL, 'png', 0, position, imgWidht, imgHeight);
+      pdf.save('MisDatos');
     })
-  } */
+  }
 
 }
