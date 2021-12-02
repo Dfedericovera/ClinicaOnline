@@ -36,5 +36,8 @@ export class HeaderComponent implements OnInit
       console.log("LogOut Successful");
     })
   }
+  navigate(route){
+    this.router.navigate([route]);
+  }
 
 }
